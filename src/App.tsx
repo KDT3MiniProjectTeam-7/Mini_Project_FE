@@ -15,6 +15,7 @@ export const GlobalStyle = createGlobalStyle`
 const App = () => {
   return (
     <>
+      <GlobalStyle />
       <Header />
       <Outlet />
       <Footer />
