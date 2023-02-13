@@ -1,3 +1,4 @@
+import { useRef, useEffect, useState } from "react"
 import styled from "styled-components"
 
 const Main = () => {
@@ -13,28 +14,38 @@ const Main = () => {
 
         <RecommenSection>
           <button>카드 추천 상품</button>
-          <ContainerBox>
-            <CardContainer>
-              <p>
-                <span>신한은행</span>
-                신한카드 EVerywhere
-              </p>
-              <img src="https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png" alt="카드 이미지" />
-            </CardContainer>
-          </ContainerBox>
+          <div>
+            <ContainerBox>
+              <CardContainer>
+                <p>
+                  <span>신한은행</span>
+                  신한카드 EVerywhere
+                </p>
+                <img  src="https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png" alt="카드 이미지" />
+              </CardContainer>
+            </ContainerBox>
 
-          <ContainerBox>
-            <CardContainer>
-              <p>
-                <span>현대카드</span>
-                LOCA Mobility 반띵 카드
-              </p>
-              <img src="https://vertical.pstatic.net/vertical-cardad/creatives/LO/10227/LO_10227_20230131-123810_ver.png" alt="카드 이미지" />
-            </CardContainer>
-          </ContainerBox>
+            <ContainerBox>
+              <CardContainer>
+                <p>
+                  <span>현대카드</span>
+                  My First Seduction the Pin
+                </p>
+                <img src="https://www.hyundaicard.com/img/com/card/028879GT_h.png" alt="카드 이미지" />
+              </CardContainer>
+            </ContainerBox>
+
+            <ContainerBox>
+              <CardContainer>
+                <p>
+                  <span>신한은행</span>
+                  신한카드 플리
+                </p>
+                <img src="https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPLAD26.png" alt="카드 이미지" />
+              </CardContainer>
+            </ContainerBox>
+          </div>
         </RecommenSection>
-
-
       </Container>
     </>
   )
@@ -62,6 +73,20 @@ const RecommenSection = styled.section`
   display:flex;
   flex-direction:column;
   gap:10px;
+
+  button {
+    border:none;
+    border-radius:10px;
+    padding:10px;
+    font-size:15px;
+    font-weight:900;
+  }
+
+  & > div {
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
 `
 
 const ContainerBox = styled.div`
@@ -75,7 +100,7 @@ const CardContainer = styled.div`
   display:flex;
   justify-content:space-between;
   align-items:end;
-  padding:50px 15px 20px;
+  padding:50px 15px 25px;
   background:linear-gradient( to bottom, #cecece, #333333 );
   border-radius:10px;
 
@@ -93,10 +118,12 @@ const CardContainer = styled.div`
   }
   
   img {
-    width:40%;
-    max-width:200px;
+    max-height:110px;
+    max-width:150px;
     box-shadow:-5px 5px 10px 0px;
     border-radius:5%;
+    overflow:hidden;
+    position:relative;
   }
 `
 
