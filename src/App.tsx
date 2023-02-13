@@ -1,8 +1,9 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import SearchHeader from './pages/search/components/searchHeader';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -24,15 +25,17 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   main {
-    margin-bottom:100px
+    margin-bottom:100px;
   }
-`
+`;
 
 const App = () => {
+  const location = useLocation();
+  const findSearchPage = location.pathname.slice(0, 7) === '/search';
   return (
     <>
       <GlobalStyle />
-      <Header />
+      {findSearchPage ? <SearchHeader /> : <Header />}
       <Outlet />
       <Footer />
     </>
