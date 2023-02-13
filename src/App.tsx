@@ -26,7 +26,8 @@ export const GlobalStyle = createGlobalStyle`
   main {
     margin-bottom:100px
   }
-`;
+`
+
 const App = () => {
   return (
     <>
