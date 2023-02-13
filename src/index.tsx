@@ -5,7 +5,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App'
 import Error from './components/Error';
 import Main from './pages/main/mainPage';
-import Test from './pages/TestPage';
 
 const queryClient = new QueryClient()
 
@@ -15,8 +14,7 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <Error />,
     children: [
-      { index: true, element: <Main /> },
-      { path: '/test', element: <Test /> }
+      { index: true, element: <Main /> }
     ]
   }
 ])
