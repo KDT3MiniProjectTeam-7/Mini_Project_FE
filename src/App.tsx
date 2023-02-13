@@ -25,7 +25,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   main {
-    margin-bottom:100px;
+    margin:30px auto 150px
   }
 `;
 
