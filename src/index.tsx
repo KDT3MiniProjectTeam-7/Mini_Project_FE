@@ -5,7 +5,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App';
 import Error from './components/Error';
 import Main from './pages/main/mainPage';
-import Test from './pages/TestPage';
 import ALL from './pages/all/allPage';
 
 const queryClient = new QueryClient();
@@ -17,7 +16,6 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { index: true, element: <Main /> },
-      { path: '/test', element: <Test /> },
       { path: '/all', element: <ALL /> },
     ],
   },
