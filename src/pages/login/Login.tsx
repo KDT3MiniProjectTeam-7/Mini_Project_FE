@@ -40,7 +40,6 @@ const Input = styled.input`
   border-radius: 8px;
   border: none;
   background-color: #e8f0fe;
-  background-color: red;
 
   :focus {
     outline: none;
