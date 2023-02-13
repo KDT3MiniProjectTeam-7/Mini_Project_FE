@@ -9,13 +9,24 @@ export const GlobalStyle = createGlobalStyle`
   * {
     box-sizing:border-box;
   }
-  main,header,footer {
-    max-width:768px;
-    margin:0 auto;
-    padding:0 20px;
-  }
-`
 
+  main, header, footer {
+    max-width:768px;
+    padding:0 20px;
+    box-sizing: border-box;
+    margin:0 auto;
+  }
+
+  footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+
+  main {
+    margin-bottom:100px
+  }
+`;
 const App = () => {
   return (
     <>

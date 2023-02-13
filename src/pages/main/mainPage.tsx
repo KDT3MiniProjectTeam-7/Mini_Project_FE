@@ -56,8 +56,6 @@ const Container = styled.main`
   flex-direction:column;
   gap:20px;
   border:1px solid #ddd;
-  height:500px;
-
 `
 
 const Title = styled.h1`
@@ -96,7 +94,7 @@ const ContainerBox = styled.div`
 `
 
 const CardContainer = styled.div`
-  max-height:150px;
+  height:170px;
   display:flex;
   justify-content:space-between;
   align-items:end;
