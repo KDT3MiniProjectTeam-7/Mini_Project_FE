@@ -24,11 +24,11 @@ const SignUp = () => {
       title: '이름',
       type: 'text',
     },
-    {
-      id: 'birth',
-      title: '생년월일',
-      type: 'date',
-    },
+    // {
+    //   id: 'birth',
+    //   title: '생년월일',
+    //   type: 'date',
+    // },
   ];
 
   return (
@@ -43,6 +43,14 @@ const SignUp = () => {
               </DataContainer>
             );
           })}
+          <DataContainer>
+            <label>생년월일</label>
+            <div className="birth">
+              <Input type="number" placeholder="년(4자)" min="1900" max="2023" />
+              <Input type="number" placeholder="월" min="1" max="12" />
+              <Input type="number" placeholder="일" min="1" max="31" />
+            </div>
+          </DataContainer>
           <Submit type="submit" value="가입하기" />
         </SignUpBox>
       </Container>
@@ -51,9 +59,15 @@ const SignUp = () => {
 };
 
 const SignUpBox = styled(BoxForm)`
-  height: 100%;
   label {
     font-size: 18px;
+  }
+  .birth {
+    display: flex;
+    justify-content: space-between;
+    input {
+      width: 31%;
+    }
   }
 `;
 
