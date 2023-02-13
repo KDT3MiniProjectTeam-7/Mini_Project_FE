@@ -49,8 +49,8 @@ const Input = styled.input`
 
 const Submit = styled(Input)`
   width: calc(100% - 100px);
+  height: 50px;
   background-color: whitesmoke;
-  height: 40px;
   font-weight: bold;
 `;
 
