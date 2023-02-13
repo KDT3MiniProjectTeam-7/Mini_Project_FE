@@ -10,7 +10,7 @@ const Header = () => {
         <StlyedLink to={'/wish'}>
           <AiFillHeart size="24" color="green" />
         </StlyedLink>
-        <StlyedLink to={'/all'}>
+        <StlyedLink to={'/mypage'}>
           <FaUserAlt size="24" color="green" />
         </StlyedLink>
       </HeaderComponents>
