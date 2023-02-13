@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Select from 'react-select';
 
 const ALL = () => {
   const [category, setCategory] = useState('card');
+
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+
+  const tagOptions = [
+    { value: '미혼', label: '미혼' },
+    { value: '직장인', label: '직장인' },
+    { value: '기혼', label: '기혼' },
+    { value: '학생', label: '학생' },
+    { value: '백수', label: '백수' },
+  ];
 
   const handleCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCategory(event.target.value);
@@ -24,21 +35,21 @@ const ALL = () => {
         <Label htmlFor="subscription-type">청약</Label>
       </ButtonContainer>
       <ButtonContainer>
-        <select name="tag1" id="tag1">
-          <option value="default">1번 태그</option>
-          <option value="default">1번 태그</option>
-          <option value="default">1번 태그</option>
-        </select>
-        <select name="tag2" id="tag2">
-          <option value="default">2번 태그</option>
-          <option value="default">2번 태그</option>
-          <option value="default">2번 태그</option>
-        </select>
-        <select name="tag3" id="tag3">
-          <option value="default">3번 태그</option>
-          <option value="default">3번 태그</option>
-          <option value="default">3번 태그</option>
-        </select>
+        <Select
+          isMulti
+          name="colors"
+          options={tagOptions}
+          onChange={(option) => {
+            let copy: string[] = option.map((tag) => {
+              return tag.value;
+            });
+            setSelectedTags(copy);
+          }}
+          className="basic-multi-select"
+          classNamePrefix="select"
+          placeholder="원하시는 태그를 최대 3개 선택해주세요."
+          isOptionDisabled={() => selectedTags.length >= 3}
+        />
       </ButtonContainer>
       <ContainerBox>
         <CardContainer>
@@ -65,7 +76,7 @@ const Container = styled.main`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  select {
+  /* select {
     display: flex;
     margin: 0 5px;
     border: 1px solid #ced4da;
@@ -76,7 +87,7 @@ const ButtonContainer = styled.div`
     background-color: #fff;
     opacity: 1;
     height: 25px;
-  }
+  } */
 `;
 
 const RadioInput = styled.input`
