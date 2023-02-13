@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
 
 const ALL = () => {
   const [category, setCategory] = useState('card');
 
+  // 현재 select박스에서 선택된 태그들 모아놓음
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
+  useEffect(() => {
+    // 데이터 페칭 여기다 구현.
+  }, [category, selectedTags]);
+
+  // tagOptions에 가능한 모든 태그들 삽입
   const tagOptions = [
     { value: '미혼', label: '미혼' },
     { value: '직장인', label: '직장인' },
@@ -76,18 +82,6 @@ const Container = styled.main`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  /* select {
-    display: flex;
-    margin: 0 5px;
-    border: 1px solid #ced4da;
-    color: #495057;
-    font-size: 14px;
-    border-radius: 5px;
-    box-shadow: inset 0 0 0 1px #ced4da;
-    background-color: #fff;
-    opacity: 1;
-    height: 25px;
-  } */
 `;
 
 const RadioInput = styled.input`
