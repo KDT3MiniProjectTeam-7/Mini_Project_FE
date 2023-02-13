@@ -33,7 +33,7 @@ const BackBtn = styled.button`
   background-color: transparent;
   border: none;
 `;
-const Title = styled.p`
+const Title = styled.h1`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
