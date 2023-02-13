@@ -36,10 +36,11 @@ const Input = styled.input`
   width: 100%;
   height: 50px;
   font-size: 16px;
-  padding-left: 12px;
+  padding: 0 12px;
   border-radius: 8px;
   border: none;
   background-color: #e8f0fe;
+  background-color: red;
 
   :focus {
     outline: none;
@@ -59,3 +60,4 @@ const SignUp = styled.button`
 `;
 
 export default Login;
+export { LoginBox, Input, Submit };
