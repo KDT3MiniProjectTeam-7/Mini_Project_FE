@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Container, Logo as LogoForm } from '../intro/Intro';
+import { Container, Link, Logo as LogoForm } from '../intro/Intro';
+import { Link as LinkForm } from 'react-router-dom';
 
 const Login = () => {
   return (
@@ -9,9 +10,11 @@ const Login = () => {
         <LoginBox>
           <Input type="email" />
           <Input type="password" />
-          <Submit type="submit" value="로그인" />
+          <Link to={'/'}>
+            <Submit type="submit" value="로그인" />
+          </Link>
         </LoginBox>
-        <SignUp>회원가입</SignUp>
+        <LinkSignUp to={'/signup'}>회원가입</LinkSignUp>
       </Container>
     </main>
   );
@@ -48,15 +51,16 @@ const Input = styled.input`
 `;
 
 const Submit = styled(Input)`
-  width: calc(100% - 100px);
-  height: 50px;
   background-color: whitesmoke;
   font-weight: bold;
 `;
 
-const SignUp = styled.button`
+const LinkSignUp = styled(LinkForm)`
   border: none;
-  background-color: white;
+  text-decoration: none;
+  :visited {
+    color: black;
+  }
 `;
 
 export default Login;

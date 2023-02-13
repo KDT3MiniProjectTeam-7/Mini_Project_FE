@@ -1,3 +1,4 @@
+import { Link as LinkForm } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Intro = () => {
@@ -5,8 +6,8 @@ const Intro = () => {
     <main>
       <Container>
         <Logo />
-        <Button>로그인</Button>
-        <Button>회원가입</Button>
+        <Link to={'/login'}>로그인</Link>
+        <Link to={'/signup'}>회원가입</Link>
       </Container>
     </main>
   );
@@ -29,20 +30,27 @@ const Logo = styled.img.attrs({
   max-width: 400px;
 `;
 
-const Button = styled.button`
+const Link = styled(LinkForm)`
   background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   max-width: 400px;
   height: 50px;
-  border: none;
   border-radius: 8px;
   font-size: 16px;
   font-weight: bold;
+  text-decoration: none;
 
   :hover {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.1);
   }
+
+  :visited {
+    color: black;
+  }
 `;
 
 export default Intro;
-export { Container, Logo, Button };
+export { Container, Logo, Link };

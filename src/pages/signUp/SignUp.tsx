@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container } from '../intro/Intro';
+import { Container, Link } from '../intro/Intro';
 import { LoginBox as BoxForm, Input, Submit } from '../login/Login';
 
 const SignUp = () => {
@@ -24,20 +24,15 @@ const SignUp = () => {
       title: '이름',
       type: 'text',
     },
-    // {
-    //   id: 'birth',
-    //   title: '생년월일',
-    //   type: 'date',
-    // },
   ];
 
   return (
     <main>
       <Container>
         <SignUpBox>
-          {signUpItem.map((item) => {
+          {signUpItem.map((item, index) => {
             return (
-              <DataContainer>
+              <DataContainer key={index}>
                 <label htmlFor={item.id}>{item.title}</label>
                 <Input type={item.type} id={item.id} />
               </DataContainer>
@@ -51,7 +46,9 @@ const SignUp = () => {
               <Input type="number" placeholder="일" min="1" max="31" />
             </div>
           </DataContainer>
-          <Submit type="submit" value="가입하기" />
+          <Link to={'/'}>
+            <Submit type="submit" value="가입하기" />
+          </Link>
         </SignUpBox>
       </Container>
     </main>

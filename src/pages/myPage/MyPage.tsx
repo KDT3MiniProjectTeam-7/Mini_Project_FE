@@ -19,8 +19,10 @@ const MyPage = () => {
         </User>
         <Interest>
           <div className="itemSection">
-            {user.favorite.map((item) => (
-              <div className="item">{item}</div>
+            {user.favorite.map((item, index) => (
+              <div className="item" key={index}>
+                {item}
+              </div>
             ))}
           </div>
           <Button>
