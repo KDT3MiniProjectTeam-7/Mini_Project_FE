@@ -28,7 +28,6 @@ const FooterComponent = styled.footer`
   border-top-left-radius: 20px;
   background-color: #d7d5d5;
   padding: 0;
-  position: fixed;
   height: 100px;
   width: 100%;
   bottom: 0;

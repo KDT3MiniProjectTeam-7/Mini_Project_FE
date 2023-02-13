@@ -6,10 +6,21 @@ import reset from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
-  main,header,footer {
+  main, header, footer {
     max-width:768px;
-    margin:0 auto;
     padding:0 20px;
+    box-sizing: border-box;
+  }
+
+  header, footer {
+    position: fixed;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+
+  main {
+    margin: 70px auto;
   }
 `;
 const App = () => {
