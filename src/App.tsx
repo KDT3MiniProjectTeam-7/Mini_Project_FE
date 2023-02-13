@@ -11,6 +11,10 @@ export const GlobalStyle = createGlobalStyle`
     margin:0 auto;
     padding:0 20px;
   }
+
+  main {
+    margin-top: 70px;
+  }
 `;
 const App = () => {
   return (
