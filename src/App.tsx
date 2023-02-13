@@ -1,8 +1,8 @@
-import { Outlet } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import { Outlet } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -11,15 +11,16 @@ export const GlobalStyle = createGlobalStyle`
     margin:0 auto;
     padding:0 20px;
   }
-`
+`;
 const App = () => {
   return (
     <>
+      <GlobalStyle />
       <Header />
       <Outlet />
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
