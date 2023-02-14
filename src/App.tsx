@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import { ScrollRestoration } from 'react-router-dom';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -26,11 +27,12 @@ export const GlobalStyle = createGlobalStyle`
   main {
     margin:30px auto 150px
   }
-`
+`;
 
 const App = () => {
   return (
     <>
+      <ScrollRestoration />
       <GlobalStyle />
       <Header />
       <Outlet />
