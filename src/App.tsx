@@ -10,6 +10,10 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing:border-box;
   }
 
+  a {
+    text-decoration:none;
+  }
+
   main, header, footer {
     max-width:768px;
     padding:0 20px;
@@ -17,14 +21,15 @@ export const GlobalStyle = createGlobalStyle`
     margin:0 auto;
   }
 
-  footer {
+  footer,header {
     position: fixed;
     left: 0;
     right: 0;
+    z-index: 9999;
   }
 
   main {
-    margin:30px auto 150px
+    margin:70px auto 150px
   }
 `
 
