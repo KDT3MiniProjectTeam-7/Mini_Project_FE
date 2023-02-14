@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CardDescriptionData = () => {
+const DescriptionData = () => {
   return (
     <>
       <p>서비스 제공조건</p>
@@ -33,4 +33,4 @@ const CardDescriptionData = () => {
   );
 };
 
-export default CardDescriptionData;
+export default DescriptionData;
