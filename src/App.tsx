@@ -7,6 +7,7 @@ import { ScrollRestoration } from 'react-router-dom';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
+  
   * {
     box-sizing:border-box;
   }
