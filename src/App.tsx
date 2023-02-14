@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from './components/Header';
-import Footer from './components/Footer';
+import TabBar from './components/TabBar';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import SearchHeader from './pages/search/components/searchHeader';
@@ -11,14 +11,14 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing:border-box;
   }
 
-  main, header, footer {
+  main, header, nav {
     max-width:768px;
     padding:0 20px;
     box-sizing: border-box;
     margin:0 auto;
   }
 
-  footer {
+  nav {
     position: fixed;
     left: 0;
     right: 0;
@@ -26,6 +26,10 @@ export const GlobalStyle = createGlobalStyle`
 
   main {
     margin:30px auto 150px
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 
@@ -37,7 +41,7 @@ const App = () => {
       <GlobalStyle />
       {findSearchPage ? <SearchHeader /> : <Header />}
       <Outlet />
-      <Footer />
+      <TabBar />
     </>
   );
 };
