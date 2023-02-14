@@ -1,11 +1,36 @@
+import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiSearch, BiHistory } from 'react-icons/Bi';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 import { TiDeleteOutline } from 'react-icons/ti';
 import { TfiClose } from 'react-icons/tfi';
 
 const Search = () => {
+  // 임시 검색 키워드
+  const keywordsArr = [
+    'dd',
+    '주택',
+    '적금',
+    '카드',
+    '쇼핑',
+    '고고..',
+    '화이팅',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+  ];
+
+  const inputRef = useRef(null);
+  const handleDeleteBtn = () => {
+    inputRef.current ? (inputRef.current.value = '') : '';
+  };
+
   return (
     <>
       <Container>
@@ -13,55 +38,41 @@ const Search = () => {
           <span className="search">
             <BiSearch />
           </span>
-          <input type="text" placeholder="필요한 상품을 찾아보세요" />
-          <span className="delete">
+          <input type="text" placeholder="필요한 상품을 찾아보세요" ref={inputRef} />
+          <span className="delete" onClick={handleDeleteBtn}>
             <TiDeleteOutline />
           </span>
         </SearchBox>
         <RecentProducts>
           <h4>최근에 자세히 봤던</h4>
-          <DetailLink to={`/items/:category/:productId`}>
-            <BiHistory />
-            <span>상품명</span>
-            상품상세정보
-            <IoChevronForwardOutline />
+          <DetailLink to={`/detail/:category/:id`}>
+            <div>
+              <span className="history">
+                <BiHistory />
+              </span>
+              상품명
+            </div>
+            <div className="info">
+              상세정보
+              <span className="move">
+                <IoChevronForwardOutline />
+              </span>
+            </div>
           </DetailLink>
         </RecentProducts>
         <RecentKeywords>
           <h4>내가 찾아봤던</h4>
           <ol>
-            <li>
-              <SearchLink to={`/search/검색어1`}>검색어1</SearchLink>
-              <button>
-                <TfiClose />
-              </button>
-            </li>
-            <li>
-              <SearchLink to={`/search/검색어1`}>검색어2</SearchLink>
-              <button>
-                <TfiClose />
-              </button>
-            </li>
-            <li>
-              <SearchLink to={`/search/검색어1`}>검색어3</SearchLink>
-              <button>
-                <TfiClose />
-              </button>
-            </li>
-            <li>
-              <SearchLink to={`/search/검색어1`}>검색어4</SearchLink>
-              <button>
-                <TfiClose />
-              </button>
-            </li>
-            <li>
-              <SearchLink to={`/search/검색어1`}>검색어5</SearchLink>
-              <button>
-                <TfiClose />
-              </button>
-            </li>
+            {keywordsArr.map((list) => (
+              <li key={list}>
+                <SearchLink to={`/search/${list}`}>{list}</SearchLink>
+                <button>
+                  <TfiClose />
+                </button>
+              </li>
+            ))}
           </ol>
-          <button>전체삭제</button>
+          <button className="deleteAll">전체삭제</button>
         </RecentKeywords>
       </Container>
     </>
@@ -72,6 +83,7 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   gap: 30px;
+
   button {
     cursor: pointer;
     background-color: transparent;
@@ -80,13 +92,21 @@ const Container = styled.main`
   }
   h4 {
     margin-bottom: 20px;
-    color: #b6babd;
-    font-size: 14px;
+    color: #a2a5a6;
+    font-size: 13px;
     font-weight: 700;
   }
 `;
+
 const SearchBox = styled.div`
-  position: relative;
+  position: fixed;
+  top: 56px;
+
+  width: calc(100vw - 40px);
+  max-width: 728px;
+  padding: 14px 0;
+  background-color: #fff;
+
   span {
     position: absolute;
     top: 50%;
@@ -112,7 +132,7 @@ const SearchBox = styled.div`
     border-radius: 20px;
     border: none;
     background-color: #e9e9eb;
-    font-size: 14px;
+    font-size: 15px;
 
     &::placeholder {
       color: #c7cacc;
@@ -125,37 +145,70 @@ const SearchBox = styled.div`
     }
   }
 `;
-const RecentProducts = styled.section`
-  width: 100%;
 
-  li {
-    display: flex;
-  }
+const RecentProducts = styled.section`
+  margin-top: 70px;
 `;
 
-const DetailLink = styled(Link)``;
+const DetailLink = styled(Link)`
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid #ebebeb;
+
+  div {
+    display: flex;
+    align-items: center;
+
+    &.info {
+      font-size: 11px;
+      color: #0e76ff;
+    }
+  }
+
+  span {
+    color: #b6babd;
+
+    &.history {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    &.move {
+      margin-left: 5px;
+    }
+  }
+`;
 
 const RecentKeywords = styled.section`
   li {
     display: flex;
     justify-content: space-between;
 
-    width: 100%;
-    height: 40px;
-    border-radius: 20px;
-    border-bottom: #ececec;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid #ebebeb;
 
     color: #000;
 
     button {
-      font-size: 15px;
+      font-size: 12px;
     }
   }
 
   button {
     color: #5b5c5e;
+
+    &.deleteAll {
+      color: #8a8b8b;
+      font-size: 13px;
+    }
   }
 `;
 
-const SearchLink = styled(Link)``;
+const SearchLink = styled(Link)`
+  width: 100%;
+`;
+
 export default Search;
