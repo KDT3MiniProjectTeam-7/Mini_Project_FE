@@ -3,7 +3,7 @@ import Header from './components/Header';
 import TabBar from './components/TabBar';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import SearchHeader from './pages/search/components/searchHeader';
+import { ScrollRestoration } from 'react-router-dom';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -18,14 +18,15 @@ export const GlobalStyle = createGlobalStyle`
     margin:0 auto;
   }
 
-  nav {
+  header, nav {
     position: fixed;
     left: 0;
     right: 0;
+    z-index: 9999;
   }
 
   main {
-    margin:30px auto 150px
+    margin:70px auto 150px
   }
 
   a {
@@ -36,6 +37,7 @@ export const GlobalStyle = createGlobalStyle`
 const App = () => {
   return (
     <>
+      <ScrollRestoration />
       <GlobalStyle />
       <Header />
       <Outlet />

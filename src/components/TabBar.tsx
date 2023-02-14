@@ -46,8 +46,8 @@ const Container = styled.nav`
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
 
-  background-color: #ffffff;
-  box-shadow: 0px 0px 7px -4px #000000;
+  background-color: #fff;
+  box-shadow: 0px 0px 23px 0px rgb(0 0 0 /20%);
 `;
 
 const StyledLink = styled(Link)`

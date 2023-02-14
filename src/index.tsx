@@ -6,7 +6,6 @@ import App from './App';
 import Error from './components/Error';
 
 import Main from './pages/main/mainPage';
-import Test from './pages/TestPage';
 import Intro from './pages/intro/Intro';
 import Login from './pages/login/Login';
 import SignUp from './pages/signUp/SignUp';
@@ -14,6 +13,8 @@ import MyPage from './pages/myPage/MyPage';
 import ALL from './pages/all/allPage';
 import Search from './pages/search/searchPage';
 import ResultsTotal from './pages/search/resultsTotalPage';
+import Survey from './pages/survey/Survey';
+import Detail from './pages/detail/detailPage';
 
 const queryClient = new QueryClient();
 
@@ -24,14 +25,15 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       { index: true, element: <Main /> },
-      { path: '/test', element: <Test /> },
       { path: '/intro', element: <Intro /> },
       { path: '/login', element: <Login /> },
       { path: '/signup', element: <SignUp /> },
       { path: '/mypage', element: <MyPage /> },
-      { path: '/all', element: <ALL /> },
       { path: '/search', element: <Search /> },
       { path: '/search/:keywords', element: <ResultsTotal /> },
+      { path: '/survey', element: <Survey /> },
+      { path: '/all', element: <ALL /> },
+      { path: '/detail/:category/:id', element: <Detail /> },
     ],
   },
 ]);

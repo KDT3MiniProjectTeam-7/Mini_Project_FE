@@ -33,6 +33,8 @@ const Header = () => {
 };
 
 const HeaderComponents = styled.header`
+  top: 0;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
