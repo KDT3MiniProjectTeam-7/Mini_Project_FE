@@ -34,6 +34,10 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: #000;
   }
+
+  ::-webkit-scrollbar {
+  display: none;
+}
 `;
 
 const App = () => {
