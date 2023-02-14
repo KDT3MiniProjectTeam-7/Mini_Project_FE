@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaAngellist } from 'react-icons/fa';
-import CardDescriptionData from './CardDescriptionData';
+import DescriptionData from './DescriptionData';
 import { Link } from 'react-router-dom';
 
 const Card = () => {
@@ -9,7 +9,6 @@ const Card = () => {
 
   // 데이터는 일단 목업데이터
   const data = {
-    productId: 123,
     category: 'card',
     productTitle: '신한카드 Everywhere',
     bankName: '신한은행',
@@ -78,7 +77,7 @@ const Card = () => {
       {nav[2] && (
         <DescriptionContainer>
           {/* description너무 길어서 따로 component로 뺌 */}
-          <CardDescriptionData />
+          <DescriptionData />
         </DescriptionContainer>
       )}
       <Link to={data.applicationUrl}>
