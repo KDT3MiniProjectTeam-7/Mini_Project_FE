@@ -42,6 +42,8 @@ const HeaderComponents = styled.header`
   width: 100%;
   height: 56px;
   padding: 13px 16px;
+
+  background-color: #fff;
 `;
 
 const Logo = styled.div`
