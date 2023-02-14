@@ -11,6 +11,7 @@ import Login from './pages/login/Login';
 import SignUp from './pages/signUp/SignUp';
 import MyPage from './pages/myPage/MyPage';
 import ALL from './pages/all/allPage';
+import Detail from './pages/detail/detailPage';
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: '/signup', element: <SignUp /> },
       { path: '/mypage', element: <MyPage /> },
       { path: '/all', element: <ALL /> },
+      { path: '/detail/:category/:id', element: <Detail /> },
     ],
   },
 ]);
