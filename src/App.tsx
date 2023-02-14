@@ -34,12 +34,10 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
-  const location = useLocation();
-  const findSearchPage = location.pathname.slice(0, 7) === '/search';
   return (
     <>
       <GlobalStyle />
-      {findSearchPage ? <SearchHeader /> : <Header />}
+      <Header />
       <Outlet />
       <TabBar />
     </>
