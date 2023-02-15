@@ -5,7 +5,7 @@ import { BiSearch } from 'react-icons/Bi';
 import { TiDeleteOutline } from 'react-icons/ti';
 
 const SearchBox = () => {
-  // const params = useParams();
+  const params = useParams();
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
 
@@ -15,10 +15,9 @@ const SearchBox = () => {
 
   // 자동완성 기능
 
-  // params && inputRef.current ? (inputRef.current.value = params.keywords) : '';
-  // params.keywords !== undefined ? setKeyword(params.keywords) : null;
-
-  // console.log(params.keywords);
+  useEffect(() => {
+    params.keywords !== undefined ? setKeyword(params.keywords) : null;
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
