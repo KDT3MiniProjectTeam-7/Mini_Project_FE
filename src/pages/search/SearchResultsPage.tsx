@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
-import SearchBox from './SearchResultsComponents/SearchBox';
-import ResultsTotal from './SearchComponents/ResultsTotal';
-import ResultsCard from './SearchComponents/ResultsCard';
-import ResultsLoan from './SearchComponents/ResultsLoan';
-import ResultsSavings from './SearchComponents/ResultsSavings';
-import ResultsSubscription from './SearchComponents/ResultsSubscription';
+import SearchBox from './SearchComponents/SearchBox';
+import ResultsTotal from './SearchResultsComponents/ResultsTotal';
+import ResultsCard from './SearchResultsComponents/ResultsCard';
+import ResultsLoan from './SearchResultsComponents/ResultsLoan';
+import ResultsSavings from './SearchResultsComponents/ResultsSavings';
+import ResultsSubscription from './SearchResultsComponents/ResultsSubscription';
 
 const SearchResults = () => {
   const [category, setCategory] = useState(0);

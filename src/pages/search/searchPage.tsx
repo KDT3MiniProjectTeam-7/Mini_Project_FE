@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { BiHistory } from 'react-icons/Bi';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 import { TfiClose } from 'react-icons/tfi';
-import SearchBox from './SearchResultsComponents/SearchBox';
+import SearchBox from './SearchComponents/SearchBox';
 
 const Search = () => {
   const [savedKeyword, setSavedKeyword] = useState([
