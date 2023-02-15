@@ -67,7 +67,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 50px;
 
-  margin-top: 50px;
+  margin-top: 20px;
 
   button {
     background-color: transparent;

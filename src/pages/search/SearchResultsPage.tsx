@@ -36,7 +36,7 @@ const SearchResults = () => {
 };
 
 const Container = styled.main`
-  margin-top: 125px;
+  margin-top: 120px;
 `;
 const CategoryTab = styled.ol`
   display: flex;
@@ -48,7 +48,7 @@ const CategoryTab = styled.ol`
   font-weight: 500;
 
   li {
-    padding: 12px 17px;
+    padding: 10px 8px;
     color: #5b5c5e;
     transition: all 0.3ms ease-in;
 

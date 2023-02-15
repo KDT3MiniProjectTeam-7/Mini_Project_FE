@@ -145,7 +145,7 @@ const RecentKeywords = styled.section`
 
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 0.5px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
 
     color: #000;
 
