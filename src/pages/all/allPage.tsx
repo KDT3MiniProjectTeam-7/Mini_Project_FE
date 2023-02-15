@@ -101,7 +101,7 @@ const Label = styled.label`
   border: 1px solid #ced4da;
   color: #495057;
   font-size: 13px;
-  border-radius: 5px;
+  border-radius: 20px;
   box-shadow: inset 0 0 0 1px #ced4da;
   background-color: #fff;
   opacity: 1;

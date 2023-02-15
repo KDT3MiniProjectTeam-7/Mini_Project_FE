@@ -170,7 +170,7 @@ const SubmitButton = styled.button`
   font-size: 17px;
   background-color: rgb(14, 118, 255);
   border: none;
-  border-radius: 15px;
+  border-radius: 20px;
   cursor: pointer;
 `;
 export default Card;
