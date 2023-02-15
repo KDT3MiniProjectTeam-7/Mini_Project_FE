@@ -23,23 +23,26 @@ const Survey = () => {
 
               <div>
                 <p>직업</p>
-                <input type="radio" id="student" value="학생" name="jab" />
-                <label htmlFor="student">학생</label>
-
-                <input type="radio" id="officeWorker" value="직장인" name="jab" />
-                <label htmlFor="officeWorker">직장인</label>
-                <input type="radio" id="entrepreneur" value="사업자" name="jab" />
-                <label htmlFor="entrepreneur">사업자</label>
-                <input type="radio" id="none" value="무직" name="jab" />
-                <label htmlFor="none">무직</label>
+                <div>
+                  <input type="radio" id="student" value="학생" name="jab" />
+                  <label htmlFor="student">학생</label>
+                  <input type="radio" id="officeWorker" value="직장인" name="jab" />
+                  <label htmlFor="officeWorker">직장인</label>
+                  <input type="radio" id="entrepreneur" value="사업자" name="jab" />
+                  <label htmlFor="entrepreneur">사업자</label>
+                  <input type="radio" id="none" value="무직" name="jab" />
+                  <label htmlFor="none">무직</label>
+                </div>
               </div>
 
               <div>
                 <p>결혼여부</p>
-                <input type="radio" id="marry_yes" value="기혼" name="marry" />
-                <label htmlFor="marry_yes">기혼</label>
-                <input type="radio" id="marry_no" value="미혼" name="marry" />
-                <label htmlFor="marry_no">미혼</label>
+                <div>
+                  <input type="radio" id="marry_yes" value="기혼" name="marry" />
+                  <label htmlFor="marry_yes">기혼</label>
+                  <input type="radio" id="marry_no" value="미혼" name="marry" />
+                  <label htmlFor="marry_no">미혼</label>
+                </div>
               </div>
 
               <button className='next_btn' type='button' onClick={() => {setPage(2)}}>다음</button>
@@ -51,19 +54,27 @@ const Survey = () => {
             <>
               <div>
                 <p>주 이동수단</p>
-                <input type="radio" id="car_yes" value="자차" name="car" />
-                <label htmlFor="car_yes">자차</label>
-                <input type="radio" id="car_no" value="대중교통" name="car" />
-                <label htmlFor="car_no">대중교통</label>
+                <div>
+                  <input type="radio" id="car_yes" value="자차" name="car" />
+                  <label htmlFor="car_yes">자차</label>
+                  <input type="radio" id="car_no" value="대중교통" name="car" />
+                  <label htmlFor="car_no">대중교통</label>
+                </div>
               </div>
 
               <div>
                 <p>주택 보유여부</p>
+                <div>
+                  <input type="radio" id="house_yes" value="소유" name="house" />
+                  <label htmlFor="house_yes">소유</label>
+                  <input type="radio" id="house_no" value="미소유" name="house" />
+                  <label htmlFor="house_no">미소유</label>
+                </div>
               </div>
 
               <div>
                 <p>연소득</p>
-                <input type="number" />만원
+                <input type="number" />
               </div>
 
               <button className="prev_btn" type='button' onClick={() => {setPage(1)}}>이전</button>
@@ -76,21 +87,23 @@ const Survey = () => {
             <>
               <div>
                 <p>관심분야</p>
-                <input type="checkbox" id="culture" value="문화생활"/>
-                <label htmlFor="culture">문화생활</label>
+                <div>
+                  <input type="checkbox" id="culture" value="문화생활"/>
+                  <label htmlFor="culture">문화생활</label>
 
-                <input type="checkbox" id="shopping" value="쇼핑"/>
-                <label htmlFor="shopping">쇼핑</label>
-                
-                <input type="checkbox" id="beauty" value="뷰티"/>
-                <label htmlFor="beauty">뷰티</label>
-                
-                <input type="checkbox" id="travel" value="여행"/>
-                <label htmlFor="travel">여행</label>
+                  <input type="checkbox" id="shopping" value="쇼핑"/>
+                  <label htmlFor="shopping">쇼핑</label>
+                  
+                  <input type="checkbox" id="beauty" value="뷰티"/>
+                  <label htmlFor="beauty">뷰티</label>
+                  
+                  <input type="checkbox" id="travel" value="여행"/>
+                  <label htmlFor="travel">여행</label>
+                </div>
               </div>
               
               <button className="prev_btn" type='button' onClick={() => {setPage(2)}}>이전</button>
-              <button>설문완료</button>
+              <button className="submit_btn" type='button'>설문완료</button>
             </>
           )
         }
@@ -108,14 +121,25 @@ const Container = styled.main`
   }
 
   form {
-    margin-top:50px;
+    padding-top:50px;
     position:relative;
     height:400px;
+
+    &>div>div {
+      display:flex;
+      gap:10px;
+      margin-top:20px;
+    }
   
-    .age_input {
+    input[type="number"] {
       width:100%;
       border:1px solid #ddd;
-      padding:5px;
+      padding:5px 10px;
+      border-radius:20px;
+    }
+
+    input[type="number"]:focus {
+      outline:none;
     }
 
     .prev_btn { 
@@ -124,7 +148,7 @@ const Container = styled.main`
       left:0;
     }
 
-    .next_btn { 
+    .next_btn,.submit_btn { 
       position:absolute;
       bottom:0;
       right:0;
@@ -133,21 +157,38 @@ const Container = styled.main`
     p {
       margin:20px 0 10px;
       font-size:15px;
-      font-weight:900;
+      font-weight:500;
     }
 
-    input[type='radio'] {
+    input[type='radio'],
+    input[type='checkbox']{
       display:none
     }
 
-    input[type='radio'] + label {
-      padding:5px;
-      background:#ddd;
-      border-radius:5px;
+    input[type='radio'] + label,
+    input[type='checkbox'] + label {
+      padding:7px 10px;
+      background:#eee;
+      border-radius:20px;
+      color: #000;
+      font-size:14px;
+      font-weight:500;
     }
 
-    input[type='radio']:checked + label {
-      background:blue;
+    input[type='radio']:checked + label,
+    input[type='checkbox']:checked + label {
+      background:rgb(14, 118, 255);
+      color:#fff;
+    }
+
+    button { 
+      font-size:14px;
+      font-weight:500;
+      border-radius:20px;
+      border:none;
+      padding:7px 15px;
+      color:#fff;
+      background:rgb(14, 118, 255);
     }
   }
 `;
