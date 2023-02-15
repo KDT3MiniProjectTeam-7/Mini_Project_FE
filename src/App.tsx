@@ -1,31 +1,38 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from './components/Header';
-import Footer from './components/Footer';
+import TabBar from './components/TabBar';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import { ScrollRestoration } from 'react-router-dom';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
+  
   * {
     box-sizing:border-box;
   }
 
-  main, header, footer {
+  main, header, nav {
     max-width:768px;
     padding:0 20px;
     box-sizing: border-box;
     margin:0 auto;
   }
 
-  footer {
+  header, nav {
     position: fixed;
     left: 0;
     right: 0;
+    z-index: 9999;
   }
 
   main {
-    margin:30px auto 150px
+    margin:70px auto 150px
+  }
+
+  a {
+    text-decoration: none;
+    color: #000;
   }
 `;
 
@@ -36,7 +43,7 @@ const App = () => {
       <GlobalStyle />
       <Header />
       <Outlet />
-      <Footer />
+      <TabBar />
     </>
   );
 };
