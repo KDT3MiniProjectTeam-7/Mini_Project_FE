@@ -1,14 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { BiSearch, BiHistory } from 'react-icons/Bi';
+import { Link } from 'react-router-dom';
+import { BiHistory } from 'react-icons/Bi';
 import { IoChevronForwardOutline } from 'react-icons/io5';
-import { TiDeleteOutline } from 'react-icons/ti';
 import { TfiClose } from 'react-icons/tfi';
+import SearchBox from './SearchResultsComponents/SearchBox';
 
 const Search = () => {
-  // 임시 검색 키워드
-  const keywordsArr = [
+  const [savedKeyword, setSavedKeyword] = useState([
     'dd',
     '주택',
     '적금',
@@ -24,25 +23,23 @@ const Search = () => {
     '6',
     '7',
     '8',
-  ];
+  ]);
 
-  const inputRef = useRef(null);
-  const handleDeleteBtn = () => {
-    inputRef.current ? (inputRef.current.value = '') : '';
+  // 최근검색어
+  const handleDeleteKeyword = () => {
+    // 검색어 단일삭제 api 요청
+  };
+
+  const handleDeleteKeywordAll = () => {
+    alert('최근 검색어를 모두 삭제하시겠습니까?');
+    // 검색어 전체삭제 api 요청
+    // 00개 삭제완료 토스트 띄우기
   };
 
   return (
     <>
       <Container>
-        <SearchBox>
-          <span className="search">
-            <BiSearch />
-          </span>
-          <input type="text" placeholder="필요한 상품을 찾아보세요" ref={inputRef} />
-          <span className="delete" onClick={handleDeleteBtn}>
-            <TiDeleteOutline />
-          </span>
-        </SearchBox>
+        <SearchBox />
         <RecentProducts>
           <h4>최근에 자세히 봤던</h4>
           <DetailLink to={`/detail/:category/:id`}>
@@ -62,17 +59,25 @@ const Search = () => {
         </RecentProducts>
         <RecentKeywords>
           <h4>내가 찾아봤던</h4>
-          <ol>
-            {keywordsArr.map((list) => (
-              <li key={list}>
-                <SearchLink to={`/search/${list}`}>{list}</SearchLink>
-                <button>
-                  <TfiClose />
-                </button>
-              </li>
-            ))}
-          </ol>
-          <button className="deleteAll">전체삭제</button>
+          {savedKeyword.length !== 0 ? (
+            <>
+              <ol>
+                {savedKeyword.map((list) => (
+                  <li key={list}>
+                    <SearchLink to={`/search/${list}`}>{list}</SearchLink>
+                    <button onClick={handleDeleteKeyword}>
+                      <TfiClose />
+                    </button>
+                  </li>
+                ))}
+              </ol>
+              <button className="deleteAll" onClick={handleDeleteKeywordAll}>
+                전체삭제
+              </button>
+            </>
+          ) : (
+            <p>최근 찾아봤던 내역이 없습니다.</p>
+          )}
         </RecentKeywords>
       </Container>
     </>
@@ -95,54 +100,6 @@ const Container = styled.main`
     color: #a2a5a6;
     font-size: 13px;
     font-weight: 700;
-  }
-`;
-
-const SearchBox = styled.div`
-  position: fixed;
-  top: 56px;
-
-  width: calc(100vw - 40px);
-  max-width: 728px;
-  padding: 14px 0;
-  background-color: #fff;
-
-  span {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-45%);
-
-    font-size: 20px;
-    color: #5b5c5e;
-
-    &.search {
-      left: 15px;
-    }
-
-    &.delete {
-      right: 15px;
-      cursor: pointer;
-    }
-  }
-
-  input {
-    width: 100%;
-    height: 40px;
-    padding: 14px 40px;
-    border-radius: 20px;
-    border: none;
-    background-color: #e9e9eb;
-    font-size: 15px;
-
-    &::placeholder {
-      color: #c7cacc;
-      font-weight: 700;
-      font-size: 15px;
-    }
-
-    &:focus {
-      outline: none;
-    }
   }
 `;
 
@@ -204,6 +161,13 @@ const RecentKeywords = styled.section`
       color: #8a8b8b;
       font-size: 13px;
     }
+  }
+
+  p {
+    color: #797a7a;
+    padding: 60px 0;
+    text-align: center;
+    border-bottom: 0.5px solid #ebebeb;
   }
 `;
 
