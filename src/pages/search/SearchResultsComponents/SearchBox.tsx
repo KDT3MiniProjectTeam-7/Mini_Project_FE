@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { BiSearch } from 'react-icons/Bi';
 import { TiDeleteOutline } from 'react-icons/ti';
 
-const SearchBox = ({ params = null }) => {
+const SearchBox = ({ params }) => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
@@ -15,11 +15,8 @@ const SearchBox = ({ params = null }) => {
   // 기존 검색어에 있으면 검색어 수정
 
   // 자동완성 기능
-  // console.log(params.keywords);
-  // params !== null ? (inputRef.current.value = params.keywords) : '';
 
-  params !== null ? console.log(params.keywords) : '';
-  // inputRef.current.value ? inputRef.current.value : '';
+  // params && inputRef.current ? (inputRef.current.value = params.keywords) : '';
 
   const handleSubmit = (event) => {
     event.preventDefault();
