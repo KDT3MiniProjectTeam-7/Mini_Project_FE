@@ -96,11 +96,11 @@ const Label = styled.label`
   align-items: center;
   width: auto;
   height: 35px;
-  padding: 4px 16px;
-  margin: 0 12px;
+  padding: 4px 11px;
+  margin: 0 11px;
   border: 1px solid #ced4da;
   color: #495057;
-  font-size: 14px;
+  font-size: 13px;
   border-radius: 5px;
   box-shadow: inset 0 0 0 1px #ced4da;
   background-color: #fff;
