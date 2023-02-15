@@ -2,78 +2,41 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import SearchBox from './SearchResultsComponents/SearchBox';
+import ResultsTotal from './SearchComponents/ResultsTotal';
+import ResultsCard from './SearchComponents/ResultsCard';
+import ResultsLoan from './SearchComponents/ResultsLoan';
+import ResultsSavings from './SearchComponents/ResultsSavings';
+import ResultsSubscription from './SearchComponents/ResultsSubscription';
 
 const SearchResults = () => {
   const params = useParams();
   const [category, setCategory] = useState(0);
 
-  const categoryArr = ['통합', '카드', '대출', '예적금', '청약'];
+  const categoryArr = [
+    { title: '통합', content: <ResultsTotal /> },
+    { title: '카드', content: <ResultsCard /> },
+    { title: '대출', content: <ResultsLoan /> },
+    { title: '예적금', content: <ResultsSavings /> },
+    { title: '청약', content: <ResultsSubscription /> },
+  ];
+
+  const selectCategory = (index: number) => {
+    setCategory(index);
+  };
 
   return (
     <>
       <Container>
         <SearchBox params={params} />
-        <CategoryTab>
-          {/* {categoryArr.map((list) => {
-            <input type="radio" value={list} />;
-          })} */}
-        </CategoryTab>
-        <Card>
-          <h3>카드</h3>
-          <button className="viewAll">전체보기</button>
-          <ul>
-            <li>
-              <h4>상품명</h4>
-              <img src="#" alt="상품명 카드이미지" />
-              <p>혜택</p>
-            </li>
-          </ul>
-        </Card>
-        <Loan>
-          <h3>대출</h3>
-          <button className="viewAll">전체보기</button>
-          <ul>
-            <li>
-              <h4>상품명</h4>
-              <img src="#" alt="상품명 은행로고 이미지" />
-              <p>최저 4.75%</p>
-            </li>
-          </ul>
-        </Loan>
-        <Savings>
-          <h3>예적금</h3>
-          <button className="viewAll">전체보기</button>
-          <ul>
-            <li>
-              <h4>상품명</h4>
-              <img src="#" alt="상품명 은행로고 이미지" />
-              <p>기본 4.75%</p>
-              <p>최고 4.75%</p>
-            </li>
-          </ul>
-        </Savings>
-        <Subcription>
-          <h3>청약</h3>
-          <button className="viewAll">전체보기</button>
-          <ul>
-            <li>
-              <h4>상품명</h4>
-              <strong>은행명</strong>
-              <img src="#" alt="상품명 은행로고 이미지" />
-              <p>최저 4.75%</p>
-            </li>
-          </ul>
-        </Subcription>
+        <CategoryTab>{categoryArr[category].title}</CategoryTab>
+        <CategoryDesc>{categoryArr[category].content}</CategoryDesc>
       </Container>
     </>
   );
 };
 
 const Container = styled.main``;
-const CategoryTab = styled.div``;
-const Card = styled.section``;
-const Loan = styled.section``;
-const Savings = styled.section``;
-const Subcription = styled.section``;
+const CategoryTab = styled.ol``;
+const CategoryDesc = styled.div``;
 
 export default SearchResults;
