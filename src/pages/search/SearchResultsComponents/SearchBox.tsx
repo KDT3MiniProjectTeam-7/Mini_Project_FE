@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/Bi';
 import { TiDeleteOutline } from 'react-icons/ti';
 
-const SearchBox = ({ params }) => {
+const SearchBox = () => {
+  // const params = useParams();
   const navigate = useNavigate();
-  const inputRef = useRef(null);
-
   const [keyword, setKeyword] = useState('');
 
   // 검색어 조회 api
@@ -17,18 +16,21 @@ const SearchBox = ({ params }) => {
   // 자동완성 기능
 
   // params && inputRef.current ? (inputRef.current.value = params.keywords) : '';
+  // params.keywords !== undefined ? setKeyword(params.keywords) : null;
 
-  const handleSubmit = (event) => {
+  // console.log(params.keywords);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     keyword !== '' ? navigate(`/search/${keyword}`) : alert('상품명을 입력해주세요.');
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
   };
 
   const handleDeleteBtn = () => {
-    inputRef.current ? (inputRef.current.value = '') : '';
+    setKeyword('');
   };
 
   return (
@@ -37,7 +39,7 @@ const SearchBox = ({ params }) => {
         <span className="search">
           <BiSearch />
         </span>
-        <input type="text" placeholder="필요한 상품을 찾아보세요" ref={inputRef} onChange={handleInputChange} />
+        <input type="text" placeholder="필요한 상품을 찾아보세요" value={keyword} onChange={handleInputChange} />
         <button type="button" className="delete" onClick={handleDeleteBtn}>
           <TiDeleteOutline />
         </button>

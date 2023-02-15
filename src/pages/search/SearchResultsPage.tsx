@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router';
 import styled from 'styled-components';
 import SearchBox from './SearchResultsComponents/SearchBox';
 import ResultsTotal from './SearchComponents/ResultsTotal';
@@ -9,7 +8,6 @@ import ResultsSavings from './SearchComponents/ResultsSavings';
 import ResultsSubscription from './SearchComponents/ResultsSubscription';
 
 const SearchResults = () => {
-  const params = useParams();
   const [category, setCategory] = useState(0);
 
   const categoryArr = [
@@ -27,7 +25,7 @@ const SearchResults = () => {
   return (
     <>
       <Container>
-        <SearchBox params={params} />
+        <SearchBox />
         <CategoryTab>{categoryArr[category].title}</CategoryTab>
         <CategoryDesc>{categoryArr[category].content}</CategoryDesc>
       </Container>
