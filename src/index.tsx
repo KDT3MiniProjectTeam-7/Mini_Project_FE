@@ -4,12 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App';
 import Error from './components/Error';
-<<<<<<< HEAD
-import Main from './pages/main/mainPage';
-=======
 
 import Main from './pages/main/MainPage';
->>>>>>> 89c16e5ded228b4e17c1f356c1046f87b640f1d4
 import Intro from './pages/intro/Intro';
 import Login from './pages/login/Login';
 import SignUp from './pages/signUp/SignUp';
