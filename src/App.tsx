@@ -4,6 +4,10 @@ import TabBar from './components/TabBar';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import { ScrollRestoration } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setCartItems } from './store/cartSlice';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -49,6 +53,25 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    try {
+      async function getCart() {
+        const data = await axios.get(
+          'https://7d5489f3-36a6-4484-8dbd-23a9b1929ca9.mock.pstmn.io/user/recent-products/cart'
+        );
+        // console.log(data);
+        if (data.status !== 200) {
+          throw new Error();
+        }
+        dispatch(setCartItems(data.data.resultData));
+      }
+      getCart();
+    } catch (error: any) {
+      console.log(`통신 오류: ${error.response}`);
+    }
+  }, []);
+
   const location = useLocation();
   const findResultsPage = location.pathname.slice(0, 8) === '/search/';
   return (

@@ -13,10 +13,8 @@ import { ReducerType } from '../../store/store';
 const Cart = () => {
   const cartItems = useSelector<ReducerType, Item[]>((state) => state.cart);
 
-  useEffect(() => {
-    // 일단 cartItem이 state라는 가정하에 작업함. 확실 x
-    console.log(cartItems);
-  }, [cartItems]);
+  console.log(cartItems);
+  // 상품 넣기 완료.
 
   // 렌더링 단계에서는 카테고리에 맞는 카드 컨테이너를 잘 출력시키면 됨
   return (
