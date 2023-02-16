@@ -113,7 +113,7 @@ const Container = styled.ol`
     width: 100%;
 
     & + li {
-      margin-top: 15px;
+      margin-top: 40px;
     }
   }
 `;
@@ -139,13 +139,14 @@ const Desc = styled.div`
   .benefits {
     margin-bottom: 5px;
     color: #5e6675;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1.4;
   }
 
   .productname {
-    color: #6d7582;
-    font-size: 12px;
+    color: #676f7b;
+    font-size: 10.5px;
   }
 `;
 
@@ -157,7 +158,7 @@ const Fee = styled.dl`
   width: 100px;
   height: 70px;
 
-  font-size: 12px;
+  font-size: 10px;
 
   dd {
     order: 1;
