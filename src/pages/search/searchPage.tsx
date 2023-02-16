@@ -1,29 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { BiHistory } from 'react-icons/Bi';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 import { TfiClose } from 'react-icons/tfi';
-import SearchBox from './SearchResultsComponents/SearchBox';
+import SearchBox from './SearchComponents/SearchBox';
 
 const Search = () => {
-  const [savedKeyword, setSavedKeyword] = useState([
-    'dd',
-    '주택',
-    '적금',
-    '카드',
-    '쇼핑',
-    '고고..',
-    '화이팅',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-  ]);
+  const data = [
+    {
+      searchId: 1,
+      searchContent: '1',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 2,
+      searchContent: '2',
+      createdAt: '2021-10-29T05:18:51.868Z',
+    },
+    {
+      searchId: 3,
+      searchContent: '3',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 4,
+      searchContent: '4',
+      createdAt: '2021-10-30T05:18:51.868Z',
+    },
+    {
+      searchId: 5,
+      searchContent: '5',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 6,
+      searchContent: '6',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 7,
+      searchContent: '7',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 8,
+      searchContent: '8',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 9,
+      searchContent: '9',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 10,
+      searchContent: '10',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 11,
+      searchContent: '11',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+  ];
+
+  const [savedKeyword, setSavedKeyword] = useState([]);
 
   // 최근검색어
   const handleDeleteKeyword = () => {
@@ -37,50 +79,48 @@ const Search = () => {
   };
 
   return (
-    <>
-      <Container>
-        <SearchBox />
-        <RecentProducts>
-          <h4>최근에 자세히 봤던</h4>
-          <DetailLink to={`/detail/:category/:id`}>
-            <div>
-              <span className="history">
-                <BiHistory />
-              </span>
-              상품명
-            </div>
-            <div className="info">
-              상세정보
-              <span className="move">
-                <IoChevronForwardOutline />
-              </span>
-            </div>
-          </DetailLink>
-        </RecentProducts>
-        <RecentKeywords>
-          <h4>내가 찾아봤던</h4>
-          {savedKeyword.length !== 0 ? (
-            <>
-              <ol>
-                {savedKeyword.map((list) => (
-                  <li key={list}>
-                    <SearchLink to={`/search/${list}`}>{list}</SearchLink>
-                    <button onClick={handleDeleteKeyword}>
-                      <TfiClose />
-                    </button>
-                  </li>
-                ))}
-              </ol>
-              <button className="deleteAll" onClick={handleDeleteKeywordAll}>
-                전체삭제
-              </button>
-            </>
-          ) : (
-            <p>최근 찾아봤던 내역이 없습니다.</p>
-          )}
-        </RecentKeywords>
-      </Container>
-    </>
+    <Container>
+      <SearchBox />
+      <RecentProducts>
+        <h4>최근에 자세히 봤던</h4>
+        <DetailLink to={`/detail/:category/:id`}>
+          <div>
+            <span className="history">
+              <BiHistory />
+            </span>
+            상품명
+          </div>
+          <div className="info">
+            상세정보
+            <span className="move">
+              <IoChevronForwardOutline />
+            </span>
+          </div>
+        </DetailLink>
+      </RecentProducts>
+      <RecentKeywords>
+        <h4>최근에 찾아봤던</h4>
+        {data.length !== 0 ? (
+          <>
+            <ol>
+              {data.map((list) => (
+                <li key={list.searchId}>
+                  <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
+                  <button onClick={handleDeleteKeyword}>
+                    <TfiClose />
+                  </button>
+                </li>
+              ))}
+            </ol>
+            <button className="deleteAll" onClick={handleDeleteKeywordAll}>
+              전체삭제
+            </button>
+          </>
+        ) : (
+          <p>최근 찾아봤던 내역이 없습니다.</p>
+        )}
+      </RecentKeywords>
+    </Container>
   );
 };
 
@@ -97,9 +137,8 @@ const Container = styled.main`
   }
   h4 {
     margin-bottom: 20px;
-    color: #a2a5a6;
+    color: #505a66;
     font-size: 13px;
-    font-weight: 700;
   }
 `;
 
@@ -145,7 +184,7 @@ const RecentKeywords = styled.section`
 
     margin-bottom: 15px;
     padding-bottom: 10px;
-    border-bottom: 0.5px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
 
     color: #000;
 
@@ -158,7 +197,7 @@ const RecentKeywords = styled.section`
     color: #5b5c5e;
 
     &.deleteAll {
-      color: #8a8b8b;
+      color: #505a66;
       font-size: 13px;
     }
   }

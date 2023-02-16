@@ -42,16 +42,28 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: #000;
   }
+
+  li { 
+    list-style: none; 
+  }
 `;
 
 const App = () => {
+  const location = useLocation();
+  const findResultsPage = location.pathname.slice(0, 8) === '/search/';
   return (
     <>
       <ScrollRestoration />
       <GlobalStyle />
-      <Header />
-      <Outlet />
-      <TabBar />
+      {findResultsPage ? (
+        <Outlet />
+      ) : (
+        <>
+          <Header />
+          <Outlet />
+          <TabBar />
+        </>
+      )}
     </>
   );
 };
