@@ -1,7 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { IoChevronForwardOutline } from 'react-icons/io5';
 
 const ResultsCard = () => {
+  const navigate = useNavigate();
   const data = [
     {
       productId: 1234,
@@ -75,10 +76,14 @@ const ResultsCard = () => {
     },
   ];
 
+  const handleLi = (id: number) => {
+    navigate(`/detail/card/${id}`);
+  };
+
   return (
     <Container>
       {data.map((list) => (
-        <li key={list.productId}>
+        <li key={list.productId} onClick={() => handleLi(list.productId)}>
           <div>
             <Thumbnail>
               <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
@@ -129,9 +134,10 @@ const Thumbnail = styled.div`
 `;
 
 const Desc = styled.div`
-  margin-right: 50px;
+  margin-right: 20px;
+
   .benefits {
-    margin-bottom: 3px;
+    margin-bottom: 5px;
     color: #5e6675;
     font-weight: 700;
     line-height: 1.4;
@@ -148,10 +154,10 @@ const Fee = styled.dl`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  width: 80px;
+  width: 95px;
   height: 70px;
 
-  font-size: 10px;
+  font-size: 12px;
 
   dd {
     order: 1;
