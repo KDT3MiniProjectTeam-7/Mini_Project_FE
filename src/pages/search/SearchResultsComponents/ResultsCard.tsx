@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import NoResults from '../SearchComponents/NoResults';
 
 const ResultsCard = () => {
   const navigate = useNavigate();
@@ -82,23 +83,27 @@ const ResultsCard = () => {
 
   return (
     <Container>
-      {data.map((list) => (
-        <li key={list.productId} onClick={() => handleLi(list.productId)}>
-          <div>
-            <Thumbnail>
-              <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
-            </Thumbnail>
-            <Desc>
-              <h3 className="benefits">{list.benefits[0]}</h3>
-              <p className="productname">{list.productName}</p>
-            </Desc>
-          </div>
-          <Fee>
-            <dt>연회비</dt>
-            <dd>{list.annualFee.toLocaleString()}원</dd>
-          </Fee>
-        </li>
-      ))}
+      {data.length !== 0 ? (
+        data.map((list) => (
+          <li key={list.productId} onClick={() => handleLi(list.productId)}>
+            <div>
+              <Thumbnail>
+                <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
+              </Thumbnail>
+              <Desc>
+                <h3 className="benefits">{list.benefits[0]}</h3>
+                <p className="productname">{list.productName}</p>
+              </Desc>
+            </div>
+            <Fee>
+              <dt>연회비</dt>
+              <dd>{list.annualFee.toLocaleString()}원</dd>
+            </Fee>
+          </li>
+        ))
+      ) : (
+        <NoResults />
+      )}
     </Container>
   );
 };
