@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container, LinkForm as Link, LogoForm } from '../../common/style/style';
+import { Container, LinkForm as Link, LogoForm } from '../../common/style/Style';
 
 const Intro = () => {
   return (

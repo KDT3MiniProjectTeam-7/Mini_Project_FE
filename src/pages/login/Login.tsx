@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Container, LogoForm, InputForm as Input, LinkForm as Link, BoxForm, Caution } from '../../common/style/style';
+import { Container, LogoForm, InputForm as Input, LinkForm as Link, BoxForm, Caution } from '../../common/style/Style';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {

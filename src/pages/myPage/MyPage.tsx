@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container } from '../../common/style/style';
+import { Container } from '../../common/style/Style';
 
 const MyPage = () => {
   const user = {

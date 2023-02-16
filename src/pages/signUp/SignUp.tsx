@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { BoxForm, Container, LinkForm as Link, InputForm as Input, Caution } from '../../common/style/style';
+import { BoxForm, Container, LinkForm as Link, InputForm as Input, Caution } from '../../common/style/Style';
 import { Submit } from '../login/Login';
 import { useRef, useState } from 'react';
 
