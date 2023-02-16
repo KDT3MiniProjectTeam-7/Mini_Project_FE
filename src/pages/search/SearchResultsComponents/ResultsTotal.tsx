@@ -1,29 +1,6 @@
 import styled from 'styled-components';
 
 const ResultsTotal = () => {
-  const data = [
-    {
-      productId: 1234,
-      category: 'card',
-      productName: '신한카드 OOO',
-      companyName: '신한은행',
-      companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'image/thumbnail/card/OOO.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
-      annualFee: 10000,
-    },
-    {
-      productId: 5678,
-      category: 'card',
-      productName: '신한카드 OOO',
-      companyName: '신한은행',
-      companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'image/thumbnail/card/OOO.png',
-      benefits: ['전기차 충전요금 10~40% 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
-      annualFee: 10000,
-    },
-  ];
-
   return (
     <Container>
       <Card>
