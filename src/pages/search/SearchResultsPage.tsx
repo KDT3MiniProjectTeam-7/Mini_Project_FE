@@ -1,42 +1,39 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
-import SearchBox from './SearchResultsComponents/SearchBox';
-import ResultsTotal from './SearchComponents/ResultsTotal';
-import ResultsCard from './SearchComponents/ResultsCard';
-import ResultsLoan from './SearchComponents/ResultsLoan';
-import ResultsSavings from './SearchComponents/ResultsSavings';
-import ResultsSubscription from './SearchComponents/ResultsSubscription';
+import SearchBox from './SearchComponents/SearchBox';
+import CategoryTab from './SearchResultsComponents/CategoryTab';
+import ResultsTotal from './SearchResultsComponents/ResultsTotal';
+import ResultsCard from './SearchResultsComponents/ResultsCard';
+import ResultsLoan from './SearchResultsComponents/ResultsLoan';
+import ResultsSavings from './SearchResultsComponents/ResultsSavings';
+import ResultsSubscription from './SearchResultsComponents/ResultsSubscription';
 
 const SearchResults = () => {
-  const params = useParams();
-  const [category, setCategory] = useState(0);
-
-  const categoryArr = [
-    { title: '통합', content: <ResultsTotal /> },
-    { title: '카드', content: <ResultsCard /> },
-    { title: '대출', content: <ResultsLoan /> },
-    { title: '예적금', content: <ResultsSavings /> },
-    { title: '청약', content: <ResultsSubscription /> },
-  ];
-
-  const selectCategory = (index: number) => {
-    setCategory(index);
-  };
+  const [tabIndex, setTabIndex] = useState(0);
+  const [categoryArr, setCategoryArr] = useState([
+    { category: 'total', title: '통합', content: <ResultsTotal /> },
+    { category: 'card', title: '카드', content: <ResultsCard /> },
+    { category: 'loan', title: '대출', content: <ResultsLoan /> },
+    { category: 'savings', title: '예적금', content: <ResultsSavings /> },
+    { category: 'subscription', title: '청약', content: <ResultsSubscription /> },
+  ]);
 
   return (
-    <>
-      <Container>
-        <SearchBox params={params} />
-        <CategoryTab>{categoryArr[category].title}</CategoryTab>
-        <CategoryDesc>{categoryArr[category].content}</CategoryDesc>
-      </Container>
-    </>
+    <Container>
+      <SearchBox />
+      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={categoryArr} />
+      <CategoryDesc>{categoryArr[tabIndex].content}</CategoryDesc>
+    </Container>
   );
 };
 
-const Container = styled.main``;
-const CategoryTab = styled.ol``;
+const Container = styled.div`
+  max-width: 768px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  margin-top: 106px;
+`;
+
 const CategoryDesc = styled.div``;
 
 export default SearchResults;
