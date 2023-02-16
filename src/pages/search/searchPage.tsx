@@ -10,47 +10,58 @@ const Search = () => {
   const data = [
     {
       searchId: 1,
-      searchContent: '주택',
+      searchContent: '1',
+      createdAt: '2021-10-28T05:18:51.868Z',
     },
     {
       searchId: 2,
-      searchContent: '청년',
+      searchContent: '2',
+      createdAt: '2021-10-29T05:18:51.868Z',
     },
     {
       searchId: 3,
-      searchContent: '청년',
+      searchContent: '3',
+      createdAt: '2021-10-28T05:18:51.868Z',
     },
     {
       searchId: 4,
-      searchContent: '청년',
+      searchContent: '4',
+      createdAt: '2021-10-30T05:18:51.868Z',
     },
     {
       searchId: 5,
-      searchContent: '청년',
+      searchContent: '5',
+      createdAt: '2021-10-28T05:18:51.868Z',
     },
     {
       searchId: 6,
-      searchContent: '청년',
+      searchContent: '6',
+      createdAt: '2021-10-28T05:18:51.868Z',
     },
     {
       searchId: 7,
-      searchContent: '청년',
+      searchContent: '7',
+      createdAt: '2021-10-28T05:18:51.868Z',
     },
     {
       searchId: 8,
-      searchContent: '청년',
+      searchContent: '8',
+      createdAt: '2021-10-28T05:18:51.868Z',
     },
     {
       searchId: 9,
-      searchContent: '청년',
+      searchContent: '9',
+      createdAt: '2021-10-28T05:18:51.868Z',
     },
     {
       searchId: 10,
-      searchContent: '청년',
+      searchContent: '10',
+      createdAt: '2021-10-28T05:18:51.868Z',
     },
     {
       searchId: 11,
-      searchContent: '청년',
+      searchContent: '11',
+      createdAt: '2021-10-28T05:18:51.868Z',
     },
   ];
 
