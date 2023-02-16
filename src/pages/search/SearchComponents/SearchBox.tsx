@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/Bi';
-import { TiDeleteOutline } from 'react-icons/ti';
+import { TiDelete } from 'react-icons/ti';
 import { IoChevronBackOutline } from 'react-icons/io5';
 
 const SearchBox = () => {
@@ -44,16 +44,18 @@ const SearchBox = () => {
     <>
       <Container onSubmit={handleSubmit} className={findResultsPage ? 'results' : ''}>
         {findResultsPage ? (
-          <IoChevronBackOutline size="22" color="#5b5c5e" onClick={handleBack} style={{ marginLeft: '-8px' }} />
+          <IoChevronBackOutline size="22" color="#353D4A" onClick={handleBack} style={{ marginLeft: '-8px' }} />
         ) : null}
         <div>
           <span className="search">
             <BiSearch />
           </span>
           <input type="text" placeholder="필요한 상품을 찾아보세요" value={keyword} onChange={handleInputChange} />
-          <button type="button" className="delete" onClick={handleDeleteBtn}>
-            <TiDeleteOutline />
-          </button>
+          {keyword !== '' ? (
+            <button type="button" className="delete" onClick={handleDeleteBtn}>
+              <TiDelete />
+            </button>
+          ) : null}
         </div>
       </Container>
     </>
@@ -88,7 +90,7 @@ const Container = styled.form`
     transform: translateY(-45%);
 
     font-size: 20px;
-    color: #5b5c5e;
+    color: #6d7582;
 
     &.search {
       left: 15px;
@@ -101,12 +103,11 @@ const Container = styled.form`
     padding: 14px 40px;
     border-radius: 20px;
     border: none;
-    background-color: #e9e9eb;
+    background-color: #f2f4f6;
     font-size: 15px;
 
     &::placeholder {
-      color: #c7cacc;
-      font-weight: 700;
+      color: #8c949f;
       font-size: 15px;
     }
 
