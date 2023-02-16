@@ -57,7 +57,6 @@ const InputForm = styled.input`
 const BoxForm = styled.form`
   width: 100%;
   max-width: 400px;
-  height: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,4 +64,9 @@ const BoxForm = styled.form`
   gap: 20px;
 `;
 
-export { LinkForm, Container, LogoForm, InputForm, BoxForm };
+const Caution = styled.small`
+  font-size: 10px;
+  color: red;
+`;
+
+export { LinkForm, Container, LogoForm, InputForm, BoxForm, Caution };
