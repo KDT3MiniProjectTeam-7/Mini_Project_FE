@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IoChevronForwardOutline } from 'react-icons/io5';
 
 const ResultsCard = () => {
   const data = [
@@ -18,9 +19,9 @@ const ResultsCard = () => {
       productName: '신한카드 OOO',
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
-      benefits: ['전기차 충전요금 10~40% 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
-      annualFee: 10000,
+      thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditAXKD3X.png',
+      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
+      annualFee: 5000,
     },
     {
       productId: 5679,
@@ -28,9 +29,9 @@ const ResultsCard = () => {
       productName: '신한카드 OOO',
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
-      benefits: ['전기차 충전요금 10~40% 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
-      annualFee: 10000,
+      thumbnail: 'https://vertical.pstatic.net/vertical-cardad/creatives/SK/4056/SK_4056_hor.PNG',
+      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
+      annualFee: 200000,
     },
     {
       productId: 1834,
@@ -38,9 +39,9 @@ const ResultsCard = () => {
       productName: '신한카드 OOO',
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
-      annualFee: 10000,
+      thumbnail: 'https://vertical.pstatic.net/vertical-cardad/creatives/LO/10227/LO_10227_20230131-123810_ver.png',
+      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      annualFee: 15000,
     },
     {
       productId: 9847,
@@ -62,6 +63,16 @@ const ResultsCard = () => {
       benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
       annualFee: 10000,
     },
+    {
+      productId: 8831,
+      category: 'card',
+      productName: '신한카드 OOO',
+      companyName: '신한은행',
+      companyImage: 'image/logo/shinhan.png',
+      thumbnail: 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
+      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      annualFee: 18000,
+    },
   ];
 
   return (
@@ -69,13 +80,18 @@ const ResultsCard = () => {
       {data.map((list) => (
         <li key={list.productId}>
           <div>
-            <img src={list.thumbnail} alt={`${list.productName}카드이미지`} className="thumbnail" />
+            <Thumbnail>
+              <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
+            </Thumbnail>
+            <Desc>
+              <h3 className="benefits">{list.benefits[0]}</h3>
+              <p className="productname">{list.productName}</p>
+            </Desc>
           </div>
-          <div>
-            <h3 className="benefits">{list.benefits[0]}</h3>
-            <p className="productname">{list.productName}</p>
-          </div>
-          <p className="fee">연회비 {list.annualFee}</p>
+          <Fee>
+            <dt>연회비</dt>
+            <dd>{list.annualFee.toLocaleString()}원</dd>
+          </Fee>
         </li>
       ))}
     </Container>
@@ -85,40 +101,81 @@ const ResultsCard = () => {
 const Container = styled.ol`
   padding: 30px 20px;
 
-  li {
+  li,
+  li > div {
     display: flex;
     align-items: center;
-    gap: 10px;
     width: 100%;
-    border: 1px solid #000;
 
     & + li {
-      margin-top: 30px;
+      margin-top: 15px;
     }
+  }
+`;
 
-    .thumbnail {
-      width: 40px;
-      height: 25px;
+const Thumbnail = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  margin-right: 20px;
 
-      img {
-        width: inherit;
-        height: inherit;
-      }
-    }
+  img {
+    max-width: 40px;
+    max-height: 40px;
+  }
+`;
 
-    .benefits {
-      color: #505866;
-      font-weight: 700;
-    }
+const Desc = styled.div`
+  margin-right: 50px;
+  .benefits {
+    margin-bottom: 3px;
+    color: #5e6675;
+    font-weight: 700;
+    line-height: 1.4;
+  }
 
-    .productname {
-      color: #6d7582;
-      font-size: 12px;
-    }
+  .productname {
+    color: #6d7582;
+    font-size: 12px;
+  }
+`;
 
-    .fee {
-      color: #4880ee;
-    }
+const Fee = styled.dl`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 80px;
+  height: 70px;
+
+  font-size: 10px;
+
+  dd {
+    order: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 5px 8px;
+    margin-bottom: 5px;
+
+    border-radius: 10px;
+    background-color: #e0ebfb;
+
+    color: #3f6cd4;
+
+    font-weight: 700;
+    text-align: center;
+    word-break: nowrap;
+  }
+
+  dt {
+    order: 2;
+    padding-right: 7px;
+    color: #6d7582;
   }
 `;
 
