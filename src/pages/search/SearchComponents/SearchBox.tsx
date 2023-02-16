@@ -24,7 +24,7 @@ const SearchBox = () => {
   }, []);
 
   const handleBack = () => {
-    navigate(-1);
+    navigate('/search');
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
