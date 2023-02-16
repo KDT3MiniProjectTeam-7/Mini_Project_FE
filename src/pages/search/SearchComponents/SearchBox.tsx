@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/Bi';
 import { TiDeleteOutline } from 'react-icons/ti';
+import { IoChevronBackOutline } from 'react-icons/io5';
 
 const SearchBox = () => {
   const location = useLocation();
@@ -17,11 +18,14 @@ const SearchBox = () => {
   // 자동완성 기능
 
   const findResultsPage = location.pathname.slice(0, 8) === '/search/';
-  console.log(findResultsPage);
 
   useEffect(() => {
     params.keywords !== undefined ? setKeyword(params.keywords) : null;
   }, []);
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,14 +42,19 @@ const SearchBox = () => {
 
   return (
     <>
-      <Container onSubmit={handleSubmit} className={findResultsPage ? 'resultsMargin' : ''}>
-        <span className="search">
-          <BiSearch />
-        </span>
-        <input type="text" placeholder="필요한 상품을 찾아보세요" value={keyword} onChange={handleInputChange} />
-        <button type="button" className="delete" onClick={handleDeleteBtn}>
-          <TiDeleteOutline />
-        </button>
+      <Container onSubmit={handleSubmit} className={findResultsPage ? 'results' : ''}>
+        {findResultsPage ? (
+          <IoChevronBackOutline size="22" color="#5b5c5e" onClick={handleBack} style={{ marginLeft: '-8px' }} />
+        ) : null}
+        <div>
+          <span className="search">
+            <BiSearch />
+          </span>
+          <input type="text" placeholder="필요한 상품을 찾아보세요" value={keyword} onChange={handleInputChange} />
+          <button type="button" className="delete" onClick={handleDeleteBtn}>
+            <TiDeleteOutline />
+          </button>
+        </div>
       </Container>
     </>
   );
@@ -60,8 +69,8 @@ const Container = styled.form`
   padding: 14px 0;
   background-color: #fff;
 
-  &.resultsMargin {
-    margin: 0 20px;
+  div {
+    position: relative;
   }
 
   button {
@@ -69,6 +78,7 @@ const Container = styled.form`
     background-color: transparent;
     border: none;
     padding: 0;
+    right: 15px;
   }
 
   span,
@@ -83,11 +93,6 @@ const Container = styled.form`
     &.search {
       left: 15px;
     }
-  }
-
-  button {
-    right: 15px;
-    cursor: pointer;
   }
 
   input {
@@ -107,6 +112,20 @@ const Container = styled.form`
 
     &:focus {
       outline: none;
+    }
+  }
+
+  &.results {
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0 20px;
+
+    div {
+      width: 100%;
     }
   }
 `;

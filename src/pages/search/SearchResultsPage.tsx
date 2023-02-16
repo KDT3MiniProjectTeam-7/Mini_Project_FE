@@ -39,7 +39,7 @@ const Container = styled.div`
   max-width: 768px;
   box-sizing: border-box;
   margin: 0 auto;
-  margin-top: 120px;
+  margin-top: 65px;
 `;
 const CategoryTab = styled.ol`
   display: flex;

@@ -45,13 +45,21 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
+  const location = useLocation();
+  const findResultsPage = location.pathname.slice(0, 8) === '/search/';
   return (
     <>
       <ScrollRestoration />
       <GlobalStyle />
-      <Header />
-      <Outlet />
-      <TabBar />
+      {findResultsPage ? (
+        <Outlet />
+      ) : (
+        <>
+          <Header />
+          <Outlet />
+          <TabBar />
+        </>
+      )}
     </>
   );
 };

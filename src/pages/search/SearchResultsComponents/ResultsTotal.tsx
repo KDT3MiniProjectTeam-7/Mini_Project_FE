@@ -95,7 +95,7 @@ const Container = styled.div`
   }
 
   section {
-    padding: 0 5px;
+    padding: 0 20px;
     border-bottom: 20px solid #f2f4f6;
 
     h3 {
