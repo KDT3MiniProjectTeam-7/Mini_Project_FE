@@ -3,11 +3,10 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { BoxForm, Container, LinkForm as Link, InputForm as Input, Caution } from '../../common/style/style';
 import { Submit } from '../login/Login';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 const SignUp = () => {
   const navigate = useNavigate();
-
   const {
     watch,
     register,
@@ -16,15 +15,59 @@ const SignUp = () => {
   } = useForm();
 
   const birth = [
-    { date: 'birthYear', placeholder: '년(4자)', min: 1900, max: new Date().getFullYear() },
+    { date: 'birthYear', placeholder: '년도', min: 1900, max: new Date().getFullYear() },
     { date: 'birthMonth', placeholder: '월', min: 1, max: 12 },
     { date: 'birthDay', placeholder: '일', min: 1, max: 31 },
   ];
 
-  const [isPasswordSame, setIsPasswordSame] = useState(true);
+  const validation = {
+    email: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,5}$/i,
+    name: /^[가-힣]+$/,
+  };
 
-  const handleBlur = () => {
-    watch('password') === watch('passwordConfirm') ? setIsPasswordSame(true) : setIsPasswordSame(false);
+  const password = useRef();
+  password.current = watch('password');
+
+  const [emailValue, setEmailValue] = useState({ error: '', message: '' });
+  const [passwordValue, setPasswordValue] = useState({ error: '', message: '' });
+  const [passwordConfirmValue, setPasswordConfirmValue] = useState({ error: '', message: '' });
+  const [nameValue, setNameValue] = useState({ error: '', message: '' });
+  const [birthValue, setBirthValue] = useState({ error: '', message: '' });
+
+  const onBlurEmail = () => {
+    !watch('email')
+      ? setEmailValue({ error: 'empty', message: '필수 입력 항목입니다.' })
+      : !validation.email.test(watch('email'))
+      ? setEmailValue({ error: 'pattern', message: 'Email을 정확히 입력해주세요.' })
+      : setEmailValue({ error: '', message: '' });
+  };
+
+  const onBlurPassword = () => {
+    !watch('password')
+      ? setPasswordValue({ error: 'empty', message: '필수 입력 항목입니다.' })
+      : !(watch('password').length >= 8 && watch('password').length <= 20)
+      ? setPasswordValue({ error: 'length', message: '8자 이상, 20자 이하로 입력해주세요.' })
+      : setPasswordValue({ error: '', message: '' });
+  };
+
+  const onBlurPasswordConfirm = () => {
+    !watch('passwordConfirm')
+      ? setPasswordConfirmValue({ error: 'empty', message: '필수 입력 항목입니다.' })
+      : setPasswordConfirmValue({ error: '', message: '' });
+  };
+
+  const onBlurName = (e: any) => {
+    !watch('name')
+      ? setNameValue({ error: 'empty', message: '필수 입력 항목입니다.' })
+      : !validation.name.test(watch('name'))
+      ? setNameValue({ error: 'pattern', message: '한글로 다시 입력해주세요.' })
+      : setNameValue({ error: '', message: '' });
+  };
+
+  const onBlurBirth = (e: any) => {
+    !watch(e.target.name)
+      ? setBirthValue({ error: 'empty', message: '필수 입력 항목입니다.' })
+      : setBirthValue({ error: '', message: '' });
   };
 
   const onSubmit = (data: any) => {
@@ -35,19 +78,26 @@ const SignUp = () => {
     // 실패시
     // 실패 안내
   };
+
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <DataContainer>
           <label htmlFor="email">이메일</label>
-          {errors.email &&
+          {emailValue.error === 'empty' ? (
+            <Caution>{emailValue.message}</Caution>
+          ) : emailValue.error === 'pattern' ? (
+            <Caution>{emailValue.message}</Caution>
+          ) : (
+            errors.email &&
             (errors.email?.type === 'required' ? (
               <Caution>필수 입력 항목입니다.</Caution>
             ) : errors.email?.type === 'pattern' ? (
               <Caution>Email을 정확히 입력해주세요.</Caution>
             ) : (
               <></>
-            ))}
+            ))
+          )}
           <Input
             id="email"
             type="text"
@@ -55,24 +105,29 @@ const SignUp = () => {
             {...register('email', {
               required: true,
               pattern: {
-                value: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,5}$/i,
+                value: validation.email,
                 message: 'Email을 정확히 입력해주세요.',
               },
             })}
+            onBlur={onBlurEmail}
           />
         </DataContainer>
         <DataContainer>
           <label htmlFor="password">비밀번호</label>
-          {errors.password &&
+          {passwordValue.error === 'empty' ? (
+            <Caution>{passwordValue.message}</Caution>
+          ) : passwordValue.error === 'length' ? (
+            <Caution>{passwordValue.message}</Caution>
+          ) : (
+            errors.password &&
             (errors.password?.type === 'required' ? (
               <Caution>필수 입력 항목입니다.</Caution>
-            ) : errors.password?.type === 'minLength' ? (
-              <Caution>8자 이상 입력해주세요.</Caution>
-            ) : errors.password?.type === 'maxLength' ? (
-              <Caution>20자 이하로 입력해주세요.</Caution>
+            ) : errors.password?.type === 'minLength' || errors.password?.type === 'maxLength' ? (
+              <Caution>8자 이상, 20자 이하로 입력해주세요.</Caution>
             ) : (
               <></>
-            ))}
+            ))
+          )}
           <Input
             id="password"
             type="password"
@@ -81,36 +136,49 @@ const SignUp = () => {
               required: true,
               minLength: {
                 value: 8,
-                message: '8자 이상 입력해주세요.',
+                message: '8자 이상, 20자 이하로 입력해주세요.',
               },
               maxLength: {
                 value: 20,
-                message: '20자 이하로 입력해주세요.',
+                message: '8자 이상, 20자 이하로 입력해주세요.',
               },
             })}
+            onBlur={onBlurPassword}
           />
         </DataContainer>
         <DataContainer>
           <label htmlFor="passwordConfirm">비밀번호 확인</label>
-          {errors.passwordConfirm && errors.passwordConfirm?.type === 'required' ? (
-            <Caution>필수 입력 항목입니다.</Caution>
-          ) : isPasswordSame ? (
-            <></>
+          {passwordConfirmValue.error === 'empty' ? (
+            <Caution>{passwordConfirmValue.message}</Caution>
           ) : (
-            <Caution>비밀번호가 일치하지 않습니다.</Caution>
+            errors.passwordConfirm &&
+            (errors.passwordConfirm?.type === 'required' ? (
+              <Caution>필수 입력 항목입니다.</Caution>
+            ) : errors.passwordConfirm?.type === 'validate' ? (
+              <Caution>비밀번호가 일치하지 않습니다.</Caution>
+            ) : (
+              <></>
+            ))
           )}
+
           <Input
             id="passwordConfirm"
             type="password"
             {...register('passwordConfirm', {
               required: true,
+              validate: (value) => value === password.current,
             })}
-            onBlur={handleBlur}
+            onBlur={onBlurPasswordConfirm}
           />
         </DataContainer>
         <DataContainer>
           <label htmlFor="name">이름</label>
-          {errors.name &&
+          {nameValue.error === 'empty' ? (
+            <Caution>{nameValue.message}</Caution>
+          ) : nameValue.error === 'pattern' ? (
+            <Caution>{nameValue.message}</Caution>
+          ) : (
+            errors.name &&
             (errors.name?.type === 'required' ? (
               <Caution>필수 입력 항목입니다.</Caution>
             ) : errors.name?.type === 'minLength' ? (
@@ -118,10 +186,11 @@ const SignUp = () => {
             ) : errors.name?.type === 'maxLength' ? (
               <Caution>20자 이하로 입력해주세요.</Caution>
             ) : errors.name?.type === 'pattern' ? (
-              <Caution>이름을 다시 입력해주세요.</Caution>
+              <Caution>한글로 다시 입력해주세요.</Caution>
             ) : (
               <></>
-            ))}
+            ))
+          )}
           <Input
             id="name"
             type="text"
@@ -137,23 +206,28 @@ const SignUp = () => {
                 message: '20자 이하로 입력해주세요.',
               },
               pattern: {
-                value: /^[가-힣]+$/,
-                message: '이름을 다시 입력해주세요.',
+                value: validation.name,
+                message: '한글로 입력해주세요.',
               },
             })}
+            onBlur={onBlurName}
           />
         </DataContainer>
         <DataContainer>
           <label>생년월일</label>
-          {(errors.birthYear || errors.birthMonth || errors.birtyDay) &&
-            ((errors.birthYear?.type || errors.birthMonth?.type || errors.birtyDay?.type) === 'required' ? (
+          {birthValue.error === 'empty' ? (
+            <Caution>{birthValue.message}</Caution>
+          ) : (
+            (errors.birthYear || errors.birthMonth || errors.birthDay) &&
+            ((errors.birthYear?.type || errors.birthMonth?.type || errors.birthDay?.type) === 'required' ? (
               <Caution>필수 입력 항목입니다.</Caution>
-            ) : (errors.birthYear?.type || errors.birthMonth?.type || errors.birtyDay?.type) === 'max' ||
-              (errors.birthYear?.type || errors.birthMonth?.type || errors.birtyDay?.type) === 'min' ? (
-              <Caution>날짜를 정확히 입력해주세요.</Caution>
+            ) : (errors.birthYear?.type || errors.birthMonth?.type || errors.birthDay?.type) === 'max' ||
+              (errors.birthYear?.type || errors.birthMonth?.type || errors.birthDay?.type) === 'min' ? (
+              <Caution>생년월일을 다시 확인해주세요.</Caution>
             ) : (
               <></>
-            ))}
+            ))
+          )}
 
           <div className="birth">
             {birth.map(({ date, placeholder, min, max }, index) => {
@@ -166,13 +240,14 @@ const SignUp = () => {
                     required: true,
                     min: {
                       value: min,
-                      message: '날짜를 정확히 입력해주세요.',
+                      message: '생년월일을 다시 확인해주세요.',
                     },
                     max: {
                       value: max,
-                      message: '날짜를 정확히 입력해주세요.',
+                      message: '생년월일을 다시 확인해주세요.',
                     },
                   })}
+                  onBlur={onBlurBirth}
                 />
               );
             })}
