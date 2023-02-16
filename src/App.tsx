@@ -42,6 +42,10 @@ export const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     color: #000;
   }
+
+  li { 
+    list-style: none; 
+  }
 `;
 
 const App = () => {
