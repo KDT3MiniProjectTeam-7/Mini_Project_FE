@@ -11,7 +11,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
       annualFee: 10000,
     },
     {
@@ -21,7 +21,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditAXKD3X.png',
-      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
+      benefits: ['주차앱 6천원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천원 캐시백'],
       annualFee: 5000,
     },
     {
@@ -31,7 +31,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://vertical.pstatic.net/vertical-cardad/creatives/SK/4056/SK_4056_hor.PNG',
-      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
+      benefits: ['주차앱 6천원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천원 캐시백'],
       annualFee: 200000,
     },
     {
@@ -41,7 +41,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://vertical.pstatic.net/vertical-cardad/creatives/LO/10227/LO_10227_20230131-123810_ver.png',
-      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
       annualFee: 15000,
     },
     {
@@ -51,7 +51,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
-      benefits: ['전기차 충전요금 10~40% 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
+      benefits: ['전기차 충전요금 10~40% 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천원 캐시백'],
       annualFee: 10000,
     },
     {
@@ -61,7 +61,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
       annualFee: 10000,
     },
     {
@@ -71,7 +71,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
       annualFee: 18000,
     },
   ];
@@ -154,7 +154,7 @@ const Fee = styled.dl`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  width: 95px;
+  width: 100px;
   height: 70px;
 
   font-size: 12px;
