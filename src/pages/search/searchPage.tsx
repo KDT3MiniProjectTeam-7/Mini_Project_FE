@@ -97,9 +97,8 @@ const Container = styled.main`
   }
   h4 {
     margin-bottom: 20px;
-    color: #a2a5a6;
+    color: #505a66;
     font-size: 13px;
-    font-weight: 700;
   }
 `;
 
@@ -158,7 +157,7 @@ const RecentKeywords = styled.section`
     color: #5b5c5e;
 
     &.deleteAll {
-      color: #8a8b8b;
+      color: #505a66;
       font-size: 13px;
     }
   }
