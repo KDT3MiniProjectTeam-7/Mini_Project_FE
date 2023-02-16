@@ -158,7 +158,7 @@ const CompanyImage = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
+  width: 50px;
   min-width: 50px;
   height: 40px;
   margin-right: 20px;

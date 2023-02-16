@@ -122,8 +122,8 @@ const Thumbnail = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  min-width: 40px;
+  width: 0px;
+  min-width: 50px;
   height: 40px;
   margin-right: 20px;
 
