@@ -37,50 +37,48 @@ const Search = () => {
   };
 
   return (
-    <>
-      <Container>
-        <SearchBox />
-        <RecentProducts>
-          <h4>최근에 자세히 봤던</h4>
-          <DetailLink to={`/detail/:category/:id`}>
-            <div>
-              <span className="history">
-                <BiHistory />
-              </span>
-              상품명
-            </div>
-            <div className="info">
-              상세정보
-              <span className="move">
-                <IoChevronForwardOutline />
-              </span>
-            </div>
-          </DetailLink>
-        </RecentProducts>
-        <RecentKeywords>
-          <h4>내가 찾아봤던</h4>
-          {savedKeyword.length !== 0 ? (
-            <>
-              <ol>
-                {savedKeyword.map((list) => (
-                  <li key={list}>
-                    <SearchLink to={`/search/${list}`}>{list}</SearchLink>
-                    <button onClick={handleDeleteKeyword}>
-                      <TfiClose />
-                    </button>
-                  </li>
-                ))}
-              </ol>
-              <button className="deleteAll" onClick={handleDeleteKeywordAll}>
-                전체삭제
-              </button>
-            </>
-          ) : (
-            <p>최근 찾아봤던 내역이 없습니다.</p>
-          )}
-        </RecentKeywords>
-      </Container>
-    </>
+    <Container>
+      <SearchBox />
+      <RecentProducts>
+        <h4>최근에 자세히 봤던</h4>
+        <DetailLink to={`/detail/:category/:id`}>
+          <div>
+            <span className="history">
+              <BiHistory />
+            </span>
+            상품명
+          </div>
+          <div className="info">
+            상세정보
+            <span className="move">
+              <IoChevronForwardOutline />
+            </span>
+          </div>
+        </DetailLink>
+      </RecentProducts>
+      <RecentKeywords>
+        <h4>내가 찾아봤던</h4>
+        {savedKeyword.length !== 0 ? (
+          <>
+            <ol>
+              {savedKeyword.map((list) => (
+                <li key={list}>
+                  <SearchLink to={`/search/${list}`}>{list}</SearchLink>
+                  <button onClick={handleDeleteKeyword}>
+                    <TfiClose />
+                  </button>
+                </li>
+              ))}
+            </ol>
+            <button className="deleteAll" onClick={handleDeleteKeywordAll}>
+              전체삭제
+            </button>
+          </>
+        ) : (
+          <p>최근 찾아봤던 내역이 없습니다.</p>
+        )}
+      </RecentKeywords>
+    </Container>
   );
 };
 

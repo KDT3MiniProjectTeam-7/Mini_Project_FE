@@ -3,15 +3,13 @@ import styled from 'styled-components';
 
 const CategoryTab = ({ tabIndex, setTabIndex, categoryArr }) => {
   return (
-    <>
-      <Container>
-        {categoryArr.map((list, index) => (
-          <li key={list.title} className={index === tabIndex ? 'clicked' : ''} onClick={() => setTabIndex(index)}>
-            {list.title}
-          </li>
-        ))}
-      </Container>
-    </>
+    <Container>
+      {categoryArr.map((list, index) => (
+        <li key={list.title} className={index === tabIndex ? 'clicked' : ''} onClick={() => setTabIndex(index)}>
+          {list.title}
+        </li>
+      ))}
+    </Container>
   );
 };
 

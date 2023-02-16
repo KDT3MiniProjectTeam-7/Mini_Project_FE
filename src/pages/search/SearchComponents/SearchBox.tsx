@@ -41,24 +41,22 @@ const SearchBox = () => {
   };
 
   return (
-    <>
-      <Container onSubmit={handleSubmit} className={findResultsPage ? 'results' : ''}>
-        {findResultsPage ? (
-          <IoChevronBackOutline size="22" color="#353D4A" onClick={handleBack} style={{ marginLeft: '-8px' }} />
+    <Container onSubmit={handleSubmit} className={findResultsPage ? 'results' : ''}>
+      {findResultsPage ? (
+        <IoChevronBackOutline size="22" color="#353D4A" onClick={handleBack} style={{ marginLeft: '-8px' }} />
+      ) : null}
+      <div>
+        <span className="search">
+          <BiSearch />
+        </span>
+        <input type="text" placeholder="필요한 상품을 찾아보세요" value={keyword} onChange={handleInputChange} />
+        {keyword !== '' ? (
+          <button type="button" className="delete" onClick={handleDeleteBtn}>
+            <TiDelete />
+          </button>
         ) : null}
-        <div>
-          <span className="search">
-            <BiSearch />
-          </span>
-          <input type="text" placeholder="필요한 상품을 찾아보세요" value={keyword} onChange={handleInputChange} />
-          {keyword !== '' ? (
-            <button type="button" className="delete" onClick={handleDeleteBtn}>
-              <TiDelete />
-            </button>
-          ) : null}
-        </div>
-      </Container>
-    </>
+      </div>
+    </Container>
   );
 };
 

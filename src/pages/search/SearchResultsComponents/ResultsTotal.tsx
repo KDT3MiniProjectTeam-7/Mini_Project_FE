@@ -25,64 +25,52 @@ const ResultsTotal = () => {
   ];
 
   return (
-    <>
-      <Container>
-        <Card>
-          <div>
-            <h3>카드</h3>
-            <button className="viewAll">전체보기</button>
-          </div>
-          <ul>
-            <li>
-              <h4>상품명</h4>
-              <img src="#" alt="상품명 카드이미지" />
-              <p>혜택</p>
-            </li>
-          </ul>
-        </Card>
-        <Loan>
-          <div>
-            <h3>대출</h3>
-            <button className="viewAll">전체보기</button>
-          </div>
-          <ul>
-            <li>
-              <h4>상품명</h4>
-              <img src="#" alt="상품명 은행로고 이미지" />
-              <p>최저 4.75%</p>
-            </li>
-          </ul>
-        </Loan>
-        <Savings>
-          <div>
-            <h3>예적금</h3>
-            <button className="viewAll">전체보기</button>
-          </div>
-          <ul>
-            <li>
-              <h4>상품명</h4>
-              <img src="#" alt="상품명 은행로고 이미지" />
-              <p>기본 4.75%</p>
-              <p>최고 4.75%</p>
-            </li>
-          </ul>
-        </Savings>
-        <Subcription>
-          <div>
-            <h3>청약</h3>
-            <button className="viewAll">전체보기</button>
-          </div>
-          <ul>
-            <li>
-              <h4>상품명</h4>
-              <strong>은행명</strong>
-              <img src="#" alt="상품명 은행로고 이미지" />
-              <p>최저 4.75%</p>
-            </li>
-          </ul>
-        </Subcription>
-      </Container>
-    </>
+    <Container>
+      <Card>
+        <h3>대출</h3>
+        <ul>
+          <li>
+            <h4>상품명</h4>
+            <img src="#" alt="상품명 은행로고 이미지" />
+            <p>최저 4.75%</p>
+          </li>
+        </ul>
+        <button className="viewAll">더보기</button>
+      </Card>
+      <Loan>
+        <h3>대출</h3>
+        <ul>
+          <li>
+            <h4>상품명</h4>
+            <img src="#" alt="상품명 은행로고 이미지" />
+            <p>최저 4.75%</p>
+          </li>
+        </ul>
+        <button className="viewAll">더보기</button>
+      </Loan>
+      <Savings>
+        <h3>대출</h3>
+        <ul>
+          <li>
+            <h4>상품명</h4>
+            <img src="#" alt="상품명 은행로고 이미지" />
+            <p>최저 4.75%</p>
+          </li>
+        </ul>
+        <button className="viewAll">더보기</button>
+      </Savings>
+      <Subcription>
+        <h3>대출</h3>
+        <ul>
+          <li>
+            <h4>상품명</h4>
+            <img src="#" alt="상품명 은행로고 이미지" />
+            <p>최저 4.75%</p>
+          </li>
+        </ul>
+        <button className="viewAll">더보기</button>
+      </Subcription>
+    </Container>
   );
 };
 const Container = styled.div`

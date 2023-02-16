@@ -11,21 +11,19 @@ import ResultsSubscription from './SearchResultsComponents/ResultsSubscription';
 const SearchResults = () => {
   const [tabIndex, setTabIndex] = useState(0);
   const [categoryArr, setCategoryArr] = useState([
-    { title: '통합', content: <ResultsTotal /> },
-    { title: '카드', content: <ResultsCard /> },
-    { title: '대출', content: <ResultsLoan /> },
-    { title: '예적금', content: <ResultsSavings /> },
-    { title: '청약', content: <ResultsSubscription /> },
+    { category: 'total', title: '통합', content: <ResultsTotal /> },
+    { category: 'card', title: '카드', content: <ResultsCard /> },
+    { category: 'loan', title: '대출', content: <ResultsLoan /> },
+    { category: 'savings', title: '예적금', content: <ResultsSavings /> },
+    { category: 'subscription', title: '청약', content: <ResultsSubscription /> },
   ]);
 
   return (
-    <>
-      <Container>
-        <SearchBox />
-        <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={categoryArr} />
-        <CategoryDesc>{categoryArr[tabIndex].content}</CategoryDesc>
-      </Container>
-    </>
+    <Container>
+      <SearchBox />
+      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={categoryArr} />
+      <CategoryDesc>{categoryArr[tabIndex].content}</CategoryDesc>
+    </Container>
   );
 };
 

@@ -1,9 +1,9 @@
+import styled from 'styled-components';
+
 const ResultsSavings = () => {
-  return (
-    <>
-      <main>ResultsSavings</main>
-    </>
-  );
+  return <Container></Container>;
 };
+
+const Container = styled.div``;
 
 export default ResultsSavings;
