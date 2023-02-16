@@ -9,11 +9,13 @@ const Card = () => {
 
   // 데이터는 일단 목업데이터
   const data = {
-    category: 'card',
-    productTitle: '신한카드 Everywhere',
-    bankName: '신한은행',
-    productImageUrl: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-    applicationUrl: 'https://www.shinhancard.com/pconts/html/card/apply/credit/1219683_2207.html',
+    productId: 1,
+    category: 'CARD',
+    productName: '신한카드 EVerywhere',
+    companyName: '신한카드',
+    companyImage: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
+    productURL: 'https://www.shinhancard.com/pconts/html/card/apply/credit/1219683_2207.html',
+    thumbnail: null,
     benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
     annualFee: 22000,
   };
@@ -21,9 +23,9 @@ const Card = () => {
   return (
     <>
       <IntroContainer>
-        <p>{data.bankName}</p>
-        <img src={data.productImageUrl} alt="cardImage" />
-        <h1>{data.productTitle}</h1>
+        <p>{data.companyName}</p>
+        <img src={data.companyImage} alt="cardImage" />
+        <h1>{data.productName}</h1>
         <h2>파이낸스 세븐이 추천하는 최고의 혜택</h2>
       </IntroContainer>
       <BenefitContainer>
@@ -80,7 +82,7 @@ const Card = () => {
           <DescriptionData />
         </DescriptionContainer>
       )}
-      <Link to={data.applicationUrl}>
+      <Link to={data.productURL}>
         <SubmitButton>온라인 신청</SubmitButton>
       </Link>
     </>
@@ -170,7 +172,7 @@ const SubmitButton = styled.button`
   font-size: 17px;
   background-color: rgb(14, 118, 255);
   border: none;
-  border-radius: 15px;
+  border-radius: 20px;
   cursor: pointer;
 `;
 export default Card;

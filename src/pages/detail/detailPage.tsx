@@ -3,6 +3,7 @@ import Card from './Card';
 import Loan from './Loan';
 import Subscription from './Subscription';
 import Savings from './Savings';
+import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
 //각 카테고리별로 레이아웃 제작후 detailPage에 어떤 카테고리 띄울지 결정
@@ -30,7 +31,11 @@ const Detail = () => {
       alert('카테고리를 표시해주세요.');
   }
 
-  return <main>{DetailPage}</main>;
+  return <MainContainer>{DetailPage}</MainContainer>;
 };
+
+const MainContainer = styled.main`
+  padding-top: 30px;
+`;
 
 export default Detail;
