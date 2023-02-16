@@ -156,7 +156,6 @@ const Fee = styled.dl`
   justify-content: center;
   align-items: flex-end;
   width: 100px;
-  height: 70px;
 
   font-size: 10px;
 

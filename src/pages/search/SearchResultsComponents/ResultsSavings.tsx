@@ -66,25 +66,94 @@ const ResultsSavings = () => {
               <img src={list.companyImage} alt={`${list.companyName} 로고`} />
             </CompanyImage>
             <Desc>
-              <dt className="companyName">{list.companyName}</dt>
-              <dd className="productname">{list.productName}</dd>
-              <dd>최고 연 {list.primeRate}%</dd>
-              <dd>기본 {list.basicRate}%</dd>
+              <h3 className="companyName">{list.companyName}</h3>
+              <p className="productname">{list.productName}</p>
             </Desc>
           </div>
+          <Rate>
+            <strong className="prime">최고 연 {list.primeRate}%</strong>
+            <span className="basic">기본 {list.basicRate}%</span>
+          </Rate>
         </li>
       ))}
     </Container>
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  padding: 30px 20px;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    > div {
+      display: flex;
+    }
+
+    & + li {
+      margin-top: 40px;
+    }
+  }
+`;
+
 const CompanyImage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  min-width: 50px;
+  height: 40px;
+  margin-right: 20px;
+
   img {
-    max-width: 40px;
+    max-width: 50px;
     max-height: 40px;
   }
 `;
-const Desc = styled.dl``;
+
+const Desc = styled.dl`
+  display: flex;
+  flex-direction: column;
+
+  margin-right: 20px;
+
+  .productname {
+    order: 1;
+    margin-bottom: 5px;
+    color: #5e6675;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .companyName {
+    order: 2;
+    color: #676f7b;
+    font-size: 10.5px;
+    font-weight: 500;
+  }
+`;
+
+const Rate = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: right;
+  width: 120px;
+
+  .prime {
+    color: #4880ee;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: right;
+  }
+
+  .basic {
+    color: #676f7b;
+    font-size: 10.5px;
+  }
+`;
 
 export default ResultsSavings;
