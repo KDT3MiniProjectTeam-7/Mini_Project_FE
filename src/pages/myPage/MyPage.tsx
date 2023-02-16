@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Container } from '../intro/Intro';
+import { Container } from '../../common/style/style';
 
 const MyPage = () => {
   const user = {
@@ -41,7 +41,7 @@ const User = styled.div`
   background-color: whitesmoke;
   width: 100%;
   height: 100px;
-  border-radius: 8px;
+  border-radius: 20px;
   font-size: 16px;
   display: flex;
   justify-content: space-between;
@@ -75,7 +75,7 @@ const Interest = styled(User)`
     width: auto;
     height: 20px;
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 20px;
     background-color: gainsboro;
   }
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Container, Link } from '../intro/Intro';
-import { LoginBox as BoxForm, Input, Submit } from '../login/Login';
+import { BoxForm, Container, LinkForm as Link, InputForm as Input } from '../../common/style/style';
+import { Submit } from '../login/Login';
 
 const SignUp = () => {
   const signUpItem = [
@@ -46,9 +46,7 @@ const SignUp = () => {
               <Input type="number" placeholder="일" min="1" max="31" />
             </div>
           </DataContainer>
-          <Link to={'/'}>
-            <Submit type="submit" value="가입하기" />
-          </Link>
+          <Submit type="submit" value="가입하기" />
         </SignUpBox>
       </Container>
     </main>
