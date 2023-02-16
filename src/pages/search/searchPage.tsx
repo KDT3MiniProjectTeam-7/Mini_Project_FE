@@ -105,7 +105,7 @@ const Search = () => {
             <ol>
               {data.map((list) => (
                 <li key={list.searchId}>
-                  <SearchLink to={`/search/${list}`}>{list.searchContent}</SearchLink>
+                  <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
                   <button onClick={handleDeleteKeyword}>
                     <TfiClose />
                   </button>
