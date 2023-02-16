@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/Bi';
 import { TiDeleteOutline } from 'react-icons/ti';
 
 const SearchBox = () => {
+  const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
@@ -14,6 +15,9 @@ const SearchBox = () => {
   // 기존 검색어에 있으면 검색어 수정
 
   // 자동완성 기능
+
+  const findResultsPage = location.pathname.slice(0, 8) === '/search/';
+  console.log(findResultsPage);
 
   useEffect(() => {
     params.keywords !== undefined ? setKeyword(params.keywords) : null;
@@ -34,7 +38,7 @@ const SearchBox = () => {
 
   return (
     <>
-      <Container onSubmit={handleSubmit}>
+      <Container onSubmit={handleSubmit} className={findResultsPage ? 'resultsMargin' : ''}>
         <span className="search">
           <BiSearch />
         </span>
@@ -55,6 +59,10 @@ const Container = styled.form`
   max-width: 728px;
   padding: 14px 0;
   background-color: #fff;
+
+  &.resultsMargin {
+    margin: 0 20px;
+  }
 
   button {
     cursor: pointer;

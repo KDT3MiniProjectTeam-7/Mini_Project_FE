@@ -35,7 +35,10 @@ const SearchResults = () => {
   );
 };
 
-const Container = styled.main`
+const Container = styled.div`
+  max-width: 768px;
+  box-sizing: border-box;
+  margin: 0 auto;
   margin-top: 120px;
 `;
 const CategoryTab = styled.ol`
@@ -43,6 +46,7 @@ const CategoryTab = styled.ol`
   justify-content: space-between;
   gap: 13px;
   border-bottom: 1px solid #ebebeb;
+  padding: 0 20px;
 
   font-size: 14px;
   font-weight: 500;
