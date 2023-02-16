@@ -12,7 +12,7 @@ import SignUp from './pages/signUp/SignUp';
 import MyPage from './pages/myPage/MyPage';
 import Search from './pages/search/SearchPage';
 import ALL from './pages/all/allPage';
-import ResultsTotal from './pages/search/ResultsTotalPage';
+import SearchResults from './pages/search/SearchResultsPage';
 import Survey from './pages/survey/Survey';
 import Detail from './pages/detail/detailPage';
 
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       { path: '/signup', element: <SignUp /> },
       { path: '/mypage', element: <MyPage /> },
       { path: '/search', element: <Search /> },
-      { path: '/search/:keywords', element: <ResultsTotal /> },
+      { path: '/search/:keywords', element: <SearchResults /> },
       { path: '/survey', element: <Survey /> },
       { path: '/all', element: <ALL /> },
       { path: '/detail/:category/:id', element: <Detail /> },
