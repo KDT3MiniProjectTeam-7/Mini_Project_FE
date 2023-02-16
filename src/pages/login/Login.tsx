@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Container, LogoForm, InputForm as Input, LinkForm as Link, BoxForm } from '../../common/style/style';
+import { Container, LogoForm, InputForm as Input, LinkForm as Link, BoxForm, Caution } from '../../common/style/style';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -27,9 +27,9 @@ const Login = () => {
         <Logo />
         <BoxForm onSubmit={handleSubmit(onSubmit)}>
           {errors.email && errors.email?.type === 'required' ? (
-            <small>Email을 입력해주세요.</small>
+            <Caution>Email을 입력해주세요.</Caution>
           ) : errors.email && errors.email?.type === 'pattern' ? (
-            <small>Email 형식으로 입력해주세요.</small>
+            <Caution>Email을 정확히 입력해주세요.</Caution>
           ) : (
             <></>
           )}
@@ -40,12 +40,12 @@ const Login = () => {
             {...register('email', {
               required: true,
               pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: 'Email 형식에 맞지 않습니다.',
+                value: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,5}$/i,
+                message: 'Email을 정확히 입력해주세요.',
               },
             })}
           />
-          {errors.password && <small>비밀번호를 입력해주세요.</small>}
+          {errors.password && <Caution>비밀번호를 입력해주세요.</Caution>}
           <Input
             id="password"
             type="password"
