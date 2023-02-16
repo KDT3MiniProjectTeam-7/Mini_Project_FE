@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { BiHistory } from 'react-icons/Bi';
@@ -7,23 +7,54 @@ import { TfiClose } from 'react-icons/tfi';
 import SearchBox from './SearchComponents/SearchBox';
 
 const Search = () => {
-  const [savedKeyword, setSavedKeyword] = useState([
-    'dd',
-    '주택',
-    '적금',
-    '카드',
-    '쇼핑',
-    '고고..',
-    '화이팅',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-  ]);
+  const data = [
+    {
+      searchId: 1,
+      searchContent: '주택',
+    },
+    {
+      searchId: 2,
+      searchContent: '청년',
+    },
+    {
+      searchId: 3,
+      searchContent: '청년',
+    },
+    {
+      searchId: 4,
+      searchContent: '청년',
+    },
+    {
+      searchId: 5,
+      searchContent: '청년',
+    },
+    {
+      searchId: 6,
+      searchContent: '청년',
+    },
+    {
+      searchId: 7,
+      searchContent: '청년',
+    },
+    {
+      searchId: 8,
+      searchContent: '청년',
+    },
+    {
+      searchId: 9,
+      searchContent: '청년',
+    },
+    {
+      searchId: 10,
+      searchContent: '청년',
+    },
+    {
+      searchId: 11,
+      searchContent: '청년',
+    },
+  ];
+
+  const [savedKeyword, setSavedKeyword] = useState([]);
 
   // 최근검색어
   const handleDeleteKeyword = () => {
@@ -57,13 +88,13 @@ const Search = () => {
         </DetailLink>
       </RecentProducts>
       <RecentKeywords>
-        <h4>내가 찾아봤던</h4>
-        {savedKeyword.length !== 0 ? (
+        <h4>최근에 찾아봤던</h4>
+        {data.length !== 0 ? (
           <>
             <ol>
-              {savedKeyword.map((list) => (
-                <li key={list}>
-                  <SearchLink to={`/search/${list}`}>{list}</SearchLink>
+              {data.map((list) => (
+                <li key={list.searchId}>
+                  <SearchLink to={`/search/${list}`}>{list.searchContent}</SearchLink>
                   <button onClick={handleDeleteKeyword}>
                     <TfiClose />
                   </button>
