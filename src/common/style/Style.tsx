@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
 
   :root {
-    --main-color : #3f6cd4;
+    --main-color : #0e76ff;
     --lightblue-color : #e0ebfb;
     --black-color : #111111;
     --gray-color : #666666;

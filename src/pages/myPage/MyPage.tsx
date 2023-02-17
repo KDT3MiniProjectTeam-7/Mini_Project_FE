@@ -1,101 +1,136 @@
 import styled from 'styled-components';
-import { Container } from '../../common/style/Style';
 
 const MyPage = () => {
   const user = {
     name: '김효진',
+    email:'hanssan@naver.com',
+    birth: 19960713,
+    age:28,
     favorite: ['쇼핑', '여행', '대중교통'],
   };
   return (
     <main>
-      <Container>
-        <User>
-          <div className="name">{user.name} 님</div>
-          <Button className="change">
-            회원정보
-            <br />
-            수정하기
-          </Button>
-        </User>
-        <Interest>
-          <div className="itemSection">
-            {user.favorite.map((item, index) => (
-              <div className="item" key={index}>
-                {item}
-              </div>
-            ))}
+      <User>
+        <div>
+          <div className="name">
+            <span>{user.name}</span> 님
           </div>
-          <Button>
-            테스트
-            <br />
-            다시하기
+          
+          <Button className="change">
+            수정
           </Button>
-        </Interest>
-        <Logout>로그아웃</Logout>
-      </Container>
+        </div>
+
+        <div>
+          <p><span>{user.email}</span></p>
+          <p><span>{user.birth}</span> <span>(만{user.age}세)</span></p>
+        </div>  
+      </User>
+
+      <Interest>
+        <div>
+          <p>{user.name}님의 관심 목록</p>
+          <Button> 테스트 다시하기 </Button>
+        </div>
+        
+        <div className="itemSection">
+          {user.favorite.map((item, index) => (
+            <div className="item" key={index}>
+              {item}
+            </div>
+          ))}
+        </div>
+      </Interest>
+
+      <Logout>로그아웃</Logout>
     </main>
   );
 };
 
 const User = styled.div`
-  background-color: whitesmoke;
-  width: 100%;
-  height: 100px;
-  border-radius: 20px;
-  font-size: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  box-sizing: border-box;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
 
-  .name {
-    width: 80%;
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &>div:first-child {
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:10px;
+
+    .name { 
+      display:flex;
+      font-size:var(--font-xl);
+  
+      span { 
+        color: var(--main-color);
+      }
+    }
   }
+
+  &>div:last-child {
+    margin-top:5px;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    font-size:12px;
+    color:var(--gray-color);
+  }
+
+  
 `;
 
-const Interest = styled(User)`
-  height: 200px;
-
-  .itemSection {
-    display: flex;
-    gap: 20px;
-    height: 180px;
+const Interest = styled.div`
+  width:100%;
+  border:1px solid var(--lightgray-color);
+  border-radius:10px;
+  padding:20px 10px;
+  margin:30px 0 ;
+ 
+  &>div:first-child { 
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:14px;
   }
 
-  .item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: 20px;
-    padding: 10px;
-    border-radius: 20px;
-    background-color: gainsboro;
+  &>div:last-child { 
+    margin-top:20px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    div {
+      padding:5px 10px;
+      background:#6e74b3;
+      color:#fff;
+      font-size:14px;
+      border-radius:20px;
+    }
   }
 `;
 
 const Button = styled.button`
-  width: 80px;
-  height: 80px;
-  font-size: 14px;
-  border: none;
-  border-radius: 20px;
-
-  :hover {
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.1);
-  }
+  font-size: var(--font-s);
+  color:#fff;
+  height:30px;
+  border-radius:20px;
+  border:none;
+  background: var(--main-color);
+  padding:0 15px;
 `;
 
 const Logout = styled(Button)`
   width: 100%;
-  background-color: whitesmoke;
+  background-color:var(--lightgray-color);
+  color:var(--black-color);
   height: 40px;
+  font-size:14px;
+  font-weight:500;
 `;
 
 export default MyPage;
