@@ -103,14 +103,18 @@ const Search = () => {
         {data.length !== 0 ? (
           <>
             <ol>
-              {data.map((list) => (
-                <li key={list.searchId}>
-                  <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
-                  <button onClick={handleDeleteKeyword}>
-                    <TfiClose />
-                  </button>
-                </li>
-              ))}
+              {data
+                .sort((a, b) => {
+                  return +new Date(b.createdAt) - +new Date(a.createdAt);
+                })
+                .map((list) => (
+                  <li key={list.searchId}>
+                    <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
+                    <button onClick={handleDeleteKeyword}>
+                      <TfiClose />
+                    </button>
+                  </li>
+                ))}
             </ol>
             <button className="deleteAll" onClick={handleDeleteKeywordAll}>
               전체삭제
