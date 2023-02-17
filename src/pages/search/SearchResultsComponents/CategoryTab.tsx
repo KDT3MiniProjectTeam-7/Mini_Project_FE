@@ -1,10 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 
-const CategoryTab = ({ tabIndex, setTabIndex, categoryArr }) => {
+interface TabProps {
+  tabIndex: number;
+  setTabIndex: (index: number) => void;
+  categoryArr: { category: string; title: string; content: JSX.Element }[];
+}
+
+const CategoryTab = ({ tabIndex, setTabIndex, categoryArr }: TabProps) => {
   return (
     <Container>
-      {categoryArr.map((list, index) => (
+      {categoryArr.map((list, index: number) => (
         <li key={list.title} className={index === tabIndex ? 'clicked' : ''} onClick={() => setTabIndex(index)}>
           {list.title}
         </li>
