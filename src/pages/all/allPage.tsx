@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
+import CategoryTab from '../search/SearchResultsComponents/CategoryTab';
 
 const ALL = () => {
-  const [category, setCategory] = useState('card');
+  const [tabIndex, setTabIndex] = useState(0);
 
   // 현재 select박스에서 선택된 태그들 모아놓음
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   useEffect(() => {
     // 데이터 페칭 여기다 구현.
-  }, [category, selectedTags]);
+  }, [tabIndex, selectedTags]);
 
   // tagOptions에 가능한 모든 태그들 삽입
   const tagOptions = [
@@ -21,59 +22,57 @@ const ALL = () => {
     { value: '백수', label: '백수' },
   ];
 
-  const handleCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCategory(event.target.value);
-  };
+  const [categoryArr, setCategoryArr] = useState([
+    { category: 'card', title: '카드' },
+    { category: 'loan', title: '대출' },
+    { category: 'savings', title: '예적금' },
+    { category: 'subscription', title: '청약' },
+  ]);
 
   return (
-    <Container>
-      <Title>
-        원하시는 상품만 <span>쏙쏙</span> 골라보세요.
-      </Title>
-      <ButtonContainer>
-        <RadioInput type="radio" value="card" name="credit" id="card-type" defaultChecked onChange={handleCategory} />
-        <Label htmlFor="card-type">카드</Label>
-        <RadioInput type="radio" value="loan" name="credit" id="loan-type" onChange={handleCategory} />
-        <Label htmlFor="loan-type">대출</Label>
-        <RadioInput type="radio" value="savings" name="credit" id="savings-type" onChange={handleCategory} />
-        <Label htmlFor="savings-type">예/적금</Label>
-        <RadioInput type="radio" value="subscription" name="credit" id="subscription-type" onChange={handleCategory} />
-        <Label htmlFor="subscription-type">청약</Label>
-      </ButtonContainer>
-      <ButtonContainer>
-        <Select
-          isMulti
-          name="colors"
-          options={tagOptions}
-          onChange={(option) => {
-            let copy: string[] = option.map((tag) => {
-              return tag.value;
-            });
-            setSelectedTags(copy);
-          }}
-          className="basic-multi-select"
-          classNamePrefix="select"
-          placeholder="원하시는 태그를 최대 3개 선택해주세요."
-          isOptionDisabled={() => selectedTags.length >= 3}
-        />
-      </ButtonContainer>
-      <ContainerBox>
-        <CardContainer>
-          <p>
-            <span>신한은행</span>
-            신한카드 플리
-          </p>
-          <img
-            src="https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPLAD26.png"
-            alt="카드 이미지"
+    <>
+      {/* 일단 카테고리 변경될때마다 요청도보내야함. 즉 onchange는 태그와 카테고리에 필요. */}
+      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={categoryArr} />
+      <Container>
+        <Title>
+          원하시는 상품만 <span>쏙쏙</span> 골라보세요.
+        </Title>
+        <ButtonContainer>
+          <Select
+            isMulti
+            name="colors"
+            options={tagOptions}
+            onChange={(option) => {
+              let copy: string[] = option.map((tag) => {
+                return tag.value;
+              });
+              setSelectedTags(copy);
+            }}
+            className="basic-multi-select"
+            classNamePrefix="select"
+            placeholder="원하시는 태그를 최대 3개 선택해주세요."
+            isOptionDisabled={() => selectedTags.length >= 3}
           />
-        </CardContainer>
-      </ContainerBox>
-    </Container>
+        </ButtonContainer>
+        <ContainerBox>
+          <CardContainer>
+            <p>
+              <span>신한은행</span>
+              신한카드 플리
+            </p>
+            <img
+              src="https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPLAD26.png"
+              alt="카드 이미지"
+            />
+          </CardContainer>
+        </ContainerBox>
+      </Container>
+    </>
   );
 };
 
 const Container = styled.main`
+  margin-top: 108px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -82,30 +81,6 @@ const Container = styled.main`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-`;
-
-const RadioInput = styled.input`
-  display: none;
-  &:checked + label {
-    color: red;
-  }
-`;
-
-const Label = styled.label`
-  display: flex;
-  align-items: center;
-  width: auto;
-  height: 35px;
-  padding: 4px 11px;
-  margin: 0 11px;
-  border: 1px solid #ced4da;
-  color: #495057;
-  font-size: 13px;
-  border-radius: 20px;
-  box-shadow: inset 0 0 0 1px #ced4da;
-  background-color: #fff;
-  opacity: 1;
-  cursor: pointer;
 `;
 
 const Title = styled.h1`
