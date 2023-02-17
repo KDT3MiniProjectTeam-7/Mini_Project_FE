@@ -47,7 +47,7 @@ export const GlobalStyle = createGlobalStyle`
     color: #000;
   }
 
-  li { 
+  li {  
     list-style: none; 
   }
 `;
@@ -58,9 +58,9 @@ const App = () => {
     try {
       async function getCart() {
         const data = await axios.get(
-          'https://7d5489f3-36a6-4484-8dbd-23a9b1929ca9.mock.pstmn.io/user/recent-products/cart'
+          'https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart'
         );
-        // console.log(data);
+        console.log(data);
         if (data.status !== 200) {
           throw new Error();
         }

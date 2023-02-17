@@ -22,6 +22,8 @@ const Cart = () => {
       <Title>
         관심있는 상품을 <span>한번</span>에 만나보세요.
       </Title>
+      {/* 임시로 카트 렌더링 되는지만 확인하였습니다. */}
+      {cartItems.length !== 0 && cartItems.map((item) => <p key={item.productId}>{item.productName}</p>)}
     </main>
   );
 };
