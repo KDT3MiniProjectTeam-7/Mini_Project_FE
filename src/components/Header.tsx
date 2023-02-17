@@ -23,7 +23,7 @@ const Header = () => {
     <>
       <HeaderComponents>
         <Logo>파이낸스세븐</Logo>
-        <StyledLink to={'/wish'}>
+        <StyledLink to={'/cart'}>
           <AiOutlineHeart size="24" color="#424242" />
           <WishLength>{wish}</WishLength>
         </StyledLink>
