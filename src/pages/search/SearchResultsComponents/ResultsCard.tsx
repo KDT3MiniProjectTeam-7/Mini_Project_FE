@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import NoResults from '../SearchComponents/NoResults';
 
 const ResultsCard = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
       annualFee: 10000,
     },
     {
@@ -21,7 +22,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditAXKD3X.png',
-      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
+      benefits: ['주차앱 6천원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천원 캐시백'],
       annualFee: 5000,
     },
     {
@@ -31,7 +32,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://vertical.pstatic.net/vertical-cardad/creatives/SK/4056/SK_4056_hor.PNG',
-      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
+      benefits: ['주차앱 6천원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천원 캐시백'],
       annualFee: 200000,
     },
     {
@@ -41,7 +42,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://vertical.pstatic.net/vertical-cardad/creatives/LO/10227/LO_10227_20230131-123810_ver.png',
-      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
       annualFee: 15000,
     },
     {
@@ -51,7 +52,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
-      benefits: ['전기차 충전요금 10~40% 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천 원 캐시백'],
+      benefits: ['전기차 충전요금 10~40% 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천원 캐시백'],
       annualFee: 10000,
     },
     {
@@ -61,7 +62,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
       annualFee: 10000,
     },
     {
@@ -71,7 +72,7 @@ const ResultsCard = () => {
       companyName: '신한은행',
       companyImage: 'image/logo/shinhan.png',
       thumbnail: 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천 원 캐시백'],
+      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
       annualFee: 18000,
     },
   ];
@@ -82,23 +83,27 @@ const ResultsCard = () => {
 
   return (
     <Container>
-      {data.map((list) => (
-        <li key={list.productId} onClick={() => handleLi(list.productId)}>
-          <div>
-            <Thumbnail>
-              <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
-            </Thumbnail>
-            <Desc>
-              <h3 className="benefits">{list.benefits[0]}</h3>
-              <p className="productname">{list.productName}</p>
-            </Desc>
-          </div>
-          <Fee>
-            <dt>연회비</dt>
-            <dd>{list.annualFee.toLocaleString()}원</dd>
-          </Fee>
-        </li>
-      ))}
+      {data.length !== 0 ? (
+        data.map((list) => (
+          <li key={list.productId} onClick={() => handleLi(list.productId)}>
+            <div>
+              <Thumbnail>
+                <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
+              </Thumbnail>
+              <Desc>
+                <h3 className="benefits">{list.benefits[0]}</h3>
+                <p className="productname">{list.productName}</p>
+              </Desc>
+            </div>
+            <Fee>
+              <dt>연회비</dt>
+              <dd>{list.annualFee.toLocaleString()}원</dd>
+            </Fee>
+          </li>
+        ))
+      ) : (
+        <NoResults />
+      )}
     </Container>
   );
 };
@@ -113,7 +118,7 @@ const Container = styled.ol`
     width: 100%;
 
     & + li {
-      margin-top: 15px;
+      margin-top: 40px;
     }
   }
 `;
@@ -122,8 +127,8 @@ const Thumbnail = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  min-width: 40px;
+  width: 0px;
+  min-width: 50px;
   height: 40px;
   margin-right: 20px;
 
@@ -139,13 +144,14 @@ const Desc = styled.div`
   .benefits {
     margin-bottom: 5px;
     color: #5e6675;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1.4;
   }
 
   .productname {
-    color: #6d7582;
-    font-size: 12px;
+    color: #676f7b;
+    font-size: 10.5px;
   }
 `;
 
@@ -154,10 +160,9 @@ const Fee = styled.dl`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  width: 95px;
-  height: 70px;
+  width: 100px;
 
-  font-size: 12px;
+  font-size: 10px;
 
   dd {
     order: 1;
