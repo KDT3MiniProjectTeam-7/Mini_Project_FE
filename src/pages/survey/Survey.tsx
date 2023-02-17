@@ -86,10 +86,19 @@ const Survey = () => {
           page === 3 && (
             <>
               <div>
-                <p>관심분야</p>
+                <p>관심 혜택</p>
                 <div>
-                  <input type="checkbox" id="culture" value="문화생활"/>
-                  <label htmlFor="culture">문화생활</label>
+                  <input type="checkbox" id="movie" value="문화생활"/>
+                  <label htmlFor="movie">영화</label>
+
+                  <input type="checkbox" id="performance" value="문화생활"/>
+                  <label htmlFor="performance">공연</label>
+
+                  <input type="checkbox" id="health" value="헬스케어"/>
+                  <label htmlFor="health">헬스케어</label>
+                  
+                  <input type="checkbox" id="pet" value="반려동물"/>
+                  <label htmlFor="pet">반려동물</label>
 
                   <input type="checkbox" id="shopping" value="쇼핑"/>
                   <label htmlFor="shopping">쇼핑</label>
@@ -99,6 +108,15 @@ const Survey = () => {
                   
                   <input type="checkbox" id="travel" value="여행"/>
                   <label htmlFor="travel">여행</label>
+
+                  <input type="checkbox" id="phone" value="통신"/>
+                  <label htmlFor="phone">통신</label>
+
+                  <input type="checkbox" id="food" value="외식"/>
+                  <label htmlFor="food">외식</label>
+
+                  <input type="checkbox" id="cafe" value="카페 베이커리"/>
+                  <label htmlFor="cafe">카페 베이커리</label>
                 </div>
               </div>
               
@@ -129,6 +147,7 @@ const Container = styled.main`
       display:flex;
       gap:10px;
       margin-top:20px;
+      flex-wrap: wrap;
     }
   
     input[type="number"] {

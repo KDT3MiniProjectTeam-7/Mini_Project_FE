@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'react-redux';
 import App from './App';
@@ -17,8 +16,6 @@ import Survey from './pages/survey/Survey';
 import Detail from './pages/detail/detailPage';
 import Cart from './pages/cart/CartPage';
 import store from './store/store';
-
-const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -37,16 +34,14 @@ const router = createBrowserRouter([
       { path: '/all', element: <ALL /> },
       { path: '/detail/:category/:id', element: <Detail /> },
       { path: '/cart', element: <Cart /> },
+      { path: '/detail/:category/:id', element: <Detail /> },
     ],
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-    <ReactQueryDevtools initialIsOpen={true} />
-  </QueryClientProvider>
+  <>
+  <Provider store={store}><RouterProvider router={router} /></Provider>
+  </>
 );
