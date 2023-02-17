@@ -1,8 +1,16 @@
-import { useState } from "react"
+import axios from "axios";
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 
 const Main = () => {
+  interface data {
+    status : string
+    email : string
+    name : string
+    tag : string[]
+  }
+  
   // toggle state
   const [toggleBtn1, setToggleBtn1] = useState<boolean>(false);
   const [toggleBtn2, setToggleBtn2] = useState<boolean>(false);
@@ -278,10 +286,10 @@ const RecommenSection = styled.section`
     display:flex;
     flex-direction:column;
     gap:10px;
-    transition:1s all;
+    transition:.5s all;
 
     &.showMenu {
-      transition:1s all;
+      transition:.5s all;
       z-index:-1;
       max-height:0 !important;
     }
