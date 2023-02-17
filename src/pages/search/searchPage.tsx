@@ -66,8 +66,9 @@ const Search = () => {
   ];
 
   const [savedKeyword, setSavedKeyword] = useState([]);
+  const [autoSave, setAutoSave] = useState(true);
 
-  // 최근검색어
+  // 삭제
   const handleDeleteKeyword = () => {
     // 검색어 단일삭제 api 요청
   };
@@ -76,6 +77,15 @@ const Search = () => {
     alert('최근 검색어를 모두 삭제하시겠습니까?');
     // 검색어 전체삭제 api 요청
     // 00개 삭제완료 토스트 띄우기
+  };
+
+  // 자동저장
+  const handleAutoSave = () => {
+    if (alert('최근 검색어 저장 기능을\n사용 중지하시겠습니까?')) {
+      setAutoSave((e) => !e);
+    }
+
+    console.log(autoSave);
   };
 
   return (
@@ -116,9 +126,14 @@ const Search = () => {
                   </li>
                 ))}
             </ol>
-            <button className="deleteAll" onClick={handleDeleteKeywordAll}>
-              전체삭제
-            </button>
+            <div>
+              <button className="deleteAll" onClick={handleDeleteKeywordAll}>
+                모두 지우기
+              </button>
+              <button className="autoSave" onClick={handleAutoSave}>
+                자동저장 {autoSave ? '끄기' : '켜기'}
+              </button>
+            </div>
           </>
         ) : (
           <p>최근 찾아봤던 내역이 없습니다.</p>
