@@ -7,22 +7,17 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setCartItems } from './store/cartSlice';
 import { GlobalStyle } from './common/style/Style';
+import { getCart } from './common/api/Api';
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     try {
-      async function getCart() {
-        const data = await axios.get(
-          'https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart'
-        );
-        console.log(data);
-        if (data.status !== 200) {
-          throw new Error();
-        }
+      const getCartData = async () => {
+        const data = await getCart();
         dispatch(setCartItems(data.data.resultData));
-      }
-      getCart();
+      };
+      getCartData();
     } catch (error: any) {
       console.log(`통신 오류: ${error.response}`);
     }
