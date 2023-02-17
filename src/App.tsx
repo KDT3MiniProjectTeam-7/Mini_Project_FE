@@ -3,7 +3,6 @@ import Header from './components/Header';
 import TabBar from './components/TabBar';
 import { ScrollRestoration } from 'react-router-dom';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setCartItems } from './store/cartSlice';
 import { GlobalStyle } from './common/style/Style';
