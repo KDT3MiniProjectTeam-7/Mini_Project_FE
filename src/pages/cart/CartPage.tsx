@@ -12,10 +12,7 @@ import { ReducerType } from '../../store/store';
 // persist로 구현하지않아도, app이나 index에서 불러오고 redux에 넣어두는 과정만 해두면 된다.
 const Cart = () => {
   const cartItems = useSelector<ReducerType, Item[]>((state) => state.cart);
-
-  console.log(cartItems);
   // 상품 넣기 완료.
-
   // 렌더링 단계에서는 카테고리에 맞는 카드 컨테이너를 잘 출력시키면 됨
   return (
     <main>
