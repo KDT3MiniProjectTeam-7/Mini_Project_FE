@@ -82,17 +82,17 @@ const Search = () => {
   //
 
   // 자동저장
-  const handleAutoSave = () => {
-    if (autoSave) {
-      if (alert('최근 검색어 저장 기능을\n사용 중지하시겠습니까?')) {
-        setAutoSave((e) => !e);
-      }
-    } else {
-      if (alert('최근 검색어 저장 기능을\n사용하시겠습니까?')) {
-        setAutoSave((e) => !e);
-      }
-    }
-  };
+  // const handleAutoSave = () => {
+  //   if (autoSave) {
+  //     if (alert('최근 검색어 저장 기능을\n사용 중지하시겠습니까?')) {
+  //       setAutoSave((e) => !e);
+  //     }
+  //   } else {
+  //     if (alert('최근 검색어 저장 기능을\n사용하시겠습니까?')) {
+  //       setAutoSave((e) => !e);
+  //     }
+  //   }
+  // };
   console.log(autoSave);
 
   return (
@@ -147,9 +147,7 @@ const Search = () => {
           <p>검색어 저장 기능이 꺼져있습니다.</p>
         )}
 
-        <button className="autoSave" onClick={handleAutoSave}>
-          자동저장 {autoSave ? '끄기' : '켜기'}
-        </button>
+        <button className="autoSave">자동저장 {autoSave ? '끄기' : '켜기'}</button>
       </RecentKeywords>
     </Container>
   );
