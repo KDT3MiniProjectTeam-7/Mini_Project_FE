@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider } from 'react-redux';
 import App from './App';
 import Error from './components/Error';
@@ -42,6 +41,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <>
-  <Provider store={store}><RouterProvider router={router} /></Provider>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </>
 );
