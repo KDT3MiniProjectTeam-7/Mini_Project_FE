@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import App from './App';
 import Error from './components/Error';
-
 import Main from './pages/main/MainPage';
 import Intro from './pages/intro/Intro';
 import Login from './pages/login/Login';
@@ -13,6 +13,8 @@ import ALL from './pages/all/allPage';
 import SearchResults from './pages/search/SearchResultsPage';
 import Survey from './pages/survey/Survey';
 import Detail from './pages/detail/detailPage';
+import Cart from './pages/cart/CartPage';
+import store from './store/store';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,7 @@ const router = createBrowserRouter([
       { path: '/survey', element: <Survey /> },
       { path: '/all', element: <ALL /> },
       { path: '/detail/:category/:id', element: <Detail /> },
+      { path: '/cart', element: <Cart /> },
       { path: '/detail/:category/:id', element: <Detail /> },
     ],
   },
@@ -38,6 +41,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </>
 );
