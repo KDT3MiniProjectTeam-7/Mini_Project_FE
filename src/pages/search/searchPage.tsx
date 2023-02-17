@@ -79,14 +79,21 @@ const Search = () => {
     // 00개 삭제완료 토스트 띄우기
   };
 
+  //
+
   // 자동저장
   const handleAutoSave = () => {
-    if (alert('최근 검색어 저장 기능을\n사용 중지하시겠습니까?')) {
-      setAutoSave((e) => !e);
+    if (autoSave) {
+      if (alert('최근 검색어 저장 기능을\n사용 중지하시겠습니까?')) {
+        setAutoSave((e) => !e);
+      }
+    } else {
+      if (alert('최근 검색어 저장 기능을\n사용하시겠습니까?')) {
+        setAutoSave((e) => !e);
+      }
     }
-
-    console.log(autoSave);
   };
+  console.log(autoSave);
 
   return (
     <Container>
@@ -109,35 +116,40 @@ const Search = () => {
         </DetailLink>
       </RecentProducts>
       <RecentKeywords>
-        <h4>최근에 찾아봤던</h4>
-        {data.length !== 0 ? (
-          <>
-            <ol>
-              {data
-                .sort((a, b) => {
-                  return +new Date(b.createdAt) - +new Date(a.createdAt);
-                })
-                .map((list) => (
-                  <li key={list.searchId}>
-                    <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
-                    <button onClick={handleDeleteKeyword}>
-                      <TfiClose />
-                    </button>
-                  </li>
-                ))}
-            </ol>
-            <div>
-              <button className="deleteAll" onClick={handleDeleteKeywordAll}>
-                모두 지우기
-              </button>
-              <button className="autoSave" onClick={handleAutoSave}>
-                자동저장 {autoSave ? '끄기' : '켜기'}
-              </button>
-            </div>
-          </>
+        {autoSave ? (
+          data.length !== 0 ? (
+            <>
+              <div>
+                <h4>최근에 찾아봤던</h4>
+                <button className="deleteAll" onClick={handleDeleteKeywordAll}>
+                  모두 지우기
+                </button>
+              </div>
+              <ol>
+                {data
+                  .sort((a, b) => {
+                    return +new Date(b.createdAt) - +new Date(a.createdAt);
+                  })
+                  .map((list) => (
+                    <li key={list.searchId}>
+                      <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
+                      <button onClick={handleDeleteKeyword}>
+                        <TfiClose />
+                      </button>
+                    </li>
+                  ))}
+              </ol>
+            </>
+          ) : (
+            <p>최근 찾아봤던 내역이 없습니다.</p>
+          )
         ) : (
-          <p>최근 찾아봤던 내역이 없습니다.</p>
+          <p>검색어 저장 기능이 꺼져있습니다.</p>
         )}
+
+        <button className="autoSave" onClick={handleAutoSave}>
+          자동저장 {autoSave ? '끄기' : '켜기'}
+        </button>
       </RecentKeywords>
     </Container>
   );
@@ -146,6 +158,7 @@ const Search = () => {
 const Container = styled.main`
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 30px;
 
   button {
@@ -197,6 +210,11 @@ const DetailLink = styled(Link)`
 `;
 
 const RecentKeywords = styled.section`
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+
   li {
     display: flex;
     justify-content: space-between;
