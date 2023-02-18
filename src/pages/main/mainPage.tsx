@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components"
+import { getDataTest } from "../../common/api/Api";
 
 const Main = () => {
   interface data {
@@ -114,6 +115,15 @@ const Main = () => {
     ]
 
   }
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getDataTest()
+      console.log(data)
+    }
+
+    getData()
+  }, []);
 
   return (
     <>
@@ -244,7 +254,7 @@ const Title = styled.h1`
   margin-top:30px;
 
   span {
-    color:rgb(14, 118, 255)
+    color:var(--main-color);
   }
 `
 
@@ -270,8 +280,8 @@ const RecommenSection = styled.section`
       position:absolute;
       width:7px;
       height:7px;
-      border-right:2px solid rgb(14, 118, 255);
-      border-bottom:2px solid rgb(14, 118, 255);
+      border-right:2px solid var(--main-color);
+      border-bottom:2px solid var(--main-color);
       top:50%;
       right:15px;
       transform:translateY(-25%) rotate(225deg);
@@ -472,16 +482,18 @@ const DefaultStateContainer = styled.section`
 
   button {
     margin-top:20px;
-    padding:7px 15px;
-    background:rgb(14,118,255);
+    padding:0 15px;
+    background:var(--main-color);
     border:none;
     border-radius:20px;
+    height:35px;
 
     a {
       display:block;
       color:#fff;
       font-size:15px;
       font-weight:500;
+      line-height:35px;
     }
   }
 `
