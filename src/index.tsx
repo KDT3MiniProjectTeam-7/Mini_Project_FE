@@ -32,7 +32,6 @@ const router = createBrowserRouter([
       { path: '/search', element: <Search /> },
       { path: '/survey', element: <Survey /> },
       { path: '/all', element: <ALL /> },
-      { path: '/cart', element: <Cart /> },
     ],
   },
 
@@ -47,6 +46,7 @@ const router = createBrowserRouter([
       { path: '/signup', element: <SignUp /> },
       { path: '/search/:keywords', element: <SearchResults /> },
       { path: '/detail/:category/:id', element: <Detail /> },
+      { path: '/cart', element: <Cart /> },
     ],
   },
 ]);
