@@ -11,7 +11,6 @@ const TabBar = () => {
 
   useEffect(() => {
     setPathname(location.pathname);
-    console.log('링크 바뀜');
   }, [location.pathname]);
 
   const tabArr = [
