@@ -1,9 +1,24 @@
 import styled from 'styled-components';
-import { useForm } from 'react-hook-form';
+import { useForm, UseControllerProps } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { BoxForm, Container, LinkForm as Link, InputForm as Input, Caution } from '../../common/style/Style';
 import { Submit } from '../login/Login';
 import { useRef, useState } from 'react';
+
+interface IFormData {
+  errors: {
+    email: {
+      message: string;
+    };
+  };
+  email: string;
+  name: string;
+  password: string;
+  passwordConfirm: string;
+  birthYear: number;
+  birthMonth: number;
+  birthDay: number;
+}
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -12,20 +27,14 @@ const SignUp = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-
-  const birth = [
-    { date: 'birthYear', placeholder: '년도', min: 1900, max: new Date().getFullYear() },
-    { date: 'birthMonth', placeholder: '월', min: 1, max: 12 },
-    { date: 'birthDay', placeholder: '일', min: 1, max: 31 },
-  ];
+  } = useForm<IFormData>();
 
   const validation = {
     email: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,5}$/i,
     name: /^[가-힣]+$/,
   };
 
-  const password = useRef();
+  const password = useRef<any>();
   password.current = watch('password');
 
   const [emailValue, setEmailValue] = useState({ error: '', message: '' });
@@ -184,7 +193,7 @@ const SignUp = () => {
             ) : errors.name?.type === 'minLength' ? (
               <Caution>2자 이상 입력해주세요.</Caution>
             ) : errors.name?.type === 'maxLength' ? (
-              <Caution>20자 이하로 입력해주세요.</Caution>
+              <Caution>{errors.name?.message}</Caution>
             ) : errors.name?.type === 'pattern' ? (
               <Caution>한글로 다시 입력해주세요.</Caution>
             ) : (
@@ -203,7 +212,7 @@ const SignUp = () => {
               },
               maxLength: {
                 value: 20,
-                message: '20자 이하로 입력해주세요.',
+                message: '20자 이하로 입력해주세요................',
               },
               pattern: {
                 value: validation.name,
@@ -215,42 +224,56 @@ const SignUp = () => {
         </DataContainer>
         <DataContainer>
           <label>생년월일</label>
-          {birthValue.error === 'empty' ? (
-            <Caution>{birthValue.message}</Caution>
-          ) : (
-            (errors.birthYear || errors.birthMonth || errors.birthDay) &&
-            ((errors.birthYear?.type || errors.birthMonth?.type || errors.birthDay?.type) === 'required' ? (
-              <Caution>필수 입력 항목입니다.</Caution>
-            ) : (errors.birthYear?.type || errors.birthMonth?.type || errors.birthDay?.type) === 'max' ||
-              (errors.birthYear?.type || errors.birthMonth?.type || errors.birthDay?.type) === 'min' ? (
-              <Caution>생년월일을 다시 확인해주세요.</Caution>
-            ) : (
-              <></>
-            ))
-          )}
-
+          {errors.birthYear && <Caution>{errors.birthYear?.message}</Caution>}
           <div className="birth">
-            {birth.map(({ date, placeholder, min, max }, index) => {
-              return (
-                <Input
-                  key={index}
-                  type="number"
-                  placeholder={placeholder}
-                  {...register(date, {
-                    required: true,
-                    min: {
-                      value: min,
-                      message: '생년월일을 다시 확인해주세요.',
-                    },
-                    max: {
-                      value: max,
-                      message: '생년월일을 다시 확인해주세요.',
-                    },
-                  })}
-                  onBlur={onBlurBirth}
-                />
-              );
-            })}
+            <Input
+              type="number"
+              placeholder="년도(4자리)"
+              {...register('birthYear', {
+                required: '태어난 년도(4자리)를 입력해주세요.',
+                min: {
+                  value: 1900,
+                  message: '그렇게나.. 오래전에..',
+                },
+                max: {
+                  value: new Date().getFullYear(),
+                  message: '미래입니다.',
+                },
+              })}
+              onBlur={onBlurBirth}
+            />
+            <Input
+              type="number"
+              placeholder="월"
+              {...register('birthMonth', {
+                required: '태어난 월을 입력해주세요.',
+                min: {
+                  value: 1,
+                  message: '1월 ~ 12월 중 입력해주세요.',
+                },
+                max: {
+                  value: 12,
+                  message: '1월 ~ 12월 중 입력해주세요.',
+                },
+              })}
+              onBlur={onBlurBirth}
+            />
+            <Input
+              type="number"
+              placeholder="일"
+              {...register('birthDay', {
+                required: '태어난 일을 정확하게 입력해주세요.',
+                min: {
+                  value: 1,
+                  message: '태어난 일을 정확하게 입력해주세요.',
+                },
+                max: {
+                  value: 31,
+                  message: '태어난 일을 정확하게 입력해주세요.',
+                },
+              })}
+              onBlur={onBlurBirth}
+            />
           </div>
         </DataContainer>
         <Submit type="submit" value="가입하기" />
