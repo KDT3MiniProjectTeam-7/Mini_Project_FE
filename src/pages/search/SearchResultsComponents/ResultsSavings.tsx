@@ -62,7 +62,7 @@ const ResultsSavings = () => {
     <Container>
       {data.length !== 0 ? (
         data.map((list) => (
-          <li key={list.productId} onClick={() => handleLi(list.productId)}>
+          <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>
             <div>
               <CompanyImage>
                 <img src={list.companyImage} alt={`${list.companyName} 로고`} />
@@ -76,7 +76,7 @@ const ResultsSavings = () => {
               <strong className="prime">최고 연 {list.primeRate}%</strong>
               <span className="basic">기본 {list.basicRate}%</span>
             </Rate>
-          </li>
+          </ResultsList>
         ))
       ) : (
         <NoResults />
@@ -87,19 +87,19 @@ const ResultsSavings = () => {
 
 const Container = styled.div`
   padding: 30px 20px;
+`;
 
-  li {
+const ResultsList = styled.li`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  & > div {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+  }
 
-    > div {
-      display: flex;
-    }
-
-    & + li {
-      margin-top: 40px;
-    }
+  & + li {
+    margin-top: 40px;
   }
 `;
 

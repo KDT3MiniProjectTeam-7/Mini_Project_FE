@@ -85,7 +85,7 @@ const ResultsCard = () => {
     <Container>
       {data.length !== 0 ? (
         data.map((list) => (
-          <li key={list.productId} onClick={() => handleLi(list.productId)}>
+          <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>
             <div>
               <Thumbnail>
                 <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
@@ -99,7 +99,7 @@ const ResultsCard = () => {
               <dt>연회비</dt>
               <dd>{list.annualFee.toLocaleString()}원</dd>
             </Fee>
-          </li>
+          </ResultsList>
         ))
       ) : (
         <NoResults />
@@ -110,16 +110,21 @@ const ResultsCard = () => {
 
 const Container = styled.ol`
   padding: 30px 20px;
+`;
 
-  li,
-  li > div {
+const ResultsList = styled.li`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  & > div {
     display: flex;
     align-items: center;
     width: 100%;
+  }
 
-    & + li {
-      margin-top: 40px;
-    }
+  & + li {
+    margin-top: 40px;
   }
 `;
 

@@ -32,7 +32,7 @@ const ResultsSubscription = () => {
     <Container>
       {data.length !== 0 ? (
         data.map((list) => (
-          <li key={list.productId} onClick={() => handleLi(list.productId)}>
+          <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>
             <div>
               <CompanyImage>
                 <img src={list.companyImage} alt={`${list.companyName} 로고`} />
@@ -43,7 +43,7 @@ const ResultsSubscription = () => {
               </Desc>
             </div>
             <Rate>최고 연 {list.highRate}%</Rate>
-          </li>
+          </ResultsList>
         ))
       ) : (
         <NoResults />
@@ -54,19 +54,19 @@ const ResultsSubscription = () => {
 
 const Container = styled.div`
   padding: 30px 20px;
+`;
 
-  li {
+const ResultsList = styled.li`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  & > div {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+  }
 
-    > div {
-      display: flex;
-    }
-
-    & + li {
-      margin-top: 40px;
-    }
+  & + li {
+    margin-top: 40px;
   }
 `;
 
