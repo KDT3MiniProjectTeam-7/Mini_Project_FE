@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import SearchBox from './SearchComponents/SearchBox';
 import CategoryTab from './SearchResultsComponents/CategoryTab';

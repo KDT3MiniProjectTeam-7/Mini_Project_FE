@@ -1,4 +1,3 @@
-import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 
 interface TabProps {
