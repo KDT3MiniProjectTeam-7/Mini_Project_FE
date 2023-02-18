@@ -124,10 +124,30 @@ const KeywordsList = () => {
 };
 
 const Container = styled.div`
+  button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+
+    color: #5b5c5e;
+
+    &.deleteAll {
+      color: #505a66;
+      font-size: 13px;
+    }
+  }
+
   div {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+  }
+
+  h4 {
+    margin-bottom: 20px;
+    color: #505a66;
+    font-size: 13px;
   }
 
   li {
@@ -142,15 +162,6 @@ const Container = styled.div`
 
     button {
       font-size: 12px;
-    }
-  }
-
-  button {
-    color: #5b5c5e;
-
-    &.deleteAll {
-      color: #505a66;
-      font-size: 13px;
     }
   }
 

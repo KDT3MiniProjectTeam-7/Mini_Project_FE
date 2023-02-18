@@ -41,12 +41,6 @@ const Container = styled.main`
   padding-bottom: 30px;
   gap: 30px;
 
-  button {
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    padding: 0;
-  }
   h4 {
     margin-bottom: 20px;
     color: #505a66;
