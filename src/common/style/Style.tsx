@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
