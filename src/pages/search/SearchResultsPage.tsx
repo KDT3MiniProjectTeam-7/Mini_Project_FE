@@ -21,7 +21,7 @@ const SearchResults = () => {
   return (
     <Container>
       <SearchBox />
-      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={categoryArr} />
+      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={categoryArr} isOnAllPage={false} />
       <CategoryDesc>{categoryArr[tabIndex].content}</CategoryDesc>
     </Container>
   );
