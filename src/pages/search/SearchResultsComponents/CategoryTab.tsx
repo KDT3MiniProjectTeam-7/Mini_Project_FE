@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 
-const CategoryTab = ({ tabIndex, setTabIndex, categoryArr }) => {
+const CategoryTab = ({ tabIndex, setTabIndex, categoryArr, isOnAllPage }) => {
   return (
-    <Container>
+    <Container isOnAllPage={isOnAllPage}>
       {categoryArr.map((list, index) => (
         <li key={list.title} className={index === tabIndex ? 'clicked' : ''} onClick={() => setTabIndex(index)}>
           {list.title}
@@ -13,9 +13,9 @@ const CategoryTab = ({ tabIndex, setTabIndex, categoryArr }) => {
   );
 };
 
-const Container = styled.ol`
+const Container = styled.ol<{ isOnAllPage: boolean }>`
   position: fixed;
-  top: 68px;
+  top: ${(props) => (props.isOnAllPage ? '50px' : '68px')};
   display: flex;
   justify-content: space-between;
   gap: 13px;

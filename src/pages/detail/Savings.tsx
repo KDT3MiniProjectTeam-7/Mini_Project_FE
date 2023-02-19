@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaAngellist } from 'react-icons/fa';
 import DescriptionData from './DescriptionData';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { IoChevronBackOutline } from 'react-icons/io5';
 
 const Savings = () => {
   const [nav, setNav] = useState([true, false, false]);
+
+  const navigate = useNavigate();
   const data = {
     productId: 11,
     category: 'SAVINGS',
@@ -31,6 +34,14 @@ const Savings = () => {
   };
   return (
     <>
+      <IoChevronBackOutline
+        size="22"
+        color="#353D4A"
+        onClick={() => {
+          navigate(-1);
+        }}
+        style={{ marginLeft: '-8px' }}
+      />
       <IntroContainer>
         <p>{data.companyName}</p>
         <img src={data.companyImage} alt="cardImage" />
