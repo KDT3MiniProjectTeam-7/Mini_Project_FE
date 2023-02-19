@@ -1,21 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { Item } from '../../store/cartSlice';
 
-interface cardItem {
-  productId: number;
-  productName: string;
-  companyName: string;
-  companyImage: string;
-  thumbnail: string;
-  benefits: string[];
-  annualFee: number;
-}
+// interface cardItem {
+//   productId: number;
+//   productName: string;
+//   companyName: string;
+//   companyImage: string;
+//   thumbnail: string;
+//   benefits: string[];
+//   annualFee: number;
+// }
 
-const CardLists = ({ data }: { data: cardItem[] }) => {
-  console.log(data);
-  console.log('ZZ');
-
+const CardLists = ({ data }: { data: Item[] }) => {
   return (
     <Container>
       {data.map((card) => (

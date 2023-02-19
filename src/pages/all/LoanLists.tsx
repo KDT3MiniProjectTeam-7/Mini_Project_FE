@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { Item } from '../../store/cartSlice';
 
-interface loanItem {
-  productId: number;
-  productName: string;
-  companyName: string;
-  companyImage: string;
-  lowRate: number;
-  highRate: number;
-  bound: string;
-}
+// interface loanItem {
+//   productId: number;
+//   productName: string;
+//   companyName: string;
+//   companyImage: string;
+//   lowRate: number;
+//   highRate: number;
+//   bound: string;
+// }
 
-const LoanLists = ({ data }: { data: loanItem[] }) => {
+const LoanLists = ({ data }: { data: Item[] }) => {
   return (
     <Container>
       {data.map((loan) => (
