@@ -1,14 +1,19 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { Container, LogoForm, InputForm as Input, LinkForm as Link, BoxForm, Caution } from '../../common/style/Style';
 import { useNavigate } from 'react-router-dom';
+import { Link as LinkForm } from 'react-router-dom';
+
+interface InputFormData {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, errors },
-  } = useForm();
+    formState: { errors },
+  } = useForm<InputFormData>();
 
   const navigate = useNavigate();
 
@@ -22,69 +27,111 @@ const Login = () => {
   };
 
   return (
-    <main>
-      <Container>
-        <Logo />
-        <BoxForm onSubmit={handleSubmit(onSubmit)}>
-          {errors.email && errors.email?.type === 'required' ? (
-            <Caution>Email을 입력해주세요.</Caution>
-          ) : errors.email && errors.email?.type === 'pattern' ? (
-            <Caution>Email을 정확히 입력해주세요.</Caution>
-          ) : (
-            <></>
-          )}
-          <Input
-            id="email"
-            type="text"
-            placeholder="Email"
-            {...register('email', {
-              required: true,
-              pattern: {
-                value: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,5}$/i,
-                message: 'Email을 정확히 입력해주세요.',
-              },
-            })}
-          />
-          {errors.password && <Caution>비밀번호를 입력해주세요.</Caution>}
-          <Input
-            id="password"
-            type="password"
-            placeholder="Password"
-            {...register('password', {
-              required: true,
-            })}
-          />
-          <Submit type="submit" value="로그인" />
-        </BoxForm>
+    <MainContainer>
+      <Logo />
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          id="email"
+          type="text"
+          placeholder="Email"
+          {...register('email', {
+            required: true,
+            pattern: {
+              value: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,5}$/i,
+              message: 'Email을 정확히 입력해주세요.',
+            },
+          })}
+        />
+        <Input
+          id="password"
+          type="password"
+          placeholder="Password"
+          {...register('password', {
+            required: true,
+          })}
+        />
+        {errors.email || errors.password ? (
+          <Caution>
+            Email 혹은 비밀번호가 일치하지 않습니다.
+            <br />
+            입력한 내용을 다시 확인해주세요.
+          </Caution>
+        ) : (
+          <Caution />
+        )}
+        <Submit type="submit" value="로그인" />
         <Link to={'/signup'}>회원가입</Link>
-      </Container>
-    </main>
+      </Form>
+    </MainContainer>
   );
 };
 
-const Logo = styled(LogoForm).attrs({
-  src: 'https://blog.kakaocdn.net/dn/d0l1Pv/btqGmONiPmW/OluDzrKeEx79dtll0GFVik/img.png',
-})``;
-
-export const Submit = styled(Input)`
-  background-color: whitesmoke;
+const MainContainer = styled.main`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  gap: 20px;
+`;
+
+const Logo = styled.img.attrs({
+  src: 'https://blog.kakaocdn.net/dn/d0l1Pv/btqGmONiPmW/OluDzrKeEx79dtll0GFVik/img.png',
+  alt: '로고 이미지',
+})`
   width: 100%;
   max-width: 400px;
-  height: 50px;
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
+`;
 
-  :hover {
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.1);
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const Input = styled.input`
+  height: var(--input-height);
+  font-size: var(--font-m);
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid var(--lightblue-color);
+
+  :focus {
+    outline: none;
+    border-bottom: 2px solid var(--main-color);
   }
+`;
 
+const Caution = styled.small`
+  height: 28px;
+  line-height: 116%;
+  font-size: var(--font-xs);
+  color: var(--red-color);
+  margin: -10px 0;
+`;
+
+const Submit = styled(Input)`
+  background-color: var(--main-color);
+  height: var(--input-height);
+  font-size: var(--font-m);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none;
+  font-weight: bold;
+`;
+
+const Link = styled(LinkForm)`
+  font-size: var(--font-m);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   :visited {
-    color: black;
+    color: var(--black-color);
   }
 `;
 
