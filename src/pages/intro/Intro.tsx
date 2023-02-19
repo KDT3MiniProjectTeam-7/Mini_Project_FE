@@ -3,13 +3,22 @@ import { Link as LinkForm } from 'react-router-dom';
 
 const Intro = () => {
   return (
-    <main>
+    <MainContainer>
       <Logo />
       <Link to={'/login'}>로그인</Link>
-      <Link to={'/signup'}>회원가입</Link>
-    </main>
+    </MainContainer>
   );
 };
+
+const MainContainer = styled.main`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  gap: 20px;
+`;
 
 const Logo = styled.img.attrs({
   src: 'https://compphoto.incruit.com/2021/12/FCCI2.png',
@@ -20,21 +29,16 @@ const Logo = styled.img.attrs({
 `;
 
 const Link = styled(LinkForm)`
+  background-color: var(--main-color);
+  height: var(--input-height);
+  font-size: var(--font-m);
+  color: #ffffff;
   width: 100%;
-  background-color: var(--lightgray-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--input-height);
-  font-size: var(--font-m);
   font-weight: bold;
   text-decoration: none;
-  border-radius: 20px;
-  margin: 10px 0;
-
-  :visited {
-    color: var(--black-color);
-  }
 `;
 
 export default Intro;
