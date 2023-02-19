@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Submit } from '../login/Login';
 import { useRef } from 'react';
 
 interface InputFormData {
@@ -53,14 +52,12 @@ const SignUp = () => {
   return (
     <main>
       <Title>회원가입</Title>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <DataContainer>
-          <label htmlFor="email">이메일</label>
-          {errors.email && <Caution>{errors.email?.message}</Caution>}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <InputBox>
+          <label htmlFor="email">Email</label>
           <Input
             id="email"
             type="text"
-            placeholder="Email"
             {...register('email', {
               required: 'Email을 입력해주세요.',
               pattern: {
@@ -69,16 +66,15 @@ const SignUp = () => {
               },
             })}
           />
-        </DataContainer>
-        <DataContainer>
+          {errors.email ? <Caution>{errors.email?.message}</Caution> : <Caution />}
+        </InputBox>
+        <InputBox>
           <label htmlFor="password">비밀번호</label>
-          {errors.password && <Caution>{errors.password?.message}</Caution>}
           <Input
             id="password"
             type="password"
-            placeholder="8자 이상, 20자 이하"
             {...register('password', {
-              required: '비밀번호를 입력해주세요.',
+              required: '비밀번호를 입력해주세요.(8자 이상, 20자 이하)',
               minLength: {
                 value: 8,
                 message: '8자 이상, 20자 이하로 입력해주세요.',
@@ -89,15 +85,10 @@ const SignUp = () => {
               },
             })}
           />
-        </DataContainer>
-        <DataContainer>
+          {errors.password ? <Caution>{errors.password?.message}</Caution> : <Caution />}
+        </InputBox>
+        <InputBox>
           <label htmlFor="passwordConfirm">비밀번호 확인</label>
-          {errors.passwordConfirm &&
-            (errors.passwordConfirm?.type === 'validate' ? (
-              <Caution>비밀번호가 일치하지 않습니다.</Caution>
-            ) : (
-              <Caution>{errors.passwordConfirm?.message}</Caution>
-            ))}
           <Input
             id="passwordConfirm"
             type="password"
@@ -106,14 +97,21 @@ const SignUp = () => {
               validate: (value) => value === password.current,
             })}
           />
-        </DataContainer>
-        <DataContainer>
+          {errors.passwordConfirm ? (
+            errors.passwordConfirm?.type === 'validate' ? (
+              <Caution>비밀번호가 일치하지 않습니다.</Caution>
+            ) : (
+              <Caution>{errors.passwordConfirm?.message}</Caution>
+            )
+          ) : (
+            <Caution />
+          )}
+        </InputBox>
+        <InputBox>
           <label htmlFor="name">이름</label>
-          {errors.name && <Caution>{errors.name?.message}</Caution>}
           <Input
             id="name"
             type="text"
-            placeholder="이름"
             {...register('name', {
               required: '필수 입력 항목입니다.',
               minLength: {
@@ -130,12 +128,10 @@ const SignUp = () => {
               },
             })}
           />
-        </DataContainer>
-        <DataContainer>
+          {errors.name ? <Caution>{errors.name?.message}</Caution> : <Caution />}
+        </InputBox>
+        <InputBox>
           <label>생년월일</label>
-          {(errors.birthYear && <Caution>{errors.birthYear?.message}</Caution>) ||
-            (errors.birthMonth && <Caution>{errors.birthMonth?.message}</Caution>) ||
-            (errors.birthDay && <Caution>{errors.birthDay?.message}</Caution>)}
           <div className="birth">
             <Input
               type="number"
@@ -186,57 +182,75 @@ const SignUp = () => {
               })}
             />
           </div>
-        </DataContainer>
+          {(errors.birthYear && <Caution>{errors.birthYear?.message}</Caution>) ||
+            (errors.birthMonth && <Caution>{errors.birthMonth?.message}</Caution>) ||
+            (errors.birthDay && <Caution>{errors.birthDay?.message}</Caution>) || <Caution />}
+        </InputBox>
         <Submit className="submit" type="submit" value="가입하기" />
-      </Form>
+      </form>
     </main>
   );
 };
 
 const Title = styled.h1`
+  height: 70px;
   font-size: var(--font-xxl);
+  font-weight: bold;
+  /* border-bottom: 1px solid var(--gray-color); */
 `;
 
-const Form = styled.form`
-  gap: 70px; // 현재 작동 안함. 세로 사이즈 조정 필요
+const InputBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 28px;
 
   label {
-    font-size: var(--font-l);
+    font-size: var(--font-s);
+    color: var(--gray-color);
   }
   .birth {
     display: flex;
     justify-content: space-between;
     input {
-      width: 31%;
+      width: 30%;
     }
   }
-`;
-
-const DataContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 80px;
-  gap: 4px;
 `;
 
 const Input = styled.input`
   height: var(--input-height);
   font-size: var(--font-m);
-  padding: 0 14px;
   box-sizing: border-box;
-  background-color: var(--lightblue-color);
-  border-radius: 20px;
   border: none;
+  border-bottom: 2px solid var(--lightgray-color);
+  margin-top: 6x;
+  margin-bottom: 3px;
 
   :focus {
     outline: none;
+    border-bottom: 2px solid var(--main-color);
   }
 `;
 
 const Caution = styled.small`
   font-size: var(--font-xs);
   color: var(--red-color);
+  height: 10px;
+`;
+
+const Submit = styled(Input)`
+  width: 100%;
+  background-color: var(--main-color);
+  height: var(--input-height);
+  font-size: var(--font-m);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none;
+  font-weight: bold;
+  margin-top: 50px;
 `;
 
 export default SignUp;
