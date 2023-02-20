@@ -154,14 +154,14 @@ const Desc = styled.div`
 
   .benefits {
     margin-bottom: 5px;
-    color: #5e6675;
+    color: var(--black-color);
     font-size: 14px;
     font-weight: 700;
     line-height: 1.4;
   }
 
   .productname {
-    color: #676f7b;
+    color: var(--gray-color);
     font-size: 10.5px;
   }
 `;
@@ -185,7 +185,7 @@ const Fee = styled.dl`
     margin-bottom: 5px;
 
     border-radius: 10px;
-    background-color: #e0ebfb;
+    background-color: var(--lightblue-color);
 
     color: #3f6cd4;
 

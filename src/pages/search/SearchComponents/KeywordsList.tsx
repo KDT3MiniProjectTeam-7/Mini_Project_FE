@@ -130,10 +130,10 @@ const Container = styled.div`
     border: none;
     padding: 0;
 
-    color: #5b5c5e;
+    color: var(--gray-color);
 
     &.deleteAll {
-      color: #505a66;
+      color: var(--gray-color);
       font-size: 13px;
     }
   }
@@ -146,7 +146,7 @@ const Container = styled.div`
 
   h4 {
     margin-bottom: 20px;
-    color: #505a66;
+    color: var(--gray-color);
     font-size: 13px;
   }
 
@@ -158,7 +158,7 @@ const Container = styled.div`
     padding-bottom: 10px;
     border-bottom: 1px solid #ebebeb;
 
-    color: #000;
+    color: var(--black-color);
 
     button {
       font-size: 12px;
@@ -166,7 +166,7 @@ const Container = styled.div`
   }
 
   p {
-    color: #000000;
+    color: var(--black-color);
     padding: 60px 0;
     text-align: center;
     border-bottom: 0.5px solid #ebebeb;

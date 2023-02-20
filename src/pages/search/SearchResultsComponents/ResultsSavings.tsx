@@ -133,7 +133,7 @@ const Desc = styled.dl`
   .productname {
     order: 1;
     margin-bottom: 5px;
-    color: #5e6675;
+    color: var(--black-color);
     font-size: 14px;
     font-weight: 700;
     line-height: 1.4;
@@ -141,7 +141,7 @@ const Desc = styled.dl`
 
   .companyName {
     order: 2;
-    color: #676f7b;
+    color: var(--gray-color);
     font-size: 10.5px;
     font-weight: 500;
   }
@@ -162,7 +162,7 @@ const Rate = styled.div`
   }
 
   .basic {
-    color: #676f7b;
+    color: var(--gray-color);
     font-size: 10.5px;
   }
 `;

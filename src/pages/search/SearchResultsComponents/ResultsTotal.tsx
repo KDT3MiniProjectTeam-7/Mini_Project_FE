@@ -279,7 +279,7 @@ const Container = styled.div`
 `;
 
 const Desc = styled.section`
-  border-bottom: 20px solid #f2f4f6;
+  border-bottom: 20px solid var(--lightgray-color);
 
   button {
     border: none;

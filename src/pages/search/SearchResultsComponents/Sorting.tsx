@@ -77,13 +77,13 @@ const Container = styled.div`
 
     padding: 10px 15px;
     border-radius: 20px;
-    background-color: #f0f1f6;
-    color: #606163;
+    background-color: var(--lightgray-color);
+    color: var(--gray-color);
 
     &.clicked {
       background-color: #fff;
-      color: #000;
-      border: 2px solid #000;
+      color: var(--black-color);
+      border: 2px solid var(--black-color);
     }
   }
 

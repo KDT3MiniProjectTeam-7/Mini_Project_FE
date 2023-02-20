@@ -33,7 +33,7 @@ const Desc = styled.div`
       margin: 20px 0;
       font-size: 15px;
       strong {
-        color: #0e76ff;
+        color: var(--main-color);
         font-weight: 700;
       }
     }
@@ -41,7 +41,7 @@ const Desc = styled.div`
     &:last-child {
       font-size: 8px;
       line-height: 1.5;
-      color: #7d838f;
+      color: var(--gray-color);
     }
   }
 `;

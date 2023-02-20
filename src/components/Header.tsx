@@ -7,8 +7,6 @@ const Header = () => {
   const [wish, setWish] = useState<number>(12);
 
   const titleArr = [
-    // 메인만 파란색 글씨 파이낸스세븐, 그 외에는 검정색 타이틀
-    // 타입스크립트 에러나서 하다가 말음
     { path: '/', title: '파이낸스세븐' },
     { path: '/all', title: '금융상품' },
     { path: '/search', title: '검색' },
@@ -43,7 +41,7 @@ const HeaderComponents = styled.header`
 `;
 
 const Logo = styled(Link)`
-  color: #0e76ff;
+  color: var(--main-color);
   font-weight: 700;
 `;
 
@@ -67,7 +65,7 @@ const WishLength = styled.span`
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: #ff4545;
+  background-color: var(--red-color);
 
   color: #fff;
   font-size: 8px;

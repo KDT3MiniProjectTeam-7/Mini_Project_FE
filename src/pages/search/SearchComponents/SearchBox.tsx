@@ -88,7 +88,7 @@ const Container = styled.form`
     transform: translateY(-45%);
 
     font-size: 20px;
-    color: #6d7582;
+    color: var(--gray-color);
 
     &.search {
       left: 15px;
