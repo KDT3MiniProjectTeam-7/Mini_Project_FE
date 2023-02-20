@@ -23,8 +23,8 @@ const SearchResults = () => {
   return (
     <Container>
       <SearchBox />
-      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={category} />
-      <CategoryDesc>{category[tabIndex].content}</CategoryDesc>
+      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={categoryArr} isOnAllPage={false} />
+      <CategoryDesc>{categoryArr[tabIndex].content}</CategoryDesc>
     </Container>
   );
 };

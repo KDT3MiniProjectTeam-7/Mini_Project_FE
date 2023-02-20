@@ -12,15 +12,11 @@ import TabBar from './components/TabBar';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    try {
-      const getCartData = async () => {
-        const data = await getCart();
-        dispatch(setCartItems(data.data.resultData));
-      };
-      getCartData();
-    } catch (error: any) {
-      console.log(`통신 오류: ${error.response}`);
-    }
+    const getCartData = async () => {
+      const data = await getCart();
+      dispatch(setCartItems(data!.data.resultData));
+    };
+    getCartData();
   }, []);
 
   return (

@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
@@ -14,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
 
   :root {
-    --main-color : #3f6cd4;
+    --main-color : #0e76ff;
     --lightblue-color : #e0ebfb;
     --black-color : #111111;
     --gray-color : #666666;
@@ -61,75 +59,3 @@ export const GlobalStyle = createGlobalStyle`
     list-style: none; 
   }
 `;
-
-
-const Container = styled.main`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-`;
-
-const LinkForm = styled(Link)`
-  background-color: whitesmoke;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 400px;
-  height: 50px;
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-
-  :hover {
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  :visited {
-    color: black;
-  }
-`;
-
-const LogoForm = styled.img.attrs({
-  alt: '로고 이미지',
-})`
-  width: 100%;
-  max-width: 400px;
-`;
-
-const InputForm = styled.input`
-  width: 100%;
-  height: 50px;
-  font-size: 16px;
-  padding: 0 12px;
-  box-sizing: border-box;
-  border-radius: 20px;
-  border: none;
-  background-color: #e8f0fe;
-
-  :focus {
-    outline: none;
-  }
-`;
-
-const BoxForm = styled.form`
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-`;
-
-const Caution = styled.small`
-  font-size: 10px;
-  color: red;
-`;
-
-
-export { LinkForm, Container, LogoForm, InputForm, BoxForm, Caution };

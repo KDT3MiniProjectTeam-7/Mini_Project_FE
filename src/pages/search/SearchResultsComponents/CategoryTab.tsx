@@ -4,11 +4,12 @@ interface TabProps {
   tabIndex: number;
   setTabIndex: (index: number) => void;
   categoryArr: { category: string; title: string; content: JSX.Element }[];
+  isOnAllPage: boolean;
 }
 
-const CategoryTab = ({ tabIndex, setTabIndex, categoryArr }: TabProps) => {
+const CategoryTab = ({ tabIndex, setTabIndex, categoryArr, isOnAllPage }: TabProps) => {
   return (
-    <Container>
+    <Container isOnAllPage={isOnAllPage}>
       {categoryArr.map((list, index: number) => (
         <li key={list.title} className={index === tabIndex ? 'clicked' : ''} onClick={() => setTabIndex(index)}>
           {list.title}
@@ -18,9 +19,9 @@ const CategoryTab = ({ tabIndex, setTabIndex, categoryArr }: TabProps) => {
   );
 };
 
-const Container = styled.ol`
+const Container = styled.ol<{ isOnAllPage: boolean }>`
   position: fixed;
-  top: 68px;
+  top: ${(props) => (props.isOnAllPage ? '50px' : '68px')};
   display: flex;
   justify-content: space-between;
   gap: 13px;
