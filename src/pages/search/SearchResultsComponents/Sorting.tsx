@@ -70,7 +70,7 @@ const ProductSorting = () => {
 
 const Container = styled.div`
   margin-bottom: 30px;
-
+  font-size: var(--font-s);
   button {
     cursor: pointer;
     border: none;

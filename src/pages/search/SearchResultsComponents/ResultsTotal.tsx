@@ -274,7 +274,7 @@ const Container = styled.div`
   h3 {
     margin-bottom: 20px;
     padding: 20px 20px 0;
-    font-size: var(--font-xxl);
+    font-size: var(--font-l);
   }
 `;
 

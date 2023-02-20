@@ -124,6 +124,8 @@ const KeywordsList = () => {
 };
 
 const Container = styled.div`
+  font-size: var(--font-m);
+
   button {
     cursor: pointer;
     background-color: transparent;
@@ -131,11 +133,7 @@ const Container = styled.div`
     padding: 0;
 
     color: var(--gray-color);
-
-    &.deleteAll {
-      color: var(--gray-color);
-      font-size: 13px;
-    }
+    font-size: var(--font-s);
   }
 
   div {
@@ -147,7 +145,7 @@ const Container = styled.div`
   h4 {
     margin-bottom: 20px;
     color: var(--gray-color);
-    font-size: 13px;
+    font-size: var(--font-s);
   }
 
   li {

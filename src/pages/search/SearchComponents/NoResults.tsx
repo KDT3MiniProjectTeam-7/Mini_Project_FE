@@ -31,7 +31,7 @@ const Desc = styled.div`
   p {
     &:first-child {
       margin: 20px 0;
-      font-size: 15px;
+      font-size: var(--font-m);
       strong {
         color: var(--main-color);
         font-weight: 700;
@@ -39,7 +39,7 @@ const Desc = styled.div`
     }
 
     &:last-child {
-      font-size: 8px;
+      font-size: var(--font-s);
       line-height: 1.5;
       color: var(--gray-color);
     }

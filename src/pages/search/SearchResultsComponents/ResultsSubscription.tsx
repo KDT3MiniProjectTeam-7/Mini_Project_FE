@@ -46,7 +46,10 @@ const ResultsSubscription = () => {
                     <p className="productname">{list.productName}</p>
                   </Desc>
                 </div>
-                <Rate>최고 연 {list.highRate}%</Rate>
+                <Rate>
+                  최고
+                  <br />연 {list.highRate}%
+                </Rate>
               </ResultsList>
             ))}
           </div>
@@ -60,6 +63,7 @@ const ResultsSubscription = () => {
 
 const Container = styled.div`
   padding: 30px 20px;
+  line-height: 1.4;
 `;
 
 const ResultsList = styled.li`
@@ -101,15 +105,14 @@ const Desc = styled.dl`
     order: 1;
     margin-bottom: 5px;
     color: var(--black-color);
-    font-size: 14px;
+    font-size: var(--font-m);
     font-weight: 700;
-    line-height: 1.4;
   }
 
   .companyName {
     order: 2;
     color: var(--gray-color);
-    font-size: 10.5px;
+    font-size: var(--font-s);
     font-weight: 500;
   }
 `;
@@ -119,11 +122,11 @@ const Rate = styled.strong`
   flex-direction: column;
   gap: 5px;
   text-align: right;
-  width: 120px;
+  width: 90px;
 
   color: #4880ee;
   font-weight: 700;
-  font-size: 14px;
+  font-size: var(--font-m);
   text-align: right;
 `;
 

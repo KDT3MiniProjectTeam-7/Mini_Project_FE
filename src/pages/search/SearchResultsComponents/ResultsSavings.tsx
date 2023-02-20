@@ -93,6 +93,7 @@ const ResultsSavings = () => {
 
 const Container = styled.div`
   padding: 30px 20px;
+  line-height: 1.4;
 `;
 
 const ResultsList = styled.li`
@@ -134,15 +135,14 @@ const Desc = styled.dl`
     order: 1;
     margin-bottom: 5px;
     color: var(--black-color);
-    font-size: 14px;
+    font-size: var(--font-m);
     font-weight: 700;
-    line-height: 1.4;
   }
 
   .companyName {
     order: 2;
     color: var(--gray-color);
-    font-size: 10.5px;
+    font-size: var(--font-s);
     font-weight: 500;
   }
 `;
@@ -157,13 +157,13 @@ const Rate = styled.div`
   .prime {
     color: #4880ee;
     font-weight: 700;
-    font-size: 14px;
+    font-size: var(--font-m);
     text-align: right;
   }
 
   .basic {
     color: var(--gray-color);
-    font-size: 10.5px;
+    font-size: var(--font-s);
   }
 `;
 

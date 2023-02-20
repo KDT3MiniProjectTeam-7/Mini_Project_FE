@@ -44,7 +44,7 @@ const Container = styled.main`
   h4 {
     margin-bottom: 20px;
     color: var(--gray-color);
-    font-size: 13px;
+    font-size: var(--font-s);
   }
 `;
 
@@ -64,7 +64,7 @@ const DetailLink = styled(Link)`
     align-items: center;
 
     &.info {
-      font-size: 11px;
+      font-size: var(--font-s);
       color: var(--main-color);
     }
   }

@@ -62,7 +62,7 @@ const StyledLink = styled(Link)`
   span {
     margin-top: 3px;
     color: var(--gray-color);
-    font-size: 12px;
+    font-size: var(--font-xs);
     line-height: 1.33333;
   }
 

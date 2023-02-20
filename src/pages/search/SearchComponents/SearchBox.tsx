@@ -97,16 +97,16 @@ const Container = styled.form`
 
   input {
     width: 100%;
-    height: 40px;
+    height: var(--input-height);
     padding: 14px 40px;
     border-radius: 20px;
     border: none;
     background-color: #f2f4f6;
-    font-size: 15px;
+    font-size: var(--font-m);
 
     &::placeholder {
       color: #8c949f;
-      font-size: 15px;
+      font-size: var(--font-m);
     }
 
     &:focus {
