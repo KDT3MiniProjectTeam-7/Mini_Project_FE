@@ -25,7 +25,7 @@ const CardSorting = () => {
 };
 
 const LoanSorting = () => {
-  const [active, setActive] = useState('name');
+  const [active, setActive] = useState('lowRate');
 
   const sortName = () => {
     setActive('name');
@@ -36,18 +36,18 @@ const LoanSorting = () => {
   };
   return (
     <Container>
-      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
-        상품명순
-      </button>
       <button onClick={sortLowRate} className={active === 'lowRate' ? 'clicked' : ''}>
         낮은금리순
+      </button>
+      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
+        상품명순
       </button>
     </Container>
   );
 };
 
 const ProductSorting = () => {
-  const [active, setActive] = useState('name');
+  const [active, setActive] = useState('highRate');
 
   const sortName = () => {
     setActive('name');
@@ -58,11 +58,11 @@ const ProductSorting = () => {
   };
   return (
     <Container>
-      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
-        상품명순
-      </button>
       <button onClick={sortHighRate} className={active === 'highRate' ? 'clicked' : ''}>
         높은금리순
+      </button>
+      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
+        상품명순
       </button>
     </Container>
   );
