@@ -180,7 +180,7 @@ const ResultsTotal = () => {
       primeRate: 3.65,
     },
     {
-      productId: 3115,
+      productId: 3116,
       category: 'savings',
       productName: 'IBK평생한가족통장',
       companyName: 'IBK기업은행',
@@ -214,11 +214,11 @@ const ResultsTotal = () => {
     <Container>
       {title.map((list) => (
         <>
-          <h3>{list}</h3>
+          <h3 key={list}>{list}</h3>
           <Desc>
             {list === '카드'
-              ? cardData.slice(0, 5).map((data) => (
-                  <Product>
+              ? cardData.slice(0, 3).map((data) => (
+                  <Product key={data.productId}>
                     <h4>{data.benefits}</h4>
                     <Image>
                       <img src={data.thumbnail} alt={`${data.productName}카드이미지`} />
@@ -228,8 +228,8 @@ const ResultsTotal = () => {
                 ))
               : ''}
             {list === '대출'
-              ? loanData.slice(0, 5).map((data) => (
-                  <Product>
+              ? loanData.slice(0, 3).map((data) => (
+                  <Product key={data.productId}>
                     <h4>{data.productName}</h4>
                     <Image>
                       <img src={data.companyImage} alt={`${data.companyName} 로고`} />
@@ -240,8 +240,8 @@ const ResultsTotal = () => {
                 ))
               : ''}
             {list === '예적금'
-              ? savingsData.slice(0, 5).map((data) => (
-                  <Product>
+              ? savingsData.slice(0, 3).map((data) => (
+                  <Product key={data.productId}>
                     <h4>{data.productName}</h4>
                     <Image>
                       <img src={data.companyImage} alt={`${data.companyName} 로고`} />
@@ -252,8 +252,8 @@ const ResultsTotal = () => {
                 ))
               : ''}
             {list === '청약'
-              ? subscriptionData.slice(0, 5).map((data) => (
-                  <Product>
+              ? subscriptionData.slice(0, 3).map((data) => (
+                  <Product key={data.productId}>
                     <h4>{data.productName}</h4>
                     <Image>
                       <img src={data.companyImage} alt={`${data.companyName} 로고`} />
