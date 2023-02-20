@@ -7,6 +7,8 @@ import CardLists from '../all/CardLists';
 import SavingsLists from '../all/SavingsLists';
 import SubscriptionLists from '../all/SubscriptionLists';
 import LoanLists from '../all/LoanLists';
+import { IoChevronBackOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 // 장바구니 전략필요.
 // 조회, 삭제, 추가 모두 당연히 api를 사용해야함
@@ -15,6 +17,8 @@ import LoanLists from '../all/LoanLists';
 // 페이지 헤더에 장바구니 개수가 들어가므로, 사실상 앱시작(or 로그인) 과 동시에 받아와서 redux에 넣어놔야함
 // persist로 구현하지않아도, app이나 index에서 불러오고 redux에 넣어두는 과정만 해두면 된다.
 const Cart = () => {
+  const navigate = useNavigate();
+
   const cartItems = useSelector<ReducerType, Item[]>((state) => state.cart);
   // 상품 넣기 완료.
   // 렌더링 단계에서는 카테고리에 맞는 카드 컨테이너를 잘 출력시키면 됨
@@ -51,7 +55,15 @@ const Cart = () => {
   }, [cartItems]);
 
   return (
-    <main>
+    <MainContainer>
+      <IoChevronBackOutline
+        size="22"
+        color="#353D4A"
+        onClick={() => {
+          navigate(-1);
+        }}
+        style={{ marginLeft: '-8px' }}
+      />
       <Title>
         관심있는 상품을 <span>한번</span>에 만나보세요.
       </Title>
@@ -59,11 +71,13 @@ const Cart = () => {
       <LoanLists data={loanData} />
       <SavingsLists data={savingsData} />
       <SubscriptionLists data={subscriptionData} />
-      {/* 임시로 카트 렌더링 되는지만 확인하였습니다. */}
-      {/* {cartItems.length !== 0 && cartItems.map((item) => <p key={item.productId}>{item.productName}</p>)} */}
-    </main>
+    </MainContainer>
   );
 };
+
+const MainContainer = styled.main`
+  margin-top: 20px;
+`;
 
 const Title = styled.h1`
   margin-top: 20px;
