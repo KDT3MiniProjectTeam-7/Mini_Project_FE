@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
+import { useState } from 'react';
 
 interface InputFormData {
   email: string;
@@ -17,13 +18,37 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: any) => {
-    // 여기서 api 호출, data 사용
+  const [loginFail, setLoginFail] = useState(false);
 
-    // 성공시
-    navigate('/');
-    // 실패시
-    // 실패 안내
+  const loginSubmit = async (email: string, pw: string) => {
+    try {
+      const res = await fetch('http://3.36.178.242:8080/login', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: pw,
+        }),
+      });
+      if (!res.ok) throw new Error('요청 실패');
+      const json = await res.json();
+      console.log(json);
+      if (json.status === 'success') {
+        document.cookie = `accessToken=${json.accessToken}`;
+        console.log(document.cookie);
+        navigate('/');
+      } else {
+        setLoginFail(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onSubmit = (data: any) => {
+    loginSubmit(data.email, data.password);
   };
 
   return (
@@ -50,7 +75,7 @@ const Login = () => {
             required: true,
           })}
         />
-        {errors.email || errors.password ? (
+        {errors.email || errors.password || loginFail ? (
           <Caution>
             Email 혹은 비밀번호가 일치하지 않습니다.
             <br />
