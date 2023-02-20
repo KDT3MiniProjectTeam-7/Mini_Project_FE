@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { postCartItems, delCartItems } from '../common/api/Api';
 
 export interface Item {
   productId: number;
@@ -20,8 +21,18 @@ const cart = createSlice({
   name: 'cart',
   initialState: [] as Item[],
   reducers: {
-    addCartItems(state, actions: PayloadAction<Item>) {},
-    deleteCartItems(state, actions: PayloadAction<Item>) {},
+    addCartItems(state, actions: PayloadAction<Item>) {
+      // 여기서 해야할건 두개임.
+      // redux state에 추가하고, api호출
+      state.push(actions.payload);
+      postCartItems(actions.payload.productId);
+    },
+    deleteCartItems(state, actions: PayloadAction<Item>) {
+      // redux state에서 제거하고, api호출
+      let copy = state.filter((item) => item.productId !== actions.payload.productId);
+      delCartItems(actions.payload.productId);
+      return copy;
+    },
     setCartItems(state, actions: PayloadAction<Item[]>) {
       return actions.payload;
     },
