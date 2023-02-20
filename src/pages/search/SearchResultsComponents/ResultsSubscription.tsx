@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import NoResults from '../SearchComponents/NoResults';
+import { ProductSorting } from './Sorting';
 
 const ResultsSubscription = () => {
   const location = useLocation();
@@ -31,20 +32,25 @@ const ResultsSubscription = () => {
   return (
     <Container>
       {data.length !== 0 ? (
-        data.map((list) => (
-          <li key={list.productId} onClick={() => handleLi(list.productId)}>
-            <div>
-              <CompanyImage>
-                <img src={list.companyImage} alt={`${list.companyName} 로고`} />
-              </CompanyImage>
-              <Desc>
-                <h3 className="companyName">{list.companyName}</h3>
-                <p className="productname">{list.productName}</p>
-              </Desc>
-            </div>
-            <Rate>최고 연 {list.highRate}%</Rate>
-          </li>
-        ))
+        <>
+          <ProductSorting />
+          <div>
+            {data.map((list) => (
+              <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>
+                <div>
+                  <CompanyImage>
+                    <img src={list.companyImage} alt={`${list.companyName} 로고`} />
+                  </CompanyImage>
+                  <Desc>
+                    <h3 className="companyName">{list.companyName}</h3>
+                    <p className="productname">{list.productName}</p>
+                  </Desc>
+                </div>
+                <Rate>최고 연 {list.highRate}%</Rate>
+              </ResultsList>
+            ))}
+          </div>
+        </>
       ) : (
         <NoResults />
       )}
@@ -54,19 +60,19 @@ const ResultsSubscription = () => {
 
 const Container = styled.div`
   padding: 30px 20px;
+`;
 
-  li {
+const ResultsList = styled.li`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  & > div {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+  }
 
-    > div {
-      display: flex;
-    }
-
-    & + li {
-      margin-top: 40px;
-    }
+  & + li {
+    margin-top: 40px;
   }
 `;
 

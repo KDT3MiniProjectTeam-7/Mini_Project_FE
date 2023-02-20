@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { BiHistory } from 'react-icons/Bi';
-import { IoChevronForwardOutline } from 'react-icons/io5';
 import { TfiClose } from 'react-icons/tfi';
-import SearchBox from './SearchComponents/SearchBox';
 
-const Search = () => {
+const KeywordsList = () => {
+  const [autoSave, setAutoSave] = useState(true);
+
   const data = [
     {
       searchId: 1,
@@ -65,9 +64,7 @@ const Search = () => {
     },
   ];
 
-  const [savedKeyword, setSavedKeyword] = useState([]);
-
-  // 최근검색어
+  // 삭제
   const handleDeleteKeyword = () => {
     // 검색어 단일삭제 api 요청
   };
@@ -78,106 +75,81 @@ const Search = () => {
     // 00개 삭제완료 토스트 띄우기
   };
 
+  // 자동저장
+  const handleAutoSave = () => {
+    if (autoSave) {
+      confirm('최근 검색어 저장 기능을\n사용 중지하시겠습니까?') && setAutoSave((e) => !e);
+    } else {
+      confirm('최근 검색어 저장 기능을\n사용 하시겠습니까?') && setAutoSave((e) => !e);
+    }
+  };
+
   return (
     <Container>
-      <SearchBox />
-      <RecentProducts>
-        <h4>최근에 자세히 봤던</h4>
-        <DetailLink to={`/detail/:category/:id`}>
-          <div>
-            <span className="history">
-              <BiHistory />
-            </span>
-            상품명
-          </div>
-          <div className="info">
-            상세정보
-            <span className="move">
-              <IoChevronForwardOutline />
-            </span>
-          </div>
-        </DetailLink>
-      </RecentProducts>
-      <RecentKeywords>
+      <div>
         <h4>최근에 찾아봤던</h4>
-        {data.length !== 0 ? (
+        <button className="autoSave" onClick={handleAutoSave}>
+          자동저장 {autoSave ? '끄기' : '켜기'}
+        </button>
+      </div>
+      {autoSave ? (
+        data.length !== 0 ? (
           <>
             <ol>
-              {data.map((list) => (
-                <li key={list.searchId}>
-                  <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
-                  <button onClick={handleDeleteKeyword}>
-                    <TfiClose />
-                  </button>
-                </li>
-              ))}
+              {data
+                .sort((a, b) => {
+                  return +new Date(b.createdAt) - +new Date(a.createdAt);
+                })
+                .map((list) => (
+                  <li key={list.searchId}>
+                    <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
+                    <button onClick={handleDeleteKeyword}>
+                      <TfiClose />
+                    </button>
+                  </li>
+                ))}
             </ol>
             <button className="deleteAll" onClick={handleDeleteKeywordAll}>
-              전체삭제
+              모두 지우기
             </button>
           </>
         ) : (
           <p>최근 찾아봤던 내역이 없습니다.</p>
-        )}
-      </RecentKeywords>
+        )
+      ) : (
+        <p>검색어 저장 기능이 꺼져있습니다.</p>
+      )}
     </Container>
   );
 };
 
-const Container = styled.main`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-
+const Container = styled.div`
   button {
     cursor: pointer;
     background-color: transparent;
     border: none;
     padding: 0;
+
+    color: #5b5c5e;
+
+    &.deleteAll {
+      color: #505a66;
+      font-size: 13px;
+    }
   }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
   h4 {
     margin-bottom: 20px;
     color: #505a66;
     font-size: 13px;
   }
-`;
 
-const RecentProducts = styled.section`
-  margin-top: 70px;
-`;
-
-const DetailLink = styled(Link)`
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
-  padding-bottom: 10px;
-  border-bottom: 0.5px solid #ebebeb;
-
-  div {
-    display: flex;
-    align-items: center;
-
-    &.info {
-      font-size: 11px;
-      color: #0e76ff;
-    }
-  }
-
-  span {
-    color: #b6babd;
-
-    &.history {
-      margin-right: 10px;
-      font-size: 20px;
-    }
-
-    &.move {
-      margin-left: 5px;
-    }
-  }
-`;
-
-const RecentKeywords = styled.section`
   li {
     display: flex;
     justify-content: space-between;
@@ -193,17 +165,8 @@ const RecentKeywords = styled.section`
     }
   }
 
-  button {
-    color: #5b5c5e;
-
-    &.deleteAll {
-      color: #505a66;
-      font-size: 13px;
-    }
-  }
-
   p {
-    color: #797a7a;
+    color: #000000;
     padding: 60px 0;
     text-align: center;
     border-bottom: 0.5px solid #ebebeb;
@@ -214,4 +177,4 @@ const SearchLink = styled(Link)`
   width: 100%;
 `;
 
-export default Search;
+export default KeywordsList;

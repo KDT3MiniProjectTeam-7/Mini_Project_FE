@@ -1,39 +1,52 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 import { Provider } from 'react-redux';
-import App from './App';
+import store from './store/store';
+
+import { App, IncludedLayout, ExcludedLayout } from './App';
 import Error from './components/Error';
+
 import Main from './pages/main/MainPage';
+import Survey from './pages/survey/Survey';
+import ALL from './pages/all/allPage';
+import Cart from './pages/cart/CartPage';
+import Search from './pages/search/SearchPage';
+import MyPage from './pages/myPage/MyPage';
+
 import Intro from './pages/intro/Intro';
 import Login from './pages/login/Login';
 import SignUp from './pages/signUp/SignUp';
-import MyPage from './pages/myPage/MyPage';
-import Search from './pages/search/SearchPage';
-import ALL from './pages/all/allPage';
 import SearchResults from './pages/search/SearchResultsPage';
-import Survey from './pages/survey/Survey';
 import Detail from './pages/detail/detailPage';
-import Cart from './pages/cart/CartPage';
-import store from './store/store';
 
 const router = createBrowserRouter([
+  // 헤더, 탭바 있음
   {
     path: '/',
-    element: <App />,
+    element: [<App />, <IncludedLayout />],
     errorElement: <Error />,
     children: [
       { index: true, element: <Main /> },
+      { path: '/mypage', element: <MyPage /> },
+      { path: '/search', element: <Search /> },
+      { path: '/survey', element: <Survey /> },
+      { path: '/all', element: <ALL /> },
+    ],
+  },
+
+  // 헤더, 탭바 없음
+  {
+    path: '/',
+    element: [<App />, <ExcludedLayout />],
+    errorElement: <Error />,
+    children: [
       { path: '/intro', element: <Intro /> },
       { path: '/login', element: <Login /> },
       { path: '/signup', element: <SignUp /> },
-      { path: '/mypage', element: <MyPage /> },
-      { path: '/search', element: <Search /> },
       { path: '/search/:keywords', element: <SearchResults /> },
-      { path: '/survey', element: <Survey /> },
-      { path: '/all', element: <ALL /> },
       { path: '/detail/:category/:id', element: <Detail /> },
       { path: '/cart', element: <Cart /> },
-      { path: '/detail/:category/:id', element: <Detail /> },
     ],
   },
 ]);

@@ -1,31 +1,32 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 import { AiOutlineHome, AiOutlineUser } from 'react-icons/ai';
 import { BsPiggyBank } from 'react-icons/bs';
 import { FiSearch } from 'react-icons/fi';
 
-import styled from 'styled-components';
-
 const TabBar = () => {
-  const [btnColor, setBtnColor] = useState<number>(0);
-  const tabArr = [
-    { path: '/', icon: <AiOutlineHome />, title: '홈' },
-    { path: '/all', icon: <BsPiggyBank />, title: '금융상품' },
-    { path: '/search', icon: <FiSearch />, title: '검색' },
-    { path: '/mypage', icon: <AiOutlineUser />, title: '마이페이지' },
-  ];
+  const location = useLocation();
+  const [pathname, setPathname] = useState<string>('/');
 
-  const handleTabBtn = (index: number) => {
-    setBtnColor(index);
-  };
+  useEffect(() => {
+    setPathname(location.pathname);
+  }, [location.pathname]);
+
+  const tabArr = [
+    { isTabBtn: true, path: '/', icon: <AiOutlineHome />, title: '홈' },
+    { isTabBtn: true, path: '/all', icon: <BsPiggyBank />, title: '금융상품' },
+    { isTabBtn: true, path: '/search', icon: <FiSearch />, title: '검색' },
+    { isTabBtn: true, path: '/mypage', icon: <AiOutlineUser />, title: '마이페이지' },
+  ];
 
   return (
     <>
       <Container>
         {tabArr.map((list, index) => (
-          <StyledLink to={list.path} key={list.path} onClick={() => handleTabBtn(index)}>
-            <span className={'icon' + (index === btnColor ? ' clicked' : '')}>{list.icon}</span>
-            <span className={index === btnColor ? 'clicked' : ''}>{list.title}</span>
+          <StyledLink to={list.path} key={list.path}>
+            <span className={'icon' + (list.path === pathname ? ' clicked' : '')}>{list.icon}</span>
+            <span className={list.path === pathname ? 'clicked' : ''}>{list.title}</span>
           </StyledLink>
         ))}
       </Container>

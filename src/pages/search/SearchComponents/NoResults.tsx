@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
+import KeywordsList from './KeywordsList';
 
 const NoResults = () => {
   const params = useParams();
@@ -16,12 +17,15 @@ const NoResults = () => {
           <br />* 두 단어 이상의 검색어인 경우, 띄어쓰기를 변경해보세요.
         </p>
       </Desc>
+      <KeywordsList />
     </Container>
   );
 };
 
 const Container = styled.div``;
+
 const Desc = styled.div`
+  margin-bottom: 60px;
   text-align: center;
 
   p {

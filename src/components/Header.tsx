@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
 import styled from 'styled-components';
 
 const Header = () => {
-  const location = useLocation();
   const [wish, setWish] = useState<number>(12);
-  const wishLenght = () => {
-    setWish(1);
-  };
 
   const titleArr = [
     // 메인만 파란색 글씨 파이낸스세븐, 그 외에는 검정색 타이틀
@@ -22,7 +18,7 @@ const Header = () => {
   return (
     <>
       <HeaderComponents>
-        <Logo>파이낸스세븐</Logo>
+        <Logo to={'/'}>파이낸스세븐</Logo>
         <StyledLink to={'/cart'}>
           <AiOutlineHeart size="24" color="#424242" />
           <WishLength>{wish}</WishLength>
@@ -46,7 +42,7 @@ const HeaderComponents = styled.header`
   background-color: #fff;
 `;
 
-const Logo = styled.div`
+const Logo = styled(Link)`
   color: #0e76ff;
   font-weight: 700;
 `;

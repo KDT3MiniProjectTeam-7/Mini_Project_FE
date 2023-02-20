@@ -1,13 +1,14 @@
-import { Outlet, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import TabBar from './components/TabBar';
-import { ScrollRestoration } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setCartItems } from './store/cartSlice';
 import { GlobalStyle } from './common/style/Style';
 import { getCart } from './common/api/Api';
+import Header from './components/Header';
+import TabBar from './components/TabBar';
 
+// 전체 공통 적용
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,23 +19,32 @@ const App = () => {
     getCartData();
   }, []);
 
-  const location = useLocation();
-  const findResultsPage = location.pathname.slice(0, 8) === '/search/';
   return (
     <>
       <ScrollRestoration />
       <GlobalStyle />
-      {findResultsPage ? (
-        <Outlet />
-      ) : (
-        <>
-          <Header />
-          <Outlet />
-          <TabBar />
-        </>
-      )}
     </>
   );
 };
 
-export default App;
+// 헤더, 탭바 있음
+const IncludedLayout = () => {
+  return (
+    <>
+      <Header />
+      <Outlet />
+      <TabBar />
+    </>
+  );
+};
+
+// 헤더, 탭바 없음
+const ExcludedLayout = () => {
+  return (
+    <>
+      <Outlet />
+    </>
+  );
+};
+
+export { App, IncludedLayout, ExcludedLayout };
