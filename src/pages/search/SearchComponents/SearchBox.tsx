@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { BiSearch } from 'react-icons/Bi';
 import { TiDelete } from 'react-icons/ti';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import { addSearchKeywords } from '../../../common/api/Api';
 
 const SearchBox = () => {
   const location = useLocation();
@@ -30,6 +31,7 @@ const SearchBox = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     keyword !== '' ? navigate(`/search/${keyword}`) : alert('상품명을 입력해주세요.');
+    addSearchKeywords(keyword);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
