@@ -7,6 +7,7 @@ const CardSorting = () => {
   const sortFee = () => {
     setActive('fee');
   };
+
   const sortName = () => {
     setActive('name');
   };
@@ -24,21 +25,21 @@ const CardSorting = () => {
 };
 
 const LoanSorting = () => {
-  const [active, setActive] = useState('fee');
+  const [active, setActive] = useState('name');
 
-  const sortFee = () => {
-    setActive('fee');
-  };
   const sortName = () => {
     setActive('name');
   };
 
+  const sortLowRate = () => {
+    setActive('lowRate');
+  };
   return (
     <Container>
-      <button onClick={sortFee} className={active === 'fee' ? 'clicked' : ''}>
+      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
         상품명순
       </button>
-      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
+      <button onClick={sortLowRate} className={active === 'lowRate' ? 'clicked' : ''}>
         낮은금리순
       </button>
     </Container>
@@ -46,21 +47,21 @@ const LoanSorting = () => {
 };
 
 const ProductSorting = () => {
-  const [active, setActive] = useState('fee');
+  const [active, setActive] = useState('name');
 
-  const sortFee = () => {
-    setActive('fee');
-  };
   const sortName = () => {
     setActive('name');
   };
 
+  const sortHighRate = () => {
+    setActive('highRate');
+  };
   return (
     <Container>
-      <button onClick={sortFee} className={active === 'fee' ? 'clicked' : ''}>
+      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
         상품명순
       </button>
-      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
+      <button onClick={sortHighRate} className={active === 'highRate' ? 'clicked' : ''}>
         높은금리순
       </button>
     </Container>

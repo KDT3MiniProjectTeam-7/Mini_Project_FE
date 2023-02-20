@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import NoResults from '../SearchComponents/NoResults';
+import { ProductSorting } from './Sorting';
 
 const ResultsSavings = () => {
   const data = [
@@ -61,23 +62,28 @@ const ResultsSavings = () => {
   return (
     <Container>
       {data.length !== 0 ? (
-        data.map((list) => (
-          <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>
-            <div>
-              <CompanyImage>
-                <img src={list.companyImage} alt={`${list.companyName} 로고`} />
-              </CompanyImage>
-              <Desc>
-                <h3 className="companyName">{list.companyName}</h3>
-                <p className="productname">{list.productName}</p>
-              </Desc>
-            </div>
-            <Rate>
-              <strong className="prime">최고 연 {list.primeRate}%</strong>
-              <span className="basic">기본 {list.basicRate}%</span>
-            </Rate>
-          </ResultsList>
-        ))
+        <>
+          <ProductSorting />
+          <div>
+            {data.map((list) => (
+              <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>
+                <div>
+                  <CompanyImage>
+                    <img src={list.companyImage} alt={`${list.companyName} 로고`} />
+                  </CompanyImage>
+                  <Desc>
+                    <h3 className="companyName">{list.companyName}</h3>
+                    <p className="productname">{list.productName}</p>
+                  </Desc>
+                </div>
+                <Rate>
+                  <strong className="prime">최고 연 {list.primeRate}%</strong>
+                  <span className="basic">기본 {list.basicRate}%</span>
+                </Rate>
+              </ResultsList>
+            ))}
+          </div>
+        </>
       ) : (
         <NoResults />
       )}
