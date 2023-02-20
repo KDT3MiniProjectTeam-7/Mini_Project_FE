@@ -18,6 +18,30 @@ interface InputFormData {
   };
 }
 
+const loginSubmit = async (email: string, pw: string) => {
+  try {
+    const res = await fetch('http://3.36.178.242:8080/login', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: pw,
+      }),
+    });
+    const json = await res.json();
+    console.log(json);
+    if (json.status === 'success') {
+      document.cookie = `accessToken=${json.accessToken}`;
+    } else {
+      console.log('에러');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const UserInformation = (props: any) => {
   const navigate = useNavigate();
   const {
@@ -29,6 +53,8 @@ const UserInformation = (props: any) => {
 
   const password = useRef<any>();
   password.current = watch('password');
+
+  const [signUpFail, setSignUpFail] = useState(false);
 
   // 생년월일 자리수 체크
   const lengthCheck = (event: any, max: number) => {
@@ -55,8 +81,12 @@ const UserInformation = (props: any) => {
       if (!res.ok) throw new Error('Request failed');
       const json = await res.json();
       console.log(json);
-      // props.setPage('CreateComplete');
-      navigate('/login');
+      if (json.status === 'success') {
+        loginSubmit(email, pw);
+        props.setPage('Complete');
+      } else {
+        setSignUpFail(true);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -82,7 +112,13 @@ const UserInformation = (props: any) => {
             },
           })}
         />
-        {errors.email ? <Caution>{errors.email?.message}</Caution> : <Caution />}
+        {signUpFail ? (
+          <Caution>이미 가입된 Eamil 입니다.</Caution>
+        ) : errors.email ? (
+          <Caution>{errors.email?.message}</Caution>
+        ) : (
+          <Caution />
+        )}
       </InputBox>
       <InputBox>
         <label htmlFor="password">비밀번호</label>
