@@ -12,12 +12,6 @@ const SearchBox = () => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
 
-  // 검색어 조회 api
-  // 기존 검색어에 없으면 추가
-  // 기존 검색어에 있으면 검색어 수정
-
-  // 자동완성 기능
-
   const findResultsPage = location.pathname.slice(0, 8) === '/search/';
 
   useEffect(() => {
@@ -31,7 +25,7 @@ const SearchBox = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     keyword !== '' ? navigate(`/search/${keyword}`) : alert('상품명을 입력해주세요.');
-    // addSearchKeywords(keyword);
+    addSearchKeywords(keyword);
     getSearchResults(keyword, 'loan', 1);
   };
 
