@@ -6,16 +6,6 @@ import { isInCart } from '../../utils/isInCart';
 import { useDispatch } from 'react-redux';
 import { addCartItems, deleteCartItems } from '../../store/cartSlice';
 
-// interface cardItem {
-//   productId: number;
-//   productName: string;
-//   companyName: string;
-//   companyImage: string;
-//   thumbnail: string;
-//   benefits: string[];
-//   annualFee: number;
-// }
-
 const CardLists = ({ data }: { data: Item[] }) => {
   const dispatch = useDispatch();
 
@@ -49,22 +39,6 @@ const CardLists = ({ data }: { data: Item[] }) => {
               }}
             />
           )}
-          {/* <AiFillHeart
-            size="26"
-            className="wish"
-            fill="red"
-            color="red"
-            onClick={() => {
-              dispatch(deleteCartItems(card));
-            }}
-          />
-          <AiOutlineHeart
-            size="26"
-            className="wish"
-            onClick={() => {
-              dispatch(addCartItems(card));
-            }}
-          /> */}
         </CardContainer>
       ))}
     </Container>
