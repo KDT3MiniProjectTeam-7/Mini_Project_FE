@@ -8,8 +8,6 @@ export const isInCart = (id: number) => {
   // cartItem을 불러오고
   const cartItems = useSelector<ReducerType, Item[]>((state) => state.cart);
 
-  console.log(id);
-
   let flag = false;
 
   cartItems.forEach((item) => {
