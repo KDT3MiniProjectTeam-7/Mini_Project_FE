@@ -30,6 +30,7 @@ const SearchResults = () => {
 };
 
 const Container = styled.div`
+  width: 100%;
   max-width: 768px;
   box-sizing: border-box;
   margin: 0 auto;
