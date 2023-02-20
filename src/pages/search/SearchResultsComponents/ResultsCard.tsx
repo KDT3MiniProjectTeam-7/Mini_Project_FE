@@ -156,7 +156,7 @@ const Desc = styled.div`
     margin-bottom: 5px;
     color: var(--black-color);
     font-size: var(--font-m);
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.4;
   }
 

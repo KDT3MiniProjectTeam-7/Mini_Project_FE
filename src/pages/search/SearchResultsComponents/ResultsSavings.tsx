@@ -136,14 +136,13 @@ const Desc = styled.dl`
     margin-bottom: 5px;
     color: var(--black-color);
     font-size: var(--font-m);
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .companyName {
     order: 2;
     color: var(--gray-color);
     font-size: var(--font-s);
-    font-weight: 500;
   }
 `;
 
