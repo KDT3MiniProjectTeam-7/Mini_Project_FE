@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { Item } from '../../store/cartSlice';
+import { isInCart } from '../../utils/isInCart';
+import { useDispatch } from 'react-redux';
+import { addCartItems, deleteCartItems } from '../../store/cartSlice';
 
 // interface loanItem {
 //   productId: number;
@@ -14,6 +17,8 @@ import { Item } from '../../store/cartSlice';
 // }
 
 const LoanLists = ({ data }: { data: Item[] }) => {
+  const dispatch = useDispatch();
+
   return (
     <Container>
       {data.map((loan) => (
@@ -25,7 +30,41 @@ const LoanLists = ({ data }: { data: Item[] }) => {
             <h1>{loan.productName}</h1>
             <p>{loan.companyName}</p>
           </div>
-          <AiOutlineHeart size="26" className="wish" />
+          {isInCart(loan.productId) ? (
+            <AiFillHeart
+              size="26"
+              className="wish"
+              fill="red"
+              color="red"
+              onClick={() => {
+                dispatch(deleteCartItems(loan));
+              }}
+            />
+          ) : (
+            <AiOutlineHeart
+              size="26"
+              className="wish"
+              onClick={() => {
+                dispatch(addCartItems(loan));
+              }}
+            />
+          )}
+          {/* <AiFillHeart
+            size="26"
+            className="wish"
+            fill="red"
+            color="red"
+            onClick={() => {
+              dispatch(deleteCartItems(loan));
+            }}
+          />
+          <AiOutlineHeart
+            size="26"
+            className="wish"
+            onClick={() => {
+              dispatch(addCartItems(loan));
+            }}
+          /> */}
         </LoanContainer>
       ))}
     </Container>
