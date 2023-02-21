@@ -221,7 +221,7 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
 
   const title = ['카드', '대출', '예적금', '청약'];
 
-  const handleBtnViewAll = (e) => {
+  const handleBtnViewAll = (e: any) => {
     const h3Value = e.target.parentElement.previousSibling.innerText;
     const isH3Value = (el: string) => el === h3Value;
     const titleIndex = title.findIndex(isH3Value) + 1;
