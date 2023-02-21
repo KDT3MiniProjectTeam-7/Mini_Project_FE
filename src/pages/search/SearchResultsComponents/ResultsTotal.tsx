@@ -123,7 +123,7 @@ const ResultsTotal = () => {
       bound: '최대 1억 5천원',
     },
     {
-      productId: 2115,
+      productId: 2116,
       category: 'loan',
       productName: '신용대출플러스',
       companyName: '케이뱅크',
@@ -215,9 +215,9 @@ const ResultsTotal = () => {
   const title = ['카드', '대출', '예적금', '청약'];
 
   return (
-    <Container>
+    <>
       {title.map((list) => (
-        <>
+        <Container key={list}>
           <h3 key={list}>{list}</h3>
           <Desc>
             {list === '카드'
@@ -286,9 +286,9 @@ const ResultsTotal = () => {
               : ''}
             <button>모두 보기</button>
           </Desc>
-        </>
+        </Container>
       ))}
-    </Container>
+    </>
   );
 };
 
