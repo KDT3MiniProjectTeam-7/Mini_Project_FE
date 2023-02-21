@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 import { getSearchResults } from '../../../common/api/Api';
 
-const ResultsTotal = () => {
+interface TabProps {
+  setTabIndex: (index: number) => void;
+}
+
+const ResultsTotal = ({ setTabIndex }: TabProps) => {
   useEffect(() => {});
   const cardData = [
     {
@@ -214,6 +218,13 @@ const ResultsTotal = () => {
 
   const title = ['카드', '대출', '예적금', '청약'];
 
+  const handleBtnViewAll = (e) => {
+    const h3Value = e.target.parentElement.previousSibling.innerText;
+    const isH3Value = (el: string) => el === h3Value;
+    const titleIndex = title.findIndex(isH3Value) + 1;
+    setTabIndex(titleIndex);
+  };
+
   return (
     <>
       {title.map((list) => (
@@ -284,7 +295,7 @@ const ResultsTotal = () => {
                   </Product>
                 ))
               : ''}
-            <button>모두 보기</button>
+            <button onClick={handleBtnViewAll}>모두 보기</button>
           </Desc>
         </Container>
       ))}
