@@ -6,7 +6,7 @@ import { TiDelete } from 'react-icons/ti';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { addSearchKeywords, getSearchResults } from '../../../common/api/Api';
 
-const SearchBox = () => {
+const SearchBox = ({ autoSave }) => {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
@@ -24,11 +24,13 @@ const SearchBox = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const movepageAndAddkeyword = () => {
       navigate(`/search/${keyword}`);
-      addSearchKeywords(keyword);
+      autoSave ? addSearchKeywords(keyword) : '';
       getSearchResults(keyword, 'card', 1);
     };
+
     keyword !== '' ? movepageAndAddkeyword() : alert('상품명을 입력해주세요.');
   };
 

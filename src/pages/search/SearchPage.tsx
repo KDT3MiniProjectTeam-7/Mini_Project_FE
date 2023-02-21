@@ -9,6 +9,7 @@ import { getRecentProduct } from '../../common/api/Api';
 
 const Search = () => {
   const [data, setData] = useState([]);
+  const [autoSave, setAutoSave] = useState(true);
 
   useEffect(() => {
     const getSeverData = async () => {
@@ -25,7 +26,7 @@ const Search = () => {
 
   return (
     <Container>
-      <SearchBox />
+      <SearchBox autoSave={autoSave} />
       <RecentProducts>
         <h4>최근에 자세히 봤던</h4>
         <DetailLink to={`/detail/:category/:id`}>
@@ -43,7 +44,7 @@ const Search = () => {
           </div>
         </DetailLink>
       </RecentProducts>
-      <RecentKeywords>
+      <RecentKeywords autoSave={autoSave} setAutoSave={setAutoSave}>
         <KeywordsList />
       </RecentKeywords>
     </Container>

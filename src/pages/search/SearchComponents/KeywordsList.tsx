@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import { TfiClose } from 'react-icons/tfi';
 import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll } from '../../../common/api/Api';
 
-const KeywordsList = () => {
-  const [autoSave, setAutoSave] = useState(true);
+const KeywordsList = ({ autoSave, setAutoSave }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
