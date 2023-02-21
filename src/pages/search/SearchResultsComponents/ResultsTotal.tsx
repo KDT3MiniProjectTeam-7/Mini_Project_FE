@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 import { getSearchResults } from '../../../common/api/Api';
@@ -8,6 +9,7 @@ interface TabProps {
 }
 
 const ResultsTotal = ({ setTabIndex }: TabProps) => {
+  const navigate = useNavigate();
   useEffect(() => {});
   const cardData = [
     {
@@ -197,6 +199,7 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
       primeRate: 3.65,
     },
   ];
+
   const subscriptionData = [
     {
       productId: 4111,
@@ -218,11 +221,15 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
 
   const title = ['카드', '대출', '예적금', '청약'];
 
-  const handleBtnViewAll = (e) => {
+  const handleBtnViewAll = (e: any) => {
     const h3Value = e.target.parentElement.previousSibling.innerText;
     const isH3Value = (el: string) => el === h3Value;
     const titleIndex = title.findIndex(isH3Value) + 1;
     setTabIndex(titleIndex);
+  };
+
+  const handleLi = (category: string, id: number) => {
+    navigate(`/detail/${category}/${id}`);
   };
 
   return (
@@ -233,7 +240,7 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
           <Desc>
             {list === '카드'
               ? cardData.slice(0, 3).map((data) => (
-                  <Product key={data.productId}>
+                  <Product key={data.productId} onClick={() => handleLi('card', data.productId)}>
                     <div>
                       <Image>
                         <img src={data.thumbnail} alt={`${data.productName}카드이미지`} />
@@ -249,7 +256,7 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
               : ''}
             {list === '대출'
               ? loanData.slice(0, 3).map((data) => (
-                  <Product key={data.productId}>
+                  <Product key={data.productId} onClick={() => handleLi('loan', data.productId)}>
                     <div>
                       <Image>
                         <img src={data.companyImage} alt={`${data.companyName} 로고`} />
@@ -265,7 +272,7 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
               : ''}
             {list === '예적금'
               ? savingsData.slice(0, 3).map((data) => (
-                  <Product key={data.productId}>
+                  <Product key={data.productId} onClick={() => handleLi('savings', data.productId)}>
                     <div>
                       <Image>
                         <img src={data.companyImage} alt={`${data.companyName} 로고`} />
@@ -281,7 +288,7 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
               : ''}
             {list === '청약'
               ? subscriptionData.slice(0, 3).map((data) => (
-                  <Product key={data.productId}>
+                  <Product key={data.productId} onClick={() => handleLi('subscription', data.productId)}>
                     <div>
                       <Image>
                         <img src={data.companyImage} alt={`${data.companyName} 로고`} />
@@ -303,7 +310,7 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   h3 {
     margin-bottom: 20px;
     padding: 30px 20px 0;
@@ -338,6 +345,7 @@ const Product = styled.li`
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  cursor: pointer;
 
   & > div {
     display: flex;
