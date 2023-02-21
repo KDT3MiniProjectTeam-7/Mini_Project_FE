@@ -36,9 +36,9 @@ export const delCartItems = async (id: number) => {
 // 최근 검색어
 export const getSearchKeywords = async () => {
   try {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     const data = await axios.get('http://3.36.178.242:8080/user/keywords');
-    console.log(data.data.resultData);
+    // console.log(data.data.resultData);
     return data.data.resultData;
   } catch (err: any) {
     console.log(err.message);
@@ -47,9 +47,9 @@ export const getSearchKeywords = async () => {
 
 export const addSearchKeywords = async (keywords: string) => {
   try {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     const data = await axios.post('http://3.36.178.242:8080/user/keywords', { searchContent: keywords });
-    console.log(data.data.resultData);
+    console.log(data);
     return data.data.resultData;
   } catch (err: any) {
     console.log(err.message);
@@ -58,7 +58,7 @@ export const addSearchKeywords = async (keywords: string) => {
 
 export const deleteSearchKeywordsSingle = async (searchId: number) => {
   try {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     const data = await axios.delete('http://3.36.178.242:8080/user/keywords', { data: { searchId: searchId } });
     console.log(data.data.resultData);
     console.log('한개 삭제됨!');
@@ -70,7 +70,7 @@ export const deleteSearchKeywordsSingle = async (searchId: number) => {
 
 export const deleteSearchKeywordsAll = async () => {
   try {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     const data = await axios.delete('http://3.36.178.242:8080/user/keywords/all');
     console.log(data.data.resultData);
     return data.data.resultData;
@@ -82,7 +82,7 @@ export const deleteSearchKeywordsAll = async () => {
 // 최근 본 상품
 export const getRecentProduct = async () => {
   try {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     const data = await axios.get('http://3.36.178.242:8080/user/recentproducts');
     console.log(data.data.resultData);
     return data.data.resultDatata;
@@ -93,7 +93,7 @@ export const getRecentProduct = async () => {
 
 export const addRecentProduct = async (productId: number) => {
   try {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie}`;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     console.log(document.cookie);
     const data = await axios.post('http://3.36.178.242:8080/user/recentproducts', { productId: productId });
     console.log(data.data.resultData);
