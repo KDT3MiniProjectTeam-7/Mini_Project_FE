@@ -26,35 +26,6 @@ const Cart = () => {
 
   // 장바구니에서 카테고리별로 분류해야할듯.
 
-  // let loanData = cartItems.filter((item) => {
-  //   return item.category === 'loan';
-  // });
-  // let cardData = cartItems.filter((item) => {
-  //   return item.category === 'card';
-  // });
-  // let subscriptionData = cartItems.filter((item) => {
-  //   return item.category === 'subscription';
-  // });
-  // let savingsData = cartItems.filter((item) => {
-  //   return item.category === 'savings';
-  // });
-
-  // useEffect(() => {
-  //   // 매번 분류
-  //   loanData = cartItems.filter((item) => {
-  //     return item.category === 'loan';
-  //   });
-  //   cardData = cartItems.filter((item) => {
-  //     return item.category === 'card';
-  //   });
-  //   subscriptionData = cartItems.filter((item) => {
-  //     return item.category === 'subscription';
-  //   });
-  //   savingsData = cartItems.filter((item) => {
-  //     return item.category === 'savings';
-  //   });
-  // }, [cartItems]);
-
   return (
     <MainContainer>
       <IoChevronBackOutline
@@ -69,10 +40,6 @@ const Cart = () => {
         관심있는 상품을 <span>한번</span>에 만나보세요.
       </Title>
       <CartLists data={cartItems} />
-      {/* <CardLists data={cardData} />
-      <LoanLists data={loanData} />
-      <SavingsLists data={savingsData} />
-      <SubscriptionLists data={subscriptionData} /> */}
     </MainContainer>
   );
 };

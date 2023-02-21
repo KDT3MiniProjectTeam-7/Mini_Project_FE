@@ -1,38 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaAngellist } from 'react-icons/fa';
 import DescriptionData from './DescriptionData';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { getDetailItem } from '../../common/api/Api';
+import { useParams } from 'react-router-dom';
+import { isInCart } from '../../utils/isInCart';
+import { changeCartStatus } from '../../store/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const Subscription = () => {
   const [nav, setNav] = useState([true, false, false]);
 
   const navigate = useNavigate();
-  const data = {
-    productId: 16,
-    category: 'SUBSCRIPTION',
-    productName: '주택청약종합저축',
-    companyName: '우리은행',
-    companyImage: 'https://simg.wooribank.com/img/intro/header/h1_01.png',
-    productURL: 'https://spot.wooribank.com/pot/Dream?withyou=PODEP0019&cc=c007095:c009166',
-    thumbnail: null,
-    highRate: '2.10',
-    aboutRate: ['1개월 이내: 무이자', '1개월 초과 1년 미만: 1.3', '1년 이상 2년 미만: 1.8', '2년 이상: 2.1'],
-    bound: null,
-    purchase: ['매월 2~ 50만원 자유 납입', '납부 총액이 1,500만원 도달 시 까지는 50만원 초과하여 자유적립 가능'],
-    qualification: ['무주택자'],
-  };
+  const dispatch = useDispatch();
+  const [data, setData] = useState({
+    productId: 0,
+    category: 'card',
+    productName: '',
+    companyName: '',
+    companyImage: '',
+    productURL: '',
+    highRate: 0,
+    aboutRate: [],
+    purchase: [],
+  });
+  const { category, id } = useParams();
+
+  const [color, setColor] = useState(isInCart(Number(id)) ? 'red' : 'black');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getDetailItem(Number(id));
+      setData(data?.resultData[0]);
+      console.log(data.resultData);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
-      <IoChevronBackOutline
-        size="22"
-        color="#353D4A"
-        onClick={() => {
-          navigate(-1);
-        }}
-        style={{ marginLeft: '-8px' }}
-      />
+      <Header>
+        <IoChevronBackOutline
+          size="22"
+          color="#353D4A"
+          onClick={() => {
+            navigate(-1);
+          }}
+          style={{ marginLeft: '-8px' }}
+        />
+        <AiOutlineHeart
+          size="23"
+          color={isInCart(Number(id)) ? 'red' : 'black'}
+          onClick={() => {
+            dispatch(changeCartStatus(data));
+          }}
+        />
+      </Header>
       <IntroContainer>
         <p>{data.companyName}</p>
         <img src={data.companyImage} alt="cardImage" />
@@ -126,6 +152,12 @@ const IntroContainer = styled.div`
     font-size: 15px;
     color: #888888;
   }
+`;
+
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const BenefitContainer = styled.ul`

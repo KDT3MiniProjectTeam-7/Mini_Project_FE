@@ -1,46 +1,77 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaAngellist } from 'react-icons/fa';
 import DescriptionData from './DescriptionData';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { getDetailItem } from '../../common/api/Api';
+import { useParams } from 'react-router-dom';
+import { isInCart } from '../../utils/isInCart';
+import { changeCartStatus } from '../../store/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const Card = () => {
   const [nav, setNav] = useState([true, false, false]);
 
+  const [data, setData] = useState({
+    productId: 0,
+    category: 'card',
+    productName: '',
+    companyName: '',
+    companyImage: '',
+    thumbnail: '',
+    productURL: '',
+    benefits: [],
+    annualFee: 0,
+  });
+
+  const { category, id } = useParams();
+
+  const [color, setColor] = useState(isInCart(Number(id)) ? 'red' : 'black');
+
   const navigate = useNavigate();
 
-  // 데이터는 일단 목업데이터
-  const data = {
-    productId: 1,
-    category: 'CARD',
-    productName: '신한카드 EVerywhere',
-    companyName: '신한카드',
-    companyImage: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-    productURL: 'https://www.shinhancard.com/pconts/html/card/apply/credit/1219683_2207.html',
-    thumbnail: null,
-    benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
-    annualFee: 22000,
-  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getDetailItem(Number(id));
+      setData(data?.resultData[0]);
+      console.log(data.resultData);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
-      <IoChevronBackOutline
-        size="22"
-        color="#353D4A"
-        onClick={() => {
-          navigate(-1);
-        }}
-        style={{ marginLeft: '-8px' }}
-      />
+      <Header>
+        <IoChevronBackOutline
+          size="22"
+          color="#353D4A"
+          onClick={() => {
+            navigate(-1);
+          }}
+          style={{ marginLeft: '-8px' }}
+        />
+        <AiOutlineHeart
+          size="23"
+          color={isInCart(Number(id)) ? 'red' : 'black'}
+          onClick={() => {
+            dispatch(changeCartStatus(data));
+          }}
+        />
+      </Header>
+
       <IntroContainer>
         <p>{data.companyName}</p>
-        <img src={data.companyImage} alt="cardImage" />
+        <img src={data.thumbnail} alt="cardImage" />
         <h1>{data.productName}</h1>
         <h2>파이낸스 세븐이 추천하는 최고의 혜택</h2>
       </IntroContainer>
+
       <BenefitContainer>
-        {data.benefits.map((benefit, index) => {
+        {data?.benefits?.map((benefit, index) => {
           return (
             <li key={index}>
               <FaAngellist />
@@ -65,8 +96,8 @@ const Card = () => {
         <DescriptionContainer>
           <p>연회비</p>
           <ul>
-            <li>{`· 국내전용 ${data.annualFee.toLocaleString()}원 (기본${data.annualFee.toLocaleString()}원)`}</li>
-            <li>{`· 국내외겸용 (UPI) ${data.annualFee.toLocaleString()}원 (기본${data.annualFee.toLocaleString()}원)`}</li>
+            <li>{`· 국내전용 ${data?.annualFee?.toLocaleString()}원 (기본${data?.annualFee?.toLocaleString()}원)`}</li>
+            <li>{`· 국내외겸용 (UPI) ${data.annualFee?.toLocaleString()}원 (기본${data?.annualFee?.toLocaleString()}원)`}</li>
             <li>{`· 국내외겸용 (Visa/Mastercard/Amex) ${(data.annualFee + 1000).toLocaleString()}원 (기본${(
               data.annualFee + 1000
             ).toLocaleString()}원)`}</li>
@@ -81,7 +112,7 @@ const Card = () => {
         <DescriptionContainer>
           <p>주요혜택</p>
           <ul>
-            {data.benefits.map((benefit, index) => {
+            {data?.benefits?.map((benefit, index) => {
               return <li key={index}>{`· ${benefit}`}</li>;
             })}
           </ul>
@@ -93,7 +124,7 @@ const Card = () => {
           <DescriptionData />
         </DescriptionContainer>
       )}
-      <Link to={data.productURL}>
+      <Link to={data?.productURL}>
         <SubmitButton>온라인 신청</SubmitButton>
       </Link>
     </>
@@ -125,6 +156,12 @@ const IntroContainer = styled.div`
     font-size: 15px;
     color: #888888;
   }
+`;
+
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const BenefitContainer = styled.ul`
