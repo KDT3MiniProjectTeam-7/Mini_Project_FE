@@ -1,17 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { AiOutlineRight } from 'react-icons/ai';
 import { Item } from '../../store/cartSlice';
 import { isInCart } from '../../utils/isInCart';
 import { useDispatch } from 'react-redux';
-import { addCartItems, deleteCartItems } from '../../store/cartSlice';
 import { Link } from 'react-router-dom';
 
 const SavingsLists = ({ data }: { data: Item[] }) => {
   const dispatch = useDispatch();
   return (
     <Container>
-      {data.map((savings) => (
+      {data?.map((savings) => (
         <SavingsContainer key={savings.productId}>
           <Link to={`/detail/${savings.category}/${savings.productId}`}>
             <Thumbnail>
@@ -21,26 +20,8 @@ const SavingsLists = ({ data }: { data: Item[] }) => {
               <h1>{savings.productName}</h1>
               <p>{savings.companyName}</p>
             </div>
+            <AiOutlineRight size="23" className="wish" />
           </Link>
-          {isInCart(savings.productId) ? (
-            <AiFillHeart
-              size="24"
-              className="wish"
-              fill="red"
-              color="red"
-              onClick={() => {
-                dispatch(deleteCartItems(savings));
-              }}
-            />
-          ) : (
-            <AiOutlineHeart
-              size="24"
-              className="wish"
-              onClick={() => {
-                dispatch(addCartItems(savings));
-              }}
-            />
-          )}
         </SavingsContainer>
       ))}
     </Container>

@@ -1,21 +1,10 @@
 import axios from 'axios';
 import { defaultInstance, authInstance } from './Axios';
 
-////////////////////// 관심상품 ///////////////////
-export async function getCart() {
-  try {
-    const { data } = await authInstance.get('/cart');
-
-    return data;
-  } catch (err: any) {
-    console.log(err.message);
-  }
-}
-
 export const postCartItems = async (id: number) => {
   try {
     const params = { productId: id };
-    await axios.post('https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart', params);
+    await authInstance.post('/cart', params);
   } catch (err: any) {
     console.log(err.message);
   }
@@ -23,8 +12,7 @@ export const postCartItems = async (id: number) => {
 
 export const delCartItems = async (id: number) => {
   try {
-    // const params = { productId: id };
-    await axios.delete('https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart', {
+    await authInstance.delete('/cart', {
       data: {
         productId: id,
       },
@@ -186,13 +174,12 @@ export const getSearchResults = async (title: string, category: string, page: nu
     axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     const data = await axios.get(`http://finance-seven.store/search?title=${title}&category=${category}&page=${page}`);
     console.log(data.data.resultData);
-    return data;
+    return data.data.resultData;
   } catch (err: any) {
-    console.log(err.message);
+    // console.log(err.message);
   }
 };
 
-////////////////////// 맞춤상품 ///////////////////
 export const getPost = async () => {
   try {
     const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`);
@@ -200,5 +187,33 @@ export const getPost = async () => {
     return data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export async function getCart() {
+  try {
+    const { data } = await authInstance.get('/cart');
+
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+}
+
+export const getCategoryItem = async (tags: string, category: string, page: number) => {
+  try {
+    const { data } = await defaultInstance.get(`items/all/${tags}?category=${category}&page=${page}`);
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
+export const getDetailItem = async (id: number) => {
+  try {
+    const { data } = await defaultInstance.get(`items/${id}`);
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
   }
 };

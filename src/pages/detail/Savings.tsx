@@ -1,47 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaAngellist } from 'react-icons/fa';
 import DescriptionData from './DescriptionData';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { getDetailItem } from '../../common/api/Api';
+import { useParams } from 'react-router-dom';
+import { isInCart } from '../../utils/isInCart';
+import { changeCartStatus } from '../../store/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const Savings = () => {
   const [nav, setNav] = useState([true, false, false]);
 
   const navigate = useNavigate();
-  const data = {
-    productId: 11,
-    category: 'SAVINGS',
-    productName: '청년내일저축계좌',
-    companyName: '하나은행',
-    companyImage:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Hana_Bank_Logo_%28kor%29.svg/2560px-Hana_Bank_Logo_%28kor%29.svg.png',
-    productURL: 'https://new-m.pay.naver.com/savings/detail/982b3337241d96ba2c9d60ad8ef5f114',
-    thumbnail: null,
-    basicRate: '2.00',
-    primeRate: '3.00',
-    qualification: [
-      '1. 이 예금가입후 만기 전전월말 기준, 본인명의 하나은행 입출금 통장을 통해 12회차 이상 급여입금 (또는 가맹점대금 입금) 및 주거래 이체 실적을 같은 월에 모두 보유한 경우 (월1회 인정)',
-      '※ 1회차 인정요건 : 급여입금 (또는 가맹점대금 입금) + 주거래이체 : 1.2%\n2. 아래의 ① 또는 ②에 해당하는 경우 ',
-      '① 이 예금 가입일로부터 3개월이 되는 달의 말일기준 당행 ‘주택청약종합저축’을 신규 또는 보유하고 만기 시점까지 유지한 경우',
-      '② 이 예금 가입일까지 ‘하나원큐(스마트폰뱅킹)’를 통하여 오픈뱅킹서비스를 가입하고, 주택청약종합저축을 등록·조회한 경우 : 1%',
-      '3. 이 예금 가입전 하나은행 상품·서비스 마케팅 동의 항목 모두를 동의한 경우 : 0.5%',
-      '4. 이 예금 가입일 기준 익월말까지 『하나 합 서비스』 가입 및 하나은행외 기관을 1개이상 연결하고 만기전전월말에 유지한 경우 : 0.3%',
-    ],
-    aboutPrimeRate: [
-      '아래의 우대항목을 충족한 경우, 최대 연 3.00%의 우대금리를 만기해지시 제공 (단, 중도해지시 미제공)',
-    ],
-  };
+  const dispatch = useDispatch();
+  const [data, setData] = useState({
+    productId: 0,
+    category: 'card',
+    productName: '',
+    companyName: '',
+    companyImage: '',
+    productURL: '',
+    basicRate: 0,
+    primeRate: 0,
+    qualification: [],
+    aboutPrimeRate: [],
+  });
+  const { category, id } = useParams();
+
+  const [color, setColor] = useState(isInCart(Number(id)) ? 'red' : 'black');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getDetailItem(Number(id));
+      setData(data?.resultData[0]);
+      console.log(data.resultData);
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
-      <IoChevronBackOutline
-        size="22"
-        color="#353D4A"
-        onClick={() => {
-          navigate(-1);
-        }}
-        style={{ marginLeft: '-8px' }}
-      />
+      <Header>
+        <IoChevronBackOutline
+          size="22"
+          color="#353D4A"
+          onClick={() => {
+            navigate(-1);
+          }}
+          style={{ marginLeft: '-8px' }}
+        />
+        <AiOutlineHeart
+          size="23"
+          color={isInCart(Number(id)) ? 'red' : 'black'}
+          onClick={() => {
+            dispatch(changeCartStatus(data));
+          }}
+        />
+      </Header>
       <IntroContainer>
         <p>{data.companyName}</p>
         <img src={data.companyImage} alt="cardImage" />
@@ -151,6 +169,12 @@ const IntroContainer = styled.div`
     font-size: 15px;
     color: #888888;
   }
+`;
+
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const BenefitContainer = styled.ul`
