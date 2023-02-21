@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components"
-import { getDataTest } from "../../common/api/Api";
 
 const Main = () => {
   interface data {
@@ -115,15 +114,6 @@ const Main = () => {
     ]
 
   }
-
-  useEffect(() => {
-    const getData = async () => {
-      const data = await getDataTest()
-      console.log(data)
-    }
-
-    getData()
-  }, []);
 
   return (
     <>
