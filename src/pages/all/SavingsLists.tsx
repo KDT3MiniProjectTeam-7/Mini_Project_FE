@@ -1,30 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { Item } from '../../store/cartSlice';
-
-// interface savingsItem {
-//   productId: number;
-//   productName: string;
-//   companyName: string;
-//   companyImage: string;
-//   basicRate: number;
-//   primeRate: number;
-// }
+import { isInCart } from '../../utils/isInCart';
+import { useDispatch } from 'react-redux';
+import { addCartItems, deleteCartItems } from '../../store/cartSlice';
+import { Link } from 'react-router-dom';
 
 const SavingsLists = ({ data }: { data: Item[] }) => {
+  const dispatch = useDispatch();
   return (
     <Container>
       {data.map((savings) => (
         <SavingsContainer key={savings.productId}>
-          <Thumbnail>
-            <img src={savings.companyImage} alt="savings Image" />
-          </Thumbnail>
-          <div className="desc">
-            <h1>{savings.productName}</h1>
-            <p>{savings.companyName}</p>
-          </div>
-          <AiOutlineHeart size="26" className="wish" />
+          <Link to={`/detail/${savings.category}/${savings.productId}`}>
+            <Thumbnail>
+              <img src={savings.companyImage} alt="savings Image" />
+            </Thumbnail>
+            <div className="desc">
+              <h1>{savings.productName}</h1>
+              <p>{savings.companyName}</p>
+            </div>
+          </Link>
+          {isInCart(savings.productId) ? (
+            <AiFillHeart
+              size="24"
+              className="wish"
+              fill="red"
+              color="red"
+              onClick={() => {
+                dispatch(deleteCartItems(savings));
+              }}
+            />
+          ) : (
+            <AiOutlineHeart
+              size="24"
+              className="wish"
+              onClick={() => {
+                dispatch(addCartItems(savings));
+              }}
+            />
+          )}
         </SavingsContainer>
       ))}
     </Container>
@@ -41,15 +57,19 @@ const SavingsContainer = styled.div`
   margin: 20px 0;
   display: flex;
   height: 40px;
-  .desc {
+  a {
     width: 100%;
-    h1 {
-      font-size: var(--font-m);
-    }
-    p {
-      margin-top: 6px;
-      font-size: var(--font-s);
-      color: var(--gray-color);
+    display: flex;
+    .desc {
+      width: 100%;
+      h1 {
+        font-size: var(--font-m);
+      }
+      p {
+        margin-top: 6px;
+        font-size: var(--font-s);
+        color: var(--gray-color);
+      }
     }
   }
   .wish {
