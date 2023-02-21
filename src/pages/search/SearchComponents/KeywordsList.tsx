@@ -6,85 +6,31 @@ import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll 
 
 const KeywordsList = () => {
   const [autoSave, setAutoSave] = useState(true);
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const getSeverData = async () => {
       try {
         const json = await getSearchKeywords();
+        setData(json);
         return json;
       } catch (err) {}
     };
     getSeverData();
   }, []);
 
-  const data = [
-    {
-      searchId: 1,
-      searchContent: '1',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 2,
-      searchContent: '2',
-      createdAt: '2021-10-29T05:18:51.868Z',
-    },
-    {
-      searchId: 3,
-      searchContent: '3',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 4,
-      searchContent: '4',
-      createdAt: '2021-10-30T05:18:51.868Z',
-    },
-    {
-      searchId: 5,
-      searchContent: '5',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 6,
-      searchContent: '6',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 7,
-      searchContent: '7',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 8,
-      searchContent: '8',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 9,
-      searchContent: '9',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 10,
-      searchContent: '10',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 11,
-      searchContent: '11',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-  ];
+  console.log(data);
 
   // 삭제
-  const handleDeleteKeyword = () => {
-    // 검색어 단일삭제 api 요청
+  const handleDeleteKeyword = (id: number) => {
+    deleteSearchKeywordsSingle(id);
   };
 
   const handleDeleteKeywordAll = () => {
-    alert('최근 검색어를 모두 삭제하시겠습니까?');
-    // 검색어 전체삭제 api 요청
-    // 00개 삭제완료 토스트 띄우기
+    if (confirm('최근 검색어를 모두 삭제하시겠습니까?')) {
+      deleteSearchKeywordsAll();
+      // 00개 삭제완료 토스트 띄우기
+    }
   };
 
   // 자동저장
@@ -115,7 +61,7 @@ const KeywordsList = () => {
                 .map((list) => (
                   <li key={list.searchId}>
                     <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
-                    <button onClick={handleDeleteKeyword}>
+                    <button onClick={() => handleDeleteKeyword(list.searchId)}>
                       <TfiClose />
                     </button>
                   </li>
