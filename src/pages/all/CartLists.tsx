@@ -1,48 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart } from 'react-icons/ai';
 import { Item } from '../../store/cartSlice';
-import { isInCart } from '../../utils/isInCart';
 import { useDispatch } from 'react-redux';
-import { addCartItems, deleteCartItems } from '../../store/cartSlice';
+import { deleteCartItems } from '../../store/cartSlice';
 import { Link } from 'react-router-dom';
 
-const CardLists = ({ data }: { data: Item[] }) => {
+const CartLists = ({ data }: { data: Item[] }) => {
   const dispatch = useDispatch();
-
   return (
     <Container>
-      {data.map((card) => (
-        <CardContainer key={card.productId}>
-          <Link to={`/detail/${card.category}/${card.productId}`}>
+      {data.map((cartItem) => (
+        <CartContainer key={cartItem.productId}>
+          <Link to={`/detail/${cartItem.category}/${cartItem.productId}`}>
             <Thumbnail>
-              <img src={card.thumbnail} alt="card Image" />
+              {cartItem.category === 'card' ? (
+                <img src={cartItem.thumbnail} alt="cartItem Image" />
+              ) : (
+                <img src={cartItem.companyImage} alt="cartItem Image" />
+              )}
             </Thumbnail>
             <div className="desc">
-              <h1>{card.productName}</h1>
-              <p>{card.companyName}</p>
+              <h1>{cartItem.productName}</h1>
+              <p>{cartItem.companyName}</p>
             </div>
           </Link>
-          {isInCart(card.productId) ? (
-            <AiFillHeart
-              size="24"
-              className="wish"
-              fill="red"
-              color="red"
-              onClick={() => {
-                dispatch(deleteCartItems(card));
-              }}
-            />
-          ) : (
-            <AiOutlineHeart
-              size="24"
-              className="wish"
-              onClick={() => {
-                dispatch(addCartItems(card));
-              }}
-            />
-          )}
-        </CardContainer>
+
+          <AiFillHeart
+            size="24"
+            className="wish"
+            fill="red"
+            color="red"
+            onClick={() => {
+              dispatch(deleteCartItems(cartItem));
+            }}
+          />
+        </CartContainer>
       ))}
     </Container>
   );
@@ -53,7 +46,7 @@ const Container = styled.div`
   margin-bottom: 60px;
 `;
 
-const CardContainer = styled.div`
+const CartContainer = styled.div`
   width: 100%;
   margin: 20px 0;
   display: flex;
@@ -93,4 +86,5 @@ const Thumbnail = styled.div`
     max-height: 40px;
   }
 `;
-export default CardLists;
+
+export default CartLists;

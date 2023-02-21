@@ -23,6 +23,28 @@ export const getDataTest = async () => {
   }
 };
 
+export const postCartItems = async (id: number) => {
+  try {
+    const params = { productId: id };
+    await axios.post('https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart', params);
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
+export const delCartItems = async (id: number) => {
+  try {
+    // const params = { productId: id };
+    await axios.delete('https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart', {
+      data: {
+        productId: id,
+      },
+    });
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
 // 최근 검색어
 export const getSearchKeywords = async () => {
   try {
