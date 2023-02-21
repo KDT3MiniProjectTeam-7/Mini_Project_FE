@@ -30,9 +30,9 @@ const Survey = () => {
                   <label htmlFor="age_19">19세 미만</label>
                   <input type="radio" id="age_20" value="청년" {...register("age")}/>
                   <label htmlFor="age_20">20세 이상</label>
-                  <input type="radio" id="age_40" value="정년" {...register("age")}/>
+                  <input type="radio" id="age_40" value="중년" {...register("age")}/>
                   <label htmlFor="age_40">40세 이상</label>
-                  <input type="radio" id="age_50" value="중년" {...register("age")}/>
+                  <input type="radio" id="age_50" value="장년" {...register("age")}/>
                   <label htmlFor="age_50">50세 이상</label>
                   <input type="radio" id="age_65" value="노년" {...register("age")}/>
                   <label htmlFor="age_65">65세 이상</label>
