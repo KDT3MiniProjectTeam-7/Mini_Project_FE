@@ -35,7 +35,7 @@ const Detail = () => {
 };
 
 const MainContainer = styled.main`
-  padding-top: 30px;
+  margin-top: 20px;
 `;
 
 export default Detail;

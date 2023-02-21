@@ -4,6 +4,7 @@ import { AiFillHeart } from 'react-icons/ai';
 import { Item } from '../../store/cartSlice';
 import { useDispatch } from 'react-redux';
 import { deleteCartItems } from '../../store/cartSlice';
+import { Link } from 'react-router-dom';
 
 const CartLists = ({ data }: { data: Item[] }) => {
   const dispatch = useDispatch();
@@ -11,19 +12,22 @@ const CartLists = ({ data }: { data: Item[] }) => {
     <Container>
       {data.map((cartItem) => (
         <CartContainer key={cartItem.productId}>
-          <Thumbnail>
-            {cartItem.category === 'card' ? (
-              <img src={cartItem.thumbnail} alt="cartItem Image" />
-            ) : (
-              <img src={cartItem.companyImage} alt="cartItem Image" />
-            )}
-          </Thumbnail>
-          <div className="desc">
-            <h1>{cartItem.productName}</h1>
-            <p>{cartItem.companyName}</p>
-          </div>
+          <Link to={`/detail/${cartItem.category}/${cartItem.productId}`}>
+            <Thumbnail>
+              {cartItem.category === 'card' ? (
+                <img src={cartItem.thumbnail} alt="cartItem Image" />
+              ) : (
+                <img src={cartItem.companyImage} alt="cartItem Image" />
+              )}
+            </Thumbnail>
+            <div className="desc">
+              <h1>{cartItem.productName}</h1>
+              <p>{cartItem.companyName}</p>
+            </div>
+          </Link>
+
           <AiFillHeart
-            size="26"
+            size="24"
             className="wish"
             fill="red"
             color="red"
@@ -47,15 +51,19 @@ const CartContainer = styled.div`
   margin: 20px 0;
   display: flex;
   height: 40px;
-  .desc {
+  a {
     width: 100%;
-    h1 {
-      font-size: var(--font-m);
-    }
-    p {
-      margin-top: 6px;
-      font-size: var(--font-s);
-      color: var(--gray-color);
+    display: flex;
+    .desc {
+      width: 100%;
+      h1 {
+        font-size: var(--font-m);
+      }
+      p {
+        margin-top: 6px;
+        font-size: var(--font-s);
+        color: var(--gray-color);
+      }
     }
   }
   .wish {

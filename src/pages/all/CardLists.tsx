@@ -5,6 +5,7 @@ import { Item } from '../../store/cartSlice';
 import { isInCart } from '../../utils/isInCart';
 import { useDispatch } from 'react-redux';
 import { addCartItems, deleteCartItems } from '../../store/cartSlice';
+import { Link } from 'react-router-dom';
 
 const CardLists = ({ data }: { data: Item[] }) => {
   const dispatch = useDispatch();
@@ -13,16 +14,18 @@ const CardLists = ({ data }: { data: Item[] }) => {
     <Container>
       {data.map((card) => (
         <CardContainer key={card.productId}>
-          <Thumbnail>
-            <img src={card.thumbnail} alt="card Image" />
-          </Thumbnail>
-          <div className="desc">
-            <h1>{card.productName}</h1>
-            <p>{card.companyName}</p>
-          </div>
+          <Link to={`/detail/${card.category}/${card.productId}`}>
+            <Thumbnail>
+              <img src={card.thumbnail} alt="card Image" />
+            </Thumbnail>
+            <div className="desc">
+              <h1>{card.productName}</h1>
+              <p>{card.companyName}</p>
+            </div>
+          </Link>
           {isInCart(card.productId) ? (
             <AiFillHeart
-              size="26"
+              size="24"
               className="wish"
               fill="red"
               color="red"
@@ -32,7 +35,7 @@ const CardLists = ({ data }: { data: Item[] }) => {
             />
           ) : (
             <AiOutlineHeart
-              size="26"
+              size="24"
               className="wish"
               onClick={() => {
                 dispatch(addCartItems(card));
@@ -55,15 +58,19 @@ const CardContainer = styled.div`
   margin: 20px 0;
   display: flex;
   height: 40px;
-  .desc {
+  a {
     width: 100%;
-    h1 {
-      font-size: var(--font-m);
-    }
-    p {
-      margin-top: 6px;
-      font-size: var(--font-s);
-      color: var(--gray-color);
+    display: flex;
+    .desc {
+      width: 100%;
+      h1 {
+        font-size: var(--font-m);
+      }
+      p {
+        margin-top: 6px;
+        font-size: var(--font-s);
+        color: var(--gray-color);
+      }
     }
   }
   .wish {

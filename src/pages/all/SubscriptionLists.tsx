@@ -5,6 +5,7 @@ import { Item } from '../../store/cartSlice';
 import { isInCart } from '../../utils/isInCart';
 import { useDispatch } from 'react-redux';
 import { addCartItems, deleteCartItems } from '../../store/cartSlice';
+import { Link } from 'react-router-dom';
 
 const SubscriptionLists = ({ data }: { data: Item[] }) => {
   const dispatch = useDispatch();
@@ -13,16 +14,19 @@ const SubscriptionLists = ({ data }: { data: Item[] }) => {
     <Container>
       {data.map((subscription) => (
         <SubscriptionContainer key={subscription.productId}>
-          <Thumbnail>
-            <img src={subscription.companyImage} alt="subscription Image" />
-          </Thumbnail>
-          <div className="desc">
-            <h1>{subscription.productName}</h1>
-            <p>{subscription.companyName}</p>
-          </div>
+          <Link to={`/detail/${subscription.category}/${subscription.productId}`}>
+            <Thumbnail>
+              <img src={subscription.companyImage} alt="subscription Image" />
+            </Thumbnail>
+            <div className="desc">
+              <h1>{subscription.productName}</h1>
+              <p>{subscription.companyName}</p>
+            </div>
+          </Link>
+
           {isInCart(subscription.productId) ? (
             <AiFillHeart
-              size="26"
+              size="24"
               className="wish"
               fill="red"
               color="red"
@@ -32,7 +36,7 @@ const SubscriptionLists = ({ data }: { data: Item[] }) => {
             />
           ) : (
             <AiOutlineHeart
-              size="26"
+              size="24"
               className="wish"
               onClick={() => {
                 dispatch(addCartItems(subscription));
@@ -55,15 +59,19 @@ const SubscriptionContainer = styled.div`
   margin: 20px 0;
   display: flex;
   height: 40px;
-  .desc {
+  a {
     width: 100%;
-    h1 {
-      font-size: var(--font-m);
-    }
-    p {
-      margin-top: 6px;
-      font-size: var(--font-s);
-      color: var(--gray-color);
+    display: flex;
+    .desc {
+      width: 100%;
+      h1 {
+        font-size: var(--font-m);
+      }
+      p {
+        margin-top: 6px;
+        font-size: var(--font-s);
+        color: var(--gray-color);
+      }
     }
   }
   .wish {
