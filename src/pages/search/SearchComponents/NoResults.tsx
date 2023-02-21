@@ -31,17 +31,17 @@ const Desc = styled.div`
   p {
     &:first-child {
       margin: 20px 0;
-      font-size: 15px;
+      font-size: var(--font-m);
       strong {
-        color: #0e76ff;
+        color: var(--main-color);
         font-weight: 700;
       }
     }
 
     &:last-child {
-      font-size: 8px;
+      font-size: var(--font-s);
       line-height: 1.5;
-      color: #7d838f;
+      color: var(--gray-color);
     }
   }
 `;

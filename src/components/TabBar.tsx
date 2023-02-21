@@ -61,8 +61,8 @@ const StyledLink = styled(Link)`
 
   span {
     margin-top: 3px;
-    color: #535a60;
-    font-size: 12px;
+    color: var(--gray-color);
+    font-size: var(--font-xs);
     line-height: 1.33333;
   }
 
@@ -72,7 +72,7 @@ const StyledLink = styled(Link)`
   }
 
   .clicked {
-    color: #0e76ff;
+    color: var(--main-color);
   }
 `;
 

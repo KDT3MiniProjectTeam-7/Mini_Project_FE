@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
     --lightgray-color : #f4f4f4;
     --red-color: #ff4545;
     --font-xs : 12px; 
-    --font-s: 14px;  
+    --font-s: 14px;  // 버튼(ex 삭제하기)
     --font-m: 16px;  // 본문
     --font-l: 18px;  // li 타이틀 (ex 연회비)
     --font-xl: 20px;  // 부제목

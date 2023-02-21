@@ -4,18 +4,13 @@ import styled from 'styled-components';
 import { BiSearch } from 'react-icons/Bi';
 import { TiDelete } from 'react-icons/ti';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import { addSearchKeywords, getSearchResults } from '../../../common/api/Api';
 
 const SearchBox = () => {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
-
-  // 검색어 조회 api
-  // 기존 검색어에 없으면 추가
-  // 기존 검색어에 있으면 검색어 수정
-
-  // 자동완성 기능
 
   const findResultsPage = location.pathname.slice(0, 8) === '/search/';
 
@@ -30,6 +25,8 @@ const SearchBox = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     keyword !== '' ? navigate(`/search/${keyword}`) : alert('상품명을 입력해주세요.');
+    addSearchKeywords(keyword);
+    getSearchResults(keyword, 'loan', 1);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +85,7 @@ const Container = styled.form`
     transform: translateY(-45%);
 
     font-size: 20px;
-    color: #6d7582;
+    color: var(--gray-color);
 
     &.search {
       left: 15px;
@@ -97,16 +94,16 @@ const Container = styled.form`
 
   input {
     width: 100%;
-    height: 40px;
+    height: var(--input-height);
     padding: 14px 40px;
     border-radius: 20px;
     border: none;
     background-color: #f2f4f6;
-    font-size: 15px;
+    font-size: var(--font-m);
 
     &::placeholder {
       color: #8c949f;
-      font-size: 15px;
+      font-size: var(--font-m);
     }
 
     &:focus {

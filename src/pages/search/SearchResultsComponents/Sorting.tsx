@@ -25,7 +25,7 @@ const CardSorting = () => {
 };
 
 const LoanSorting = () => {
-  const [active, setActive] = useState('name');
+  const [active, setActive] = useState('lowRate');
 
   const sortName = () => {
     setActive('name');
@@ -36,18 +36,18 @@ const LoanSorting = () => {
   };
   return (
     <Container>
-      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
-        상품명순
-      </button>
       <button onClick={sortLowRate} className={active === 'lowRate' ? 'clicked' : ''}>
         낮은금리순
+      </button>
+      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
+        상품명순
       </button>
     </Container>
   );
 };
 
 const ProductSorting = () => {
-  const [active, setActive] = useState('name');
+  const [active, setActive] = useState('highRate');
 
   const sortName = () => {
     setActive('name');
@@ -58,11 +58,11 @@ const ProductSorting = () => {
   };
   return (
     <Container>
-      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
-        상품명순
-      </button>
       <button onClick={sortHighRate} className={active === 'highRate' ? 'clicked' : ''}>
         높은금리순
+      </button>
+      <button onClick={sortName} className={active === 'name' ? 'clicked' : ''}>
+        상품명순
       </button>
     </Container>
   );
@@ -70,20 +70,20 @@ const ProductSorting = () => {
 
 const Container = styled.div`
   margin-bottom: 30px;
-
+  font-size: var(--font-s);
   button {
     cursor: pointer;
     border: none;
 
     padding: 10px 15px;
     border-radius: 20px;
-    background-color: #f0f1f6;
-    color: #606163;
+    background-color: var(--lightgray-color);
+    color: var(--gray-color);
 
     &.clicked {
       background-color: #fff;
-      color: #000;
-      border: 2px solid #000;
+      color: var(--black-color);
+      border: 2px solid var(--black-color);
     }
   }
 

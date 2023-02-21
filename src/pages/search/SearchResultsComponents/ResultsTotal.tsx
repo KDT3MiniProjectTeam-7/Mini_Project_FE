@@ -1,6 +1,14 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
+import { IoChevronForwardOutline } from 'react-icons/io5';
+import { getSearchResults } from '../../../common/api/Api';
 
-const ResultsTotal = () => {
+interface TabProps {
+  setTabIndex: (index: number) => void;
+}
+
+const ResultsTotal = ({ setTabIndex }: TabProps) => {
+  useEffect(() => {});
   const cardData = [
     {
       productId: 1111,
@@ -119,7 +127,7 @@ const ResultsTotal = () => {
       bound: '최대 1억 5천원',
     },
     {
-      productId: 2115,
+      productId: 2116,
       category: 'loan',
       productName: '신용대출플러스',
       companyName: '케이뱅크',
@@ -180,7 +188,7 @@ const ResultsTotal = () => {
       primeRate: 3.65,
     },
     {
-      productId: 3115,
+      productId: 3116,
       category: 'savings',
       productName: 'IBK평생한가족통장',
       companyName: 'IBK기업은행',
@@ -210,91 +218,145 @@ const ResultsTotal = () => {
 
   const title = ['카드', '대출', '예적금', '청약'];
 
+  const handleBtnViewAll = (e) => {
+    const h3Value = e.target.parentElement.previousSibling.innerText;
+    const isH3Value = (el: string) => el === h3Value;
+    const titleIndex = title.findIndex(isH3Value) + 1;
+    setTabIndex(titleIndex);
+  };
+
   return (
-    <Container>
+    <>
       {title.map((list) => (
-        <>
-          <h3>{list}</h3>
+        <Container key={list}>
+          <h3 key={list}>{list}</h3>
           <Desc>
             {list === '카드'
-              ? cardData.slice(0, 5).map((data) => (
-                  <Product>
-                    <h4>{data.benefits}</h4>
-                    <Image>
-                      <img src={data.thumbnail} alt={`${data.productName}카드이미지`} />
-                    </Image>
-                    <p>{data.productName}</p>
+              ? cardData.slice(0, 3).map((data) => (
+                  <Product key={data.productId}>
+                    <div>
+                      <Image>
+                        <img src={data.thumbnail} alt={`${data.productName}카드이미지`} />
+                      </Image>
+                      <div>
+                        <h4>{data.benefits[0]}</h4>
+                        <p>{data.productName}</p>
+                      </div>
+                    </div>
+                    <IoChevronForwardOutline color="#969696" />
                   </Product>
                 ))
               : ''}
             {list === '대출'
-              ? loanData.slice(0, 5).map((data) => (
-                  <Product>
-                    <h4>{data.productName}</h4>
-                    <Image>
-                      <img src={data.companyImage} alt={`${data.companyName} 로고`} />
-                    </Image>
-                    <p>{data.companyName}</p>
-                    <strong>{data.lowRate}</strong>
+              ? loanData.slice(0, 3).map((data) => (
+                  <Product key={data.productId}>
+                    <div>
+                      <Image>
+                        <img src={data.companyImage} alt={`${data.companyName} 로고`} />
+                      </Image>
+                      <div>
+                        <h4>{data.productName}</h4>
+                        <p>{data.companyName}</p>
+                      </div>
+                    </div>
+                    <IoChevronForwardOutline color="#969696" />
                   </Product>
                 ))
               : ''}
             {list === '예적금'
-              ? savingsData.slice(0, 5).map((data) => (
-                  <Product>
-                    <h4>{data.productName}</h4>
-                    <Image>
-                      <img src={data.companyImage} alt={`${data.companyName} 로고`} />
-                    </Image>
-                    <p>{data.companyName}</p>
-                    <strong>{data.primeRate}</strong>
+              ? savingsData.slice(0, 3).map((data) => (
+                  <Product key={data.productId}>
+                    <div>
+                      <Image>
+                        <img src={data.companyImage} alt={`${data.companyName} 로고`} />
+                      </Image>
+                      <div>
+                        <h4>{data.productName}</h4>
+                        <p>{data.companyName}</p>
+                      </div>
+                    </div>
+                    <IoChevronForwardOutline color="#969696" />
                   </Product>
                 ))
               : ''}
             {list === '청약'
-              ? subscriptionData.slice(0, 5).map((data) => (
-                  <Product>
-                    <h4>{data.productName}</h4>
-                    <Image>
-                      <img src={data.companyImage} alt={`${data.companyName} 로고`} />
-                    </Image>
-                    <p>{data.companyName}</p>
-                    <strong>{data.highRate}</strong>
+              ? subscriptionData.slice(0, 3).map((data) => (
+                  <Product key={data.productId}>
+                    <div>
+                      <Image>
+                        <img src={data.companyImage} alt={`${data.companyName} 로고`} />
+                      </Image>
+                      <div>
+                        <h4>{data.productName}</h4>
+                        <p>{data.companyName}</p>
+                      </div>
+                    </div>
+                    <IoChevronForwardOutline color="#969696" />
                   </Product>
                 ))
               : ''}
-            <button>더보기</button>
+            <button onClick={handleBtnViewAll}>모두 보기</button>
           </Desc>
-        </>
+        </Container>
       ))}
-    </Container>
+    </>
   );
 };
+
 const Container = styled.div`
   h3 {
     margin-bottom: 20px;
-    padding: 20px 20px 0;
-    font-size: var(--font-xxl);
+    padding: 30px 20px 0;
+    font-size: var(--font-l);
+    font-weight: 700;
   }
 `;
 
-const Desc = styled.section`
-  border-bottom: 20px solid #f2f4f6;
+const Desc = styled.ol`
+  border-bottom: 20px solid var(--lightgray-color);
+
+  li + li {
+    margin-top: 40px;
+  }
 
   button {
     border: none;
     background-color: transparent;
 
     width: 100%;
-    height: 40px;
+    height: 50px;
     margin-top: 20px;
     border-top: 1px solid #ebebeb;
     color: var(--main-color);
     text-align: center;
+    font-size: var(--font-m);
   }
 `;
-const Product = styled.div`
+
+const Product = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 20px;
+
+  & > div {
+    display: flex;
+  }
+
+  div > div {
+    h4 {
+      margin-bottom: 5px;
+      color: var(--black-color);
+      font-size: var(--font-m);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    p {
+      color: var(--gray-color);
+      font-size: var(--font-s);
+    }
+  }
 `;
 
 const Image = styled.div`
