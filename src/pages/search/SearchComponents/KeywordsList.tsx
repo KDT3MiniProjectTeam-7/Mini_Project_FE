@@ -6,7 +6,7 @@ import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll 
 
 const KeywordsList = () => {
   const [autoSave, setAutoSave] = useState(true);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   useEffect(() => {
     const getSeverData = async () => {
@@ -18,63 +18,63 @@ const KeywordsList = () => {
     getSeverData();
   }, []);
 
-  // const data = [
-  //   {
-  //     searchId: 1,
-  //     searchContent: '1',
-  //     createdAt: '2021-10-28T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 2,
-  //     searchContent: '2',
-  //     createdAt: '2021-10-29T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 3,
-  //     searchContent: '3',
-  //     createdAt: '2021-10-28T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 4,
-  //     searchContent: '4',
-  //     createdAt: '2021-10-30T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 5,
-  //     searchContent: '5',
-  //     createdAt: '2021-10-28T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 6,
-  //     searchContent: '6',
-  //     createdAt: '2021-10-28T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 7,
-  //     searchContent: '7',
-  //     createdAt: '2021-10-28T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 8,
-  //     searchContent: '8',
-  //     createdAt: '2021-10-28T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 9,
-  //     searchContent: '9',
-  //     createdAt: '2021-10-28T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 10,
-  //     searchContent: '10',
-  //     createdAt: '2021-10-28T05:18:51.868Z',
-  //   },
-  //   {
-  //     searchId: 11,
-  //     searchContent: '11',
-  //     createdAt: '2021-10-28T05:18:51.868Z',
-  //   },
-  // ];
+  const data = [
+    {
+      searchId: 1,
+      searchContent: '1',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 2,
+      searchContent: '2',
+      createdAt: '2021-10-29T05:18:51.868Z',
+    },
+    {
+      searchId: 3,
+      searchContent: '3',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 4,
+      searchContent: '4',
+      createdAt: '2021-10-30T05:18:51.868Z',
+    },
+    {
+      searchId: 5,
+      searchContent: '5',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 6,
+      searchContent: '6',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 7,
+      searchContent: '7',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 8,
+      searchContent: '8',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 9,
+      searchContent: '9',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 10,
+      searchContent: '10',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+    {
+      searchId: 11,
+      searchContent: '11',
+      createdAt: '2021-10-28T05:18:51.868Z',
+    },
+  ];
 
   // 삭제
   const handleDeleteKeyword = () => {
