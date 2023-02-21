@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { defaultInstance , authInstance } from './axios'
+import { defaultInstance , authInstance } from './Axios'
 
 export const postCartItems = async (id: number) => {
   try {
@@ -115,7 +115,7 @@ export const getPost = async () => {
   }
 }
 
-export async function getCart() {
+export const getCart = async () => {
   try {
     const { data } = await authInstance.get('/cart');
 
@@ -124,3 +124,38 @@ export async function getCart() {
     console.log(err.message);
   }
 }
+
+export const postTags = async (tags : string[]) => {
+  try {
+    const { data } = await authInstance.post(`/user/tags`, {
+      data : {
+        tags : tags
+      }
+    });
+
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+}
+
+export const getUserInfo = async () => {
+  try {
+    const { data } = await authInstance.get(`/user`);
+
+    return data;
+  } catch (err: any) {
+    console.log(err);
+  }
+}
+
+export const getRecommendation = async () => {
+  try {
+    const { data } = await defaultInstance.get(`/Recommendation/청년&대중교통&무주택자`);
+
+    return data;
+  } catch (err: any) {
+    console.log(err);
+  }
+}
+

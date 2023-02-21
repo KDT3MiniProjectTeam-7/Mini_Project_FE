@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components"
-import { getCart } from "../../common/api/Api";
+import { getPost, getUserInfo, getRecommendation } from "../../common/api/Api";
 
 const Main = () => {
   interface data {
@@ -12,6 +12,8 @@ const Main = () => {
     tag : string[]
   }
   
+  const [data, setData] = useState<any>();
+
   // toggle state
   const [toggleBtn1, setToggleBtn1] = useState<boolean>(false);
   const [toggleBtn2, setToggleBtn2] = useState<boolean>(false);
@@ -19,7 +21,7 @@ const Main = () => {
   const [toggleBtn4, setToggleBtn4] = useState<boolean>(false);
 
   // 설문 유무 임의 state
-  const [userState, setUserState] = useState(false);
+  const [userState, setUserState] = useState(true);
 
   const toggleFn = (btnType:number) => {
     switch(btnType){
@@ -41,90 +43,92 @@ const Main = () => {
     }
   }
 
-  const data = {
-    card : [
-      {
-        name : '신한은행',
-        title : '신한카드 EVerywhere',
-        img : 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-      },
-      {
-        name : '신한은행',
-        title : '신한카드 플리',
-        img : 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPLAD26.png',
-      },
-      {
-        name : '현대카드',
-        title : 'My First Seduction the Pin',
-        img : 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
-      },
-    ],
-    savings : [
-      {
-        name : '하나은행',
-        title : '청년내일저축계좌',
-        img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Hana_Bank_Logo_%28kor%29.svg/2560px-Hana_Bank_Logo_%28kor%29.svg.png',
-      },
-      {
-        name : 'DGB대구은행',
-        title : '영플러스(YoungPlus)적금',
-        img : 'https://ifh.cc/g/tN8fPq.png',
-      },
-      {
-        name : '우리은행',
-        title : '스무살 우리 자유적금',
-        img : 'https://simg.wooribank.com/img/intro/header/h1_01.png',
-      },
-    ],
-    loan : [
-      {
-        name : '케이뱅크',
-        title : '신용대출',
-        img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Kbank_logo.svg/2560px-Kbank_logo.svg.png',
-        min : '6.44%',
-        max : '10.49%'
-      },
-      {
-        name : '광주은행',
-        title : '모바일프라임론',
-        img : 'https://mblogthumb-phinf.pstatic.net/MjAyMTAxMjRfMTg2/MDAxNjExNDcyNDQwNjMz.c4nA0jGYMPxo1ZkOCb9DxtC_pMoZJWo14c_VsdXbeuIg.3XJxeZziXV4TUIowr4dAJBJMY0xmVTIchgzH56o_C3sg.PNG.yeosu_bada/%EA%B4%91%EC%A3%BC%EC%9D%80%ED%96%89_%EB%A1%9C%EA%B3%A0_PNG_AI_%EC%9B%90%EB%B3%B8_%EB%8B%A4%EC%9A%B4.png?type=w800',
-        min : '6.44%',
-        max : '10.49%'
-      },
-      {
-        name : '토스뱅크',
-        title : '신용대출',
-        img : 'https://ifh.cc/g/joRq1Q.png',
-        min : '6.44%',
-        max : '10.49%'
-      },
-    ],
-    subscription : [
-      {
-        name : '우리은행',
-        title : '주택청약종합저축',
-        img : 'https://simg.wooribank.com/img/intro/header/h1_01.png',
-        max : '2.1%'
-      },
-      {
-        name : '우리은행',
-        title : '청년 우대형 주택청약종합저축',
-        img : 'https://simg.wooribank.com/img/intro/header/h1_01.png',
-        max : '3.6%'
-      },
-    ]
+  // const data = {
+  //   card : [
+  //     {
+  //       name : '신한은행',
+  //       title : '신한카드 EVerywhere',
+  //       img : 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
+  //     },
+  //     {
+  //       name : '신한은행',
+  //       title : '신한카드 플리',
+  //       img : 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditPLAD26.png',
+  //     },
+  //     {
+  //       name : '현대카드',
+  //       title : 'My First Seduction the Pin',
+  //       img : 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
+  //     },
+  //   ],
+  //   savings : [
+  //     {
+  //       name : '하나은행',
+  //       title : '청년내일저축계좌',
+  //       img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Hana_Bank_Logo_%28kor%29.svg/2560px-Hana_Bank_Logo_%28kor%29.svg.png',
+  //     },
+  //     {
+  //       name : 'DGB대구은행',
+  //       title : '영플러스(YoungPlus)적금',
+  //       img : 'https://ifh.cc/g/tN8fPq.png',
+  //     },
+  //     {
+  //       name : '우리은행',
+  //       title : '스무살 우리 자유적금',
+  //       img : 'https://simg.wooribank.com/img/intro/header/h1_01.png',
+  //     },
+  //   ],
+  //   loan : [
+  //     {
+  //       name : '케이뱅크',
+  //       title : '신용대출',
+  //       img : 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Kbank_logo.svg/2560px-Kbank_logo.svg.png',
+  //       min : '6.44%',
+  //       max : '10.49%'
+  //     },
+  //     {
+  //       name : '광주은행',
+  //       title : '모바일프라임론',
+  //       img : 'https://mblogthumb-phinf.pstatic.net/MjAyMTAxMjRfMTg2/MDAxNjExNDcyNDQwNjMz.c4nA0jGYMPxo1ZkOCb9DxtC_pMoZJWo14c_VsdXbeuIg.3XJxeZziXV4TUIowr4dAJBJMY0xmVTIchgzH56o_C3sg.PNG.yeosu_bada/%EA%B4%91%EC%A3%BC%EC%9D%80%ED%96%89_%EB%A1%9C%EA%B3%A0_PNG_AI_%EC%9B%90%EB%B3%B8_%EB%8B%A4%EC%9A%B4.png?type=w800',
+  //       min : '6.44%',
+  //       max : '10.49%'
+  //     },
+  //     {
+  //       name : '토스뱅크',
+  //       title : '신용대출',
+  //       img : 'https://ifh.cc/g/joRq1Q.png',
+  //       min : '6.44%',
+  //       max : '10.49%'
+  //     },
+  //   ],
+  //   subscription : [
+  //     {
+  //       name : '우리은행',
+  //       title : '주택청약종합저축',
+  //       img : 'https://simg.wooribank.com/img/intro/header/h1_01.png',
+  //       max : '2.1%'
+  //     },
+  //     {
+  //       name : '우리은행',
+  //       title : '청년 우대형 주택청약종합저축',
+  //       img : 'https://simg.wooribank.com/img/intro/header/h1_01.png',
+  //       max : '3.6%'
+  //     },
+  //   ]
 
-  }
+  // }
 
   useEffect(() => {
     const data = async () => {
-      const res = await getCart()
-      
-      console.log(res);
+      const res = await getRecommendation()
+
+      setData(res)
+      // console.log(res)
     }
 
     data()
   }, [])
+  console.log(data)
 
   return (
     <>
@@ -135,7 +139,7 @@ const Main = () => {
               맞춤 추천 상품입니다.
             </Title>
       {
-        userState ? 
+        userState && data ? 
           <>
             <RecommenSection>
               <h2 onClick={() => {toggleFn(1)}} className={toggleBtn1 ? "showMenu" : undefined}>추천 카드 상품</h2>
@@ -146,10 +150,10 @@ const Main = () => {
                     <ContainerBox key={index}>
                       <CardContainer>
                         <p>
-                          <span>{item.name}</span>
-                          {item.title}
+                          <span>{item.companyName}</span>
+                          {item.productName}
                         </p>
-                        <img  src={item.img} alt="카드 이미지" />
+                        <img  src={item.productURL} alt="카드 이미지" />
                       </CardContainer>
                     </ContainerBox>
                   )
@@ -165,10 +169,10 @@ const Main = () => {
                 data.savings.map((item, index) => {
                   return (
                     <SavingsContainer key={index}>
-                      <img src={item.img} alt="카드 이미지" />
+                      <img src={item.companyImage} alt="회사 로고" />
                       <p>
-                        <span>{item.name}</span>
-                        {item.title}
+                        <span>{item.companyName}</span>
+                        {item.productName}
                       </p>
                     </SavingsContainer>
                   )
@@ -185,10 +189,10 @@ const Main = () => {
                   return (
                     <LoanContainer key={index}>
                         <div>
-                          <img src={item.img} alt="카드 이미지" />
+                          <img src={item.companyImage} alt="카드 이미지" />
                           <p>
-                            <span>{item.name}</span>
-                            {item.title}
+                            <span>{item.companyName}</span>
+                            {item.productName}
                           </p>
                         </div>
                         <div>
