@@ -19,6 +19,10 @@ import Login from './pages/login/Login';
 import SignUp from './pages/signUp/SignUp';
 import SearchResults from './pages/search/SearchResultsPage';
 import Detail from './pages/detail/detailPage';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+
+const persistor = persistStore(store);
 
 const router = createBrowserRouter([
   // 헤더, 탭바 있음
@@ -55,7 +59,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </>
 );

@@ -282,11 +282,33 @@ const ALL = () => {
 
   // tagOptions에 가능한 모든 태그들 삽입
   const tagOptions = [
-    { value: '미혼', label: '미혼' },
-    { value: '직장인', label: '직장인' },
-    { value: '기혼', label: '기혼' },
+    { value: '미성년자', label: '미성년자' },
+    { value: '청년', label: '청년' },
+    { value: '중년', label: '중년' },
+    { value: '장년', label: '장년' },
+    { value: '노년', label: '노년' },
     { value: '학생', label: '학생' },
-    { value: '백수', label: '백수' },
+    { value: '직장인', label: '직장인' },
+    { value: '사업자', label: '사업자' },
+    { value: '무직', label: '무직' },
+    { value: '기혼', label: '기혼' },
+    { value: '미혼', label: '미혼' },
+    { value: '자차', label: '자차' },
+    { value: '대중교통', label: '대중교통' },
+    { value: '주택소유', label: '주택소유' },
+    { value: '무주택자', label: '무주택자' },
+    { value: '저소득', label: '저소득' },
+    { value: '중위소득', label: '중위소득' },
+    { value: '고소득', label: '고소득' },
+    { value: '문화생활', label: '문화생활' },
+    { value: '헬스케어', label: '헬스케어' },
+    { value: '반려동물', label: '반려동물' },
+    { value: '쇼핑', label: '쇼핑' },
+    { value: '뷰티', label: '뷰티' },
+    { value: '여행', label: '여행' },
+    { value: '통신', label: '통신' },
+    { value: '외식', label: '외식' },
+    { value: '베이커리', label: '베이커리' },
   ];
 
   const [categoryArr, setCategoryArr] = useState([
