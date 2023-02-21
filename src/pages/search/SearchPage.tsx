@@ -5,8 +5,24 @@ import { BiHistory } from 'react-icons/Bi';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 import SearchBox from './SearchComponents/SearchBox';
 import KeywordsList from './SearchComponents/KeywordsList';
+import { getRecentProduct } from '../../common/api/Api';
 
 const Search = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const getSeverData = async () => {
+      try {
+        const json = await getRecentProduct();
+        setData(json);
+        return json;
+      } catch (err) {}
+    };
+    getSeverData();
+  }, []);
+
+  console.log(data);
+
   return (
     <Container>
       <SearchBox />
