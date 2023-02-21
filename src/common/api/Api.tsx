@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { defaultInstance , authInstance } from './axios'
+import { defaultInstance, authInstance } from './Axios';
 
 export const postCartItems = async (id: number) => {
   try {
@@ -107,13 +107,13 @@ export const getSearchResults = async (title: string, category: string, page: nu
 
 export const getPost = async () => {
   try {
-    const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`)
+    const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`);
 
-    return data
+    return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export async function getCart() {
   try {

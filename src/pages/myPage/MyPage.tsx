@@ -1,31 +1,40 @@
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 const MyPage = () => {
+  const navigate = useNavigate();
+
+  const postLogout = async () => {
+    try {
+      const res = await fetch('http://finance-seven.store/logout', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${document.cookie.slice(12)}`,
+        },
+      });
+      const json = await res.json();
+      console.log('요청 결과', json);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getUserInfo = async () => {
     try {
-      const res = await fetch('http://3.36.178.242:8080/user/recent-products/user', {
+      const res = await fetch('http://finance-seven.store/user', {
         method: 'GET',
         headers: {
           'content-type': 'application/json',
-          Authorization: document.cookie.slice(12),
+          Authorization: `Bearer ${document.cookie.slice(12)}`,
         },
       });
-      if (!res.ok) throw new Error('요청 실패');
-      console.log('요청성공');
       const json = await res.json();
-      console.log(json);
-      // if (json.status === 'success') {
-
-      //   console.log(document.cookie);
-      // } else {
-      //   setLoginFail(true);
-      // }
+      console.log('요청 결과', json);
     } catch (error) {
       console.log(error);
     }
   };
   getUserInfo();
-  console.log(document.cookie.slice(12));
 
   const user = {
     name: '김효진',
@@ -34,6 +43,13 @@ const MyPage = () => {
     age: 28,
     favorite: ['쇼핑', '여행', '대중교통'],
   };
+
+  const logoutClick = async () => {
+    postLogout();
+    document.cookie = `${document.cookie}; expires=Thu, 01 Jan 1999 00:00:10 GMT;`;
+    navigate('/login');
+  };
+
   return (
     <main>
       <User>
@@ -41,10 +57,8 @@ const MyPage = () => {
           <div className="name">
             <span>{user.name}</span> 님
           </div>
-
           <Button className="change">수정</Button>
         </div>
-
         <div>
           <p>
             <span>{user.email}</span>
@@ -70,7 +84,7 @@ const MyPage = () => {
         </div>
       </Interest>
 
-      <Logout>로그아웃</Logout>
+      <Logout onClick={logoutClick}>로그아웃</Logout>
     </main>
   );
 };
