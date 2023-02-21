@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { defaultInstance , authInstance } from './axios'
+import { defaultInstance, authInstance } from './Axios';
 
 export const postCartItems = async (id: number) => {
   try {
     const params = { productId: id };
-    await axios.post('https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart', params);
+    await authInstance.post('/cart', params);
   } catch (err: any) {
     console.log(err.message);
   }
@@ -12,8 +12,7 @@ export const postCartItems = async (id: number) => {
 
 export const delCartItems = async (id: number) => {
   try {
-    // const params = { productId: id };
-    await axios.delete('https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart', {
+    await authInstance.delete('/cart', {
       data: {
         productId: id,
       },
@@ -107,13 +106,13 @@ export const getSearchResults = async (title: string, category: string, page: nu
 
 export const getPost = async () => {
   try {
-    const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`)
+    const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`);
 
-    return data
+    return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export async function getCart() {
   try {
@@ -124,3 +123,21 @@ export async function getCart() {
     console.log(err.message);
   }
 }
+
+export const getCategoryItem = async (tags: string, category: string, page: number) => {
+  try {
+    const { data } = await defaultInstance.get(`items/all/${tags}?category=${category}&page=${page}`);
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
+export const getDetailItem = async (id: number) => {
+  try {
+    const { data } = await defaultInstance.get(`items/${id}`);
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
