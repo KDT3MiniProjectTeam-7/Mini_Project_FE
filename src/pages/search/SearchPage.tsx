@@ -43,8 +43,8 @@ const Container = styled.main`
 
   h4 {
     margin-bottom: 20px;
-    color: #505a66;
-    font-size: 13px;
+    color: var(--gray-color);
+    font-size: var(--font-s);
   }
 `;
 
@@ -64,8 +64,8 @@ const DetailLink = styled(Link)`
     align-items: center;
 
     &.info {
-      font-size: 11px;
-      color: #0e76ff;
+      font-size: var(--font-s);
+      color: var(--main-color);
     }
   }
 

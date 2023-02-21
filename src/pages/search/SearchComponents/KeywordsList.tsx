@@ -2,67 +2,79 @@ import { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { TfiClose } from 'react-icons/tfi';
+import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll } from '../../../common/api/Api';
 
 const KeywordsList = () => {
   const [autoSave, setAutoSave] = useState(true);
+  const [data, setData] = useState([]);
 
-  const data = [
-    {
-      searchId: 1,
-      searchContent: '1',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 2,
-      searchContent: '2',
-      createdAt: '2021-10-29T05:18:51.868Z',
-    },
-    {
-      searchId: 3,
-      searchContent: '3',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 4,
-      searchContent: '4',
-      createdAt: '2021-10-30T05:18:51.868Z',
-    },
-    {
-      searchId: 5,
-      searchContent: '5',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 6,
-      searchContent: '6',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 7,
-      searchContent: '7',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 8,
-      searchContent: '8',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 9,
-      searchContent: '9',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 10,
-      searchContent: '10',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 11,
-      searchContent: '11',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-  ];
+  useEffect(() => {
+    const getSeverData = async () => {
+      try {
+        const json = await getSearchKeywords();
+        return json;
+      } catch (err) {}
+    };
+    getSeverData();
+  }, []);
+
+  // const data = [
+  //   {
+  //     searchId: 1,
+  //     searchContent: '1',
+  //     createdAt: '2021-10-28T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 2,
+  //     searchContent: '2',
+  //     createdAt: '2021-10-29T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 3,
+  //     searchContent: '3',
+  //     createdAt: '2021-10-28T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 4,
+  //     searchContent: '4',
+  //     createdAt: '2021-10-30T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 5,
+  //     searchContent: '5',
+  //     createdAt: '2021-10-28T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 6,
+  //     searchContent: '6',
+  //     createdAt: '2021-10-28T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 7,
+  //     searchContent: '7',
+  //     createdAt: '2021-10-28T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 8,
+  //     searchContent: '8',
+  //     createdAt: '2021-10-28T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 9,
+  //     searchContent: '9',
+  //     createdAt: '2021-10-28T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 10,
+  //     searchContent: '10',
+  //     createdAt: '2021-10-28T05:18:51.868Z',
+  //   },
+  //   {
+  //     searchId: 11,
+  //     searchContent: '11',
+  //     createdAt: '2021-10-28T05:18:51.868Z',
+  //   },
+  // ];
 
   // 삭제
   const handleDeleteKeyword = () => {
@@ -124,18 +136,16 @@ const KeywordsList = () => {
 };
 
 const Container = styled.div`
+  font-size: var(--font-m);
+
   button {
     cursor: pointer;
     background-color: transparent;
     border: none;
     padding: 0;
 
-    color: #5b5c5e;
-
-    &.deleteAll {
-      color: #505a66;
-      font-size: 13px;
-    }
+    color: var(--gray-color);
+    font-size: var(--font-s);
   }
 
   div {
@@ -146,8 +156,8 @@ const Container = styled.div`
 
   h4 {
     margin-bottom: 20px;
-    color: #505a66;
-    font-size: 13px;
+    color: var(--gray-color);
+    font-size: var(--font-s);
   }
 
   li {
@@ -158,7 +168,7 @@ const Container = styled.div`
     padding-bottom: 10px;
     border-bottom: 1px solid #ebebeb;
 
-    color: #000;
+    color: var(--black-color);
 
     button {
       font-size: 12px;
@@ -166,7 +176,7 @@ const Container = styled.div`
   }
 
   p {
-    color: #000000;
+    color: var(--black-color);
     padding: 60px 0;
     text-align: center;
     border-bottom: 0.5px solid #ebebeb;

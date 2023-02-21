@@ -154,15 +154,15 @@ const Desc = styled.div`
 
   .benefits {
     margin-bottom: 5px;
-    color: #5e6675;
-    font-size: 14px;
-    font-weight: 700;
+    color: var(--black-color);
+    font-size: var(--font-m);
+    font-weight: 500;
     line-height: 1.4;
   }
 
   .productname {
-    color: #676f7b;
-    font-size: 10.5px;
+    color: var(--gray-color);
+    font-size: var(--font-s);
   }
 `;
 
@@ -173,7 +173,7 @@ const Fee = styled.dl`
   align-items: flex-end;
   width: 100px;
 
-  font-size: 10px;
+  font-size: var(--font-xs);
 
   dd {
     order: 1;
@@ -185,7 +185,7 @@ const Fee = styled.dl`
     margin-bottom: 5px;
 
     border-radius: 10px;
-    background-color: #e0ebfb;
+    background-color: var(--lightblue-color);
 
     color: #3f6cd4;
 
