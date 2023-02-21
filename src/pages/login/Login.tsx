@@ -97,7 +97,7 @@ const MainContainer = styled.main`
   justify-content: center;
   flex-direction: column;
   height: 100vh;
-  margin: 0;
+  margin: 0 auto;
   gap: 20px;
 `;
 
@@ -114,6 +114,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-width: 400px;
 `;
 
 const Input = styled.input`
