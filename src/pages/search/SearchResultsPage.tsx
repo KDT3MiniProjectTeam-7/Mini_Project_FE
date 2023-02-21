@@ -42,6 +42,6 @@ const Container = styled.div`
   margin-top: 106px;
 `;
 
-const CategoryDesc = styled.section``;
+const CategoryDesc = styled.div``;
 
 export default SearchResults;

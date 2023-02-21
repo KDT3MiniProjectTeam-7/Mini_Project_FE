@@ -28,6 +28,7 @@ const Container = styled.ol<{ isOnAllPage: boolean }>`
 
   width: 100%;
   max-width: 768px;
+  height: 40px;
   padding: 0 20px;
   border-bottom: 1px solid #ebebeb;
   background-color: #fff;
@@ -35,7 +36,7 @@ const Container = styled.ol<{ isOnAllPage: boolean }>`
   font-size: var(--font-m);
 
   li {
-    padding: 10px 8px;
+    padding: 8px 0;
     color: var(--gray-color);
     transition: all 0.3ms ease-in;
 
