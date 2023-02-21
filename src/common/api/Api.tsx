@@ -84,12 +84,10 @@ export const getRecentProduct = async () => {
 
 export const addRecentProduct = async (productId: number) => {
   try {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie}`;
-    const data = await axios.post('http://3.36.178.242:8080/user/recentproducts', { productId: productId });
-    // console.log(data.data.resultData);
-    return data.data.resultData;
+    const params = { productId: productId };
+    const data = await authInstance.post('/user/recentproducts', params);
   } catch (err: any) {
-    // console.log(err.message);
+    console.log(err.message);
   }
 };
 

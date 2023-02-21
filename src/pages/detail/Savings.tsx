@@ -36,7 +36,6 @@ const Savings = () => {
     const fetchData = async () => {
       const data = await getDetailItem(Number(id));
       setData(data?.resultData[0]);
-      console.log(data.resultData);
     };
     fetchData();
   }, []);
