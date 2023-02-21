@@ -17,22 +17,6 @@ const ALL = () => {
     // 데이터 페칭 여기다 구현.
   }, [tabIndex, selectedTags]);
 
-  // tagOptions에 가능한 모든 태그들 삽입
-  const tagOptions = [
-    { value: '미혼', label: '미혼' },
-    { value: '직장인', label: '직장인' },
-    { value: '기혼', label: '기혼' },
-    { value: '학생', label: '학생' },
-    { value: '백수', label: '백수' },
-  ];
-
-  const [categoryArr, setCategoryArr] = useState([
-    { category: 'card', title: '카드' },
-    { category: 'loan', title: '대출' },
-    { category: 'savings', title: '예적금' },
-    { category: 'subscription', title: '청약' },
-  ]);
-
   //아래는 목업데이터.
   const cardData = [
     {
@@ -296,19 +280,35 @@ const ALL = () => {
     },
   ];
 
+  // tagOptions에 가능한 모든 태그들 삽입
+  const tagOptions = [
+    { value: '미혼', label: '미혼' },
+    { value: '직장인', label: '직장인' },
+    { value: '기혼', label: '기혼' },
+    { value: '학생', label: '학생' },
+    { value: '백수', label: '백수' },
+  ];
+
+  const [categoryArr, setCategoryArr] = useState([
+    { category: 'card', title: '카드', content: <CardLists data={cardData} /> },
+    { category: 'loan', title: '대출', content: <LoanLists data={loanData} /> },
+    { category: 'savings', title: '예적금', content: <SavingsLists data={savingsData} /> },
+    { category: 'subscription', title: '청약', content: <SubscriptionLists data={subscriptionData} /> },
+  ]);
+
   let ItemLists = <></>;
   switch (tabIndex) {
     case 0:
-      ItemLists = <CardLists data={cardData} />;
+      ItemLists = categoryArr[0].content;
       break;
     case 1:
-      ItemLists = <LoanLists data={loanData} />;
+      ItemLists = categoryArr[1].content;
       break;
     case 2:
-      ItemLists = <SavingsLists data={savingsData} />;
+      ItemLists = categoryArr[2].content;
       break;
     case 3:
-      ItemLists = <SubscriptionLists data={subscriptionData} />;
+      ItemLists = categoryArr[3].content;
       break;
     default:
       alert('카테고리를 표시해주세요.');
