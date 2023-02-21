@@ -24,9 +24,12 @@ const SearchBox = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    keyword !== '' ? navigate(`/search/${keyword}`) : alert('상품명을 입력해주세요.');
-    addSearchKeywords(keyword);
-    getSearchResults(keyword, 'loan', 1);
+    const movepageAndAddkeyword = () => {
+      navigate(`/search/${keyword}`);
+      addSearchKeywords(keyword);
+      getSearchResults(keyword, 'card', 1);
+    };
+    keyword !== '' ? movepageAndAddkeyword() : alert('상품명을 입력해주세요.');
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
