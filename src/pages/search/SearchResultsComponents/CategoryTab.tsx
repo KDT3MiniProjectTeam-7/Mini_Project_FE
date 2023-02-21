@@ -32,17 +32,17 @@ const Container = styled.ol<{ isOnAllPage: boolean }>`
   border-bottom: 1px solid #ebebeb;
   background-color: #fff;
 
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--font-m);
 
   li {
     padding: 10px 8px;
-    color: #5b5c5e;
+    color: var(--gray-color);
     transition: all 0.3ms ease-in;
 
     &.clicked {
-      color: #0e76ff;
-      border-bottom: 3px solid #0e76ff;
+      color: var(--main-color);
+      border-bottom: 3px solid var(--main-color);
+      font-weight: 500;
     }
   }
 `;
