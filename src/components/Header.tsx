@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineHeart } from 'react-icons/ai';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { Item } from '../store/cartSlice';
+import { ReducerType } from '../store/store';
 
 const Header = () => {
-  const [wish, setWish] = useState<number>(12);
+  const cartItems = useSelector<ReducerType, Item[]>((state) => state.cart);
 
   const titleArr = [
     { path: '/', title: '파이낸스세븐' },
@@ -19,7 +22,7 @@ const Header = () => {
         <Logo to={'/'}>파이낸스세븐</Logo>
         <StyledLink to={'/cart'}>
           <AiOutlineHeart size="24" color="#424242" />
-          <WishLength>{wish}</WishLength>
+          <WishLength>{cartItems.length}</WishLength>
         </StyledLink>
       </HeaderComponents>
     </>
