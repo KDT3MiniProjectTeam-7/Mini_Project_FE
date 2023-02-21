@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
+import { AiOutlineRight } from 'react-icons/ai';
 import { Item } from '../../store/cartSlice';
 import { isInCart } from '../../utils/isInCart';
 import { useDispatch } from 'react-redux';
-import { addCartItems, deleteCartItems } from '../../store/cartSlice';
+
 import { Link } from 'react-router-dom';
 
 const CardLists = ({ data }: { data: Item[] }) => {
@@ -12,7 +12,7 @@ const CardLists = ({ data }: { data: Item[] }) => {
 
   return (
     <Container>
-      {data.map((card) => (
+      {data?.map((card) => (
         <CardContainer key={card.productId}>
           <Link to={`/detail/${card.category}/${card.productId}`}>
             <Thumbnail>
@@ -22,26 +22,8 @@ const CardLists = ({ data }: { data: Item[] }) => {
               <h1>{card.productName}</h1>
               <p>{card.companyName}</p>
             </div>
+            <AiOutlineRight size="23" className="wish" />
           </Link>
-          {isInCart(card.productId) ? (
-            <AiFillHeart
-              size="24"
-              className="wish"
-              fill="red"
-              color="red"
-              onClick={() => {
-                dispatch(deleteCartItems(card));
-              }}
-            />
-          ) : (
-            <AiOutlineHeart
-              size="24"
-              className="wish"
-              onClick={() => {
-                dispatch(addCartItems(card));
-              }}
-            />
-          )}
         </CardContainer>
       ))}
     </Container>
