@@ -119,6 +119,7 @@ const Main = () => {
   useEffect(() => {
     const data = async () => {
       const res = await getCart()
+      
       console.log(res);
     }
 
