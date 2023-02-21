@@ -19,15 +19,18 @@ const KeywordsList = () => {
     getSeverData();
   }, []);
 
-  console.log(data);
-
   // 삭제
-  const handleDeleteKeyword = (id: number) => {
+  const handleDeleteKeyword = (event, id: number) => {
+    // const keywordId = event.target.closest('li').id;
+    // const deletedData = data.filter((element) => element.searchId !== keywordId);
+    // console.log(deletedData);
+    // setData(deletedData);
     deleteSearchKeywordsSingle(id);
   };
 
   const handleDeleteKeywordAll = () => {
     if (confirm('최근 검색어를 모두 삭제하시겠습니까?')) {
+      setData([]);
       deleteSearchKeywordsAll();
       // 00개 삭제완료 토스트 띄우기
     }
@@ -59,9 +62,9 @@ const KeywordsList = () => {
                   return +new Date(b.createdAt) - +new Date(a.createdAt);
                 })
                 .map((list) => (
-                  <li key={list.searchId}>
+                  <li key={list.searchId} id={list.searchId}>
                     <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
-                    <button onClick={() => handleDeleteKeyword(list.searchId)}>
+                    <button onClick={() => handleDeleteKeyword(event, list.searchId)}>
                       <TfiClose />
                     </button>
                   </li>
