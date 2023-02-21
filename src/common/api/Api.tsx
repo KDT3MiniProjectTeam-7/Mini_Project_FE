@@ -11,18 +11,6 @@ export async function getCart() {
   }
 }
 
-export const getDataTest = async () => {
-  try {
-    const data = await axios.get(
-      'https://7102b765-02ea-4b41-983b-addf4c37adeack.pstmn.io/user/recent-products/Recommendation/자차&성인'
-    );
-
-    return data;
-  } catch (err: any) {
-    console.log(err.message);
-  }
-};
-
 export const postCartItems = async (id: number) => {
   try {
     const params = { productId: id };
