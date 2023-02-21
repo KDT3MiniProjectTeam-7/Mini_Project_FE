@@ -310,7 +310,7 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.section`
   h3 {
     margin-bottom: 20px;
     padding: 30px 20px 0;
