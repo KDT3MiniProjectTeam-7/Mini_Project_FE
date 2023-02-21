@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 import styled from "styled-components"
+import { getCart } from "../../common/api/Api";
 
 const Main = () => {
   interface data {
@@ -114,6 +115,15 @@ const Main = () => {
     ]
 
   }
+
+  useEffect(() => {
+    const data = async () => {
+      const res = await getCart()
+      console.log(res);
+    }
+
+    data()
+  }, [])
 
   return (
     <>
