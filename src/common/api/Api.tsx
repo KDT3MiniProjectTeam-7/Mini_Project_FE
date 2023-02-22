@@ -216,3 +216,20 @@ export const getDetailItem = async (id: number) => {
     console.log(err.message);
   }
 };
+
+// 회원가입
+export const postUser = async (email: string, password: string, name: string, birth: string) => {
+  try {
+    const { data } = await defaultInstance.post('register', {
+      email: email,
+      password: password,
+      name: name,
+      birth: birth,
+    });
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
+// 로그인

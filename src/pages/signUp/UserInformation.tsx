@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
+import { combineBirth } from '../../utils/combineBirth';
+import { postUser } from '../../common/api/Api';
 
 interface InputFormData {
   email: string;
@@ -18,6 +20,30 @@ interface InputFormData {
   };
 }
 
+const loginSubmit = async (email: string, pw: string) => {
+  try {
+    const res = await fetch('http://finance-seven.store/login', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        password: pw,
+      }),
+    });
+    const json = await res.json();
+    console.log(json);
+    if (json.status === 'success') {
+      document.cookie = `accessToken=${json.accessToken}; max-age=3600`;
+    } else {
+      console.log('에러');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const UserInformation = (props: any) => {
   const navigate = useNavigate();
   const {
@@ -30,41 +56,32 @@ const UserInformation = (props: any) => {
   const password = useRef<any>();
   password.current = watch('password');
 
-  // 생년월일 자리수 체크
+  const [signUpFail, setSignUpFail] = useState(false);
+
+  // 자리수 체크(생년월일)
   const lengthCheck = (event: any, max: number) => {
     if (event.target.value.length > max) {
       event.target.value = event.target.value.slice(0, max);
     }
   };
 
-  const informationSubmit = async (email: string, pw: string, name: string, birth: string) => {
-    try {
-      const res = await fetch('http://3.36.178.242:8080/register', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: pw,
-          name: name,
-          birth: birth,
-          tag: [''],
-        }),
-      });
-      if (!res.ok) throw new Error('Request failed');
-      const json = await res.json();
-      console.log(json);
-      // props.setPage('CreateComplete');
-      navigate('/login');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // 가입하기
+  const onSubmit = async (data: any) => {
+    // 생일 통합
+    const birth = combineBirth(data.birthYear, data.birthMonth, data.birthDay);
 
-  // 제출
-  const onSubmit = (data: any) => {
-    informationSubmit(data.email, data.password, data.name, data.birth);
+    // 회원가입 api 호출
+    const response = await postUser(data.email, data.password, data.name, birth);
+
+    // 가입성공 여부 분기
+    if (response.status === 'success') {
+      // 성공시, 로그인 api 호출
+      loginSubmit(data.email, data.password);
+      props.setPage('Complete');
+    } else {
+      // 실패시
+      setSignUpFail(true);
+    }
   };
 
   return (
@@ -82,7 +99,13 @@ const UserInformation = (props: any) => {
             },
           })}
         />
-        {errors.email ? <Caution>{errors.email?.message}</Caution> : <Caution />}
+        {signUpFail ? (
+          <Caution>이미 가입된 Eamil 입니다.</Caution>
+        ) : errors.email ? (
+          <Caution>{errors.email?.message}</Caution>
+        ) : (
+          <Caution />
+        )}
       </InputBox>
       <InputBox>
         <label htmlFor="password">비밀번호</label>
