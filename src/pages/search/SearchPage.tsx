@@ -36,7 +36,7 @@ const Search = () => {
       {recentProduct && (
         <RecentProducts>
           <h4>최근에 자세히 봤던</h4>
-          <DetailLink to={`/detail/${recentProduct.category}/${recentProduct.productId}`}>
+          <DetailLink to={`/detail/${recentProduct.category.toLowerCase()}/${recentProduct.productId}`}>
             <div>
               <span className="history">
                 <BiHistory />
