@@ -16,7 +16,7 @@ const MainContainer = styled.main`
   justify-content: center;
   flex-direction: column;
   height: 100vh;
-  margin: 0;
+  margin: 0 auto;
   gap: 20px;
 `;
 
@@ -34,6 +34,7 @@ const Link = styled(LinkForm)`
   font-size: var(--font-m);
   color: #ffffff;
   width: 100%;
+  max-width: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
