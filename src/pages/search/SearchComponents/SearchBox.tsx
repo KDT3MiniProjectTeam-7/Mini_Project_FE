@@ -6,7 +6,11 @@ import { TiDelete } from 'react-icons/ti';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { addSearchKeywords, getSearchResults } from '../../../common/api/Api';
 
-const SearchBox = () => {
+type Props = {
+  keywordAutoSave: boolean;
+};
+
+const SearchBox = ({ keywordAutoSave }: Props) => {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
@@ -15,7 +19,7 @@ const SearchBox = () => {
   const findResultsPage = location.pathname.slice(0, 8) === '/search/';
 
   useEffect(() => {
-    params.keywords !== undefined ? setKeyword(params.keywords) : null;
+    params.keywords !== undefined && setKeyword(params.keywords);
   }, []);
 
   const handleBack = () => {
@@ -24,9 +28,17 @@ const SearchBox = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    keyword !== '' ? navigate(`/search/${keyword}`) : alert('상품명을 입력해주세요.');
-    addSearchKeywords(keyword);
-    getSearchResults(keyword, 'loan', 1);
+
+    const movepageAndAddkeywordAndCallApi = () => {
+      navigate(`/search/${keyword}`);
+      keywordAutoSave && addSearchKeywords(keyword);
+      getSearchResults(keyword, 'card', 1);
+      getSearchResults(keyword, 'loan', 1);
+      getSearchResults(keyword, 'savings', 1);
+      getSearchResults(keyword, 'subscription', 1);
+    };
+
+    keyword !== '' ? movepageAndAddkeywordAndCallApi() : alert('상품명을 입력해주세요.');
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +51,7 @@ const SearchBox = () => {
 
   return (
     <Container onSubmit={handleSubmit} className={findResultsPage ? 'results' : ''}>
+      {/* 검색결과에서만 뒤로가기 버튼 보이기 */}
       {findResultsPage ? (
         <IoChevronBackOutline size="22" color="#353D4A" onClick={handleBack} style={{ marginLeft: '-8px' }} />
       ) : null}
@@ -47,6 +60,7 @@ const SearchBox = () => {
           <BiSearch />
         </span>
         <input type="text" placeholder="필요한 상품을 찾아보세요" value={keyword} onChange={handleInputChange} />
+        {/* 검색바에 글자 있을 때만 삭제버튼 노출 */}
         {keyword !== '' ? (
           <button type="button" className="delete" onClick={handleDeleteBtn}>
             <TiDelete />
@@ -98,7 +112,7 @@ const Container = styled.form`
     padding: 14px 40px;
     border-radius: 20px;
     border: none;
-    background-color: #f2f4f6;
+    background-color: var(--lightgray-color);
     font-size: var(--font-m);
 
     &::placeholder {

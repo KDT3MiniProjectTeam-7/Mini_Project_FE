@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
 import { useState } from 'react';
-import { postLogin } from '../../common/api/Api';
 
 interface InputFormData {
   email: string;
@@ -21,14 +20,35 @@ const Login = () => {
 
   const [loginFail, setLoginFail] = useState(false);
 
-  // 로그인하기
-  const onSubmit = async (data: any) => {
-    const resPostLogin = await postLogin(data.email, data.password);
-    if (resPostLogin.status === 'success') {
-      navigate('/');
-    } else {
-      setLoginFail(true);
+  const loginSubmit = async (email: string, pw: string) => {
+    try {
+      const res = await fetch('http://3.36.178.242:8080/login', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: pw,
+        }),
+      });
+      if (!res.ok) throw new Error('요청 실패');
+      const json = await res.json();
+      console.log(json);
+      if (json.status === 'success') {
+        document.cookie = `accessToken=${json.accessToken}`;
+        console.log(document.cookie);
+        navigate('/');
+      } else {
+        setLoginFail(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
+
+  const onSubmit = (data: any) => {
+    loginSubmit(data.email, data.password);
   };
 
   return (
