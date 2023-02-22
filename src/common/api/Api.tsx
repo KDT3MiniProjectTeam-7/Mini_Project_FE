@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isExpiredToken } from '../../utils/isExpiredToken';
 import { defaultInstance, authInstance } from './Axios';
 
 export const postCartItems = async (id: number) => {
@@ -178,7 +179,7 @@ export const postLogin = async (email: string, password: string) => {
       password: password,
     });
     if (data.status === 'success') {
-      document.cookie = `accessToken=${data.accessToken}; max-age=3600`;
+      document.cookie = `accessToken=${data.accessToken}; max-age=12`;
     }
     return data;
   } catch (err: any) {
@@ -189,11 +190,9 @@ export const postLogin = async (email: string, password: string) => {
 // 로그아웃
 export const postLogout = async () => {
   try {
-    const { data } = await authInstance.post('logout');
-    // if (data === 'success') {
-    console.log(data);
+    // key value로 바꿔주면 업데이트
+    const data = await authInstance.post('logout');
     document.cookie = `${document.cookie}; expires=Thu, 01 Jan 1999 00:00:10 GMT;`;
-    // }
     return data;
   } catch (err: any) {
     console.log('로그아웃 api 에러', err.message);

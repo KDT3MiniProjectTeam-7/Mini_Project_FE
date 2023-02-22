@@ -3,35 +3,24 @@ import styled from 'styled-components';
 import Agreement from './Agreement';
 import Complete from './Complete';
 import UserInformation from './UserInformation';
-import { BsCheck2 } from 'react-icons/bs';
-import { RiNumber1, RiNumber2, RiNumber3 } from 'react-icons/ri';
 
 const SignUp = () => {
   const [page, setPage] = useState('Agreement');
 
   return (
     <MainContainer>
-      {/* <Title>회원가입</Title> */}
-      {/* <StepContainer>
-        <div className="step">
-          <RiNumber1 />
-          <span>약관 동의</span>
-        </div>
-
-        <div className="step">
-          <div className="line"></div>
-          <RiNumber2 />
-          <span>정보 입력</span>
-        </div>
-        <div className="step">
-          <div className="line"></div>
-          <RiNumber3 />
-          <span>가입 완료</span>
-        </div>
-      </StepContainer> */}
+      <Title>회원 가입</Title>
       {(page === 'Agreement' && <Agreement setPage={setPage} />) ||
         (page === 'UserInformation' && <UserInformation setPage={setPage} />) ||
         (page === 'Complete' && <Complete />)}
+      <BottomContainer>
+        <div className="step">
+          <span>1/3</span>
+          <div className="line"></div>
+          <div className="line line--blue"></div>
+        </div>
+        <button className="nextButton">다음</button>
+      </BottomContainer>
     </MainContainer>
   );
 };
@@ -43,44 +32,37 @@ const MainContainer = styled.main`
   justify-content: center;
   flex-direction: column;
   margin: 0 auto;
+  position: relative;
 `;
 
-const StepContainer = styled.div`
-  margin: 20px 0;
+const BottomContainer = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  padding: 0 20px 20px;
 
-  .step {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--main-color);
-    font-size: var(--font-s);
-
-    svg {
-      margin-bottom: 5px;
-      padding: 4px;
-      width: 20px;
-      height: 20px;
-      color: #ffffff;
-      border-radius: 50%;
-      background-color: var(--main-color);
-    }
-  }
-
-  .line {
-    height: 1px;
-    width: calc(140px);
-    top: 10px;
-    right: 30px;
-    position: absolute;
+  .nextButton {
+    width: 100%;
     background-color: var(--main-color);
+    height: var(--input-height);
+    font-size: var(--font-m);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    font-weight: bold;
+    margin-top: 50px;
   }
 `;
 
 const Title = styled.h1`
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  padding: 20px 20px;
   font-size: var(--font-xxl);
 `;
 

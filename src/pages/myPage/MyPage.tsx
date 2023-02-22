@@ -1,28 +1,14 @@
-import { useNavigate } from 'react-router';
+import { useState } from 'react';
 import styled from 'styled-components';
-import { postLogout } from '../../common/api/Api';
+import ModalLogout from './ModalLogout';
 
 const MyPage = () => {
-  // const getUserInfo = async () => {
-  //   try {
-  //     const res = await fetch('http://finance-seven.store/user', {
-  //       method: 'GET',
-  //       headers: {
-  //         'content-type': 'application/json',
-  //         Authorization: `Bearer ${document.cookie.slice(12)}`,
-  //       },
-  //     });
-  //     const json = await res.json();
-  //     console.log('요청 결과', json);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // getUserInfo();
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const navigate = useNavigate();
-
-  console.log(document.cookie.slice(12));
+  // 모달창 노출
+  const showModal = () => {
+    setModalOpen(true);
+  };
 
   // 목데이터
   const user = {
@@ -31,11 +17,6 @@ const MyPage = () => {
     birth: 19960713,
     age: 28,
     favorite: ['쇼핑', '여행', '대중교통'],
-  };
-
-  const logoutClick = async () => {
-    await postLogout();
-    navigate('/login');
   };
 
   return (
@@ -56,7 +37,6 @@ const MyPage = () => {
           </p>
         </div>
       </User>
-
       <Interest>
         <div>
           <p>{user.name}님의 관심 목록</p>
@@ -71,11 +51,27 @@ const MyPage = () => {
           ))}
         </div>
       </Interest>
-
-      <Logout onClick={logoutClick}>로그아웃</Logout>
+      <Logout onClick={showModal}>로그아웃</Logout>
+      {modalOpen && (
+        <ModalBox>
+          <ModalLogout className="modal" setModalOpen={setModalOpen} />
+        </ModalBox>
+      )}
     </main>
   );
 };
+
+const ModalBox = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+`;
 
 const User = styled.div`
   width: 100%;

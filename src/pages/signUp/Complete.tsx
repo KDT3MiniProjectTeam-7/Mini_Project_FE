@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const Complete = () => {
   const navigate = useNavigate();
 
+  // 테스트용입니다.
   const getUserInfo = async () => {
     try {
       const res = await fetch('http://finance-seven.store/user', {
