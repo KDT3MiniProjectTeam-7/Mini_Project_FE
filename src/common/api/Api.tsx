@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { defaultInstance , authInstance } from './Axios'
+import { defaultInstance, authInstance } from './Axios';
 
 export const postCartItems = async (id: number) => {
   try {
     const params = { productId: id };
-    await axios.post('https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart', params);
+    await authInstance.post('/cart', params);
   } catch (err: any) {
     console.log(err.message);
   }
@@ -12,8 +12,7 @@ export const postCartItems = async (id: number) => {
 
 export const delCartItems = async (id: number) => {
   try {
-    // const params = { productId: id };
-    await axios.delete('https://7102b765-02ea-4b41-983b-addf4c37adea.mock.pstmn.io/user/recent-products/cart', {
+    await authInstance.delete('/cart', {
       data: {
         productId: id,
       },
@@ -107,13 +106,13 @@ export const getSearchResults = async (title: string, category: string, page: nu
 
 export const getPost = async () => {
   try {
-    const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`)
+    const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`);
 
-    return data
+    return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const getCart = async () => {
   try {
@@ -130,7 +129,14 @@ export const postTags = async (tags : string[]) => {
     const params = { tags: tags };
     const { data } = await authInstance.post(`/user/tags`,params);
     console.log(data, tags)
+  }catch(err){
+    console.log(err)
+  }
+}
 
+export const getCategoryItem = async (tags: string, category: string, page: number) => {
+  try {
+    const { data } = await defaultInstance.get(`items/all/${tags}?category=${category}&page=${page}`);
     return data;
   } catch (err: any) {
     console.log(err.message);
@@ -158,3 +164,12 @@ export const getRecommendation = async (tags:string) => {
   }
 }
 
+
+export const getDetailItem = async (id: number) => {
+  try {
+    const { data } = await defaultInstance.get(`items/${id}`);
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+}

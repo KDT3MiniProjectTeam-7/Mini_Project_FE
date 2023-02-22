@@ -1,38 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaAngellist } from 'react-icons/fa';
 import DescriptionData from './DescriptionData';
 import { IoChevronBackOutline } from 'react-icons/io5';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { useParams } from 'react-router-dom';
+import { getDetailItem } from '../../common/api/Api';
+import { isInCart } from '../../utils/isInCart';
+import { changeCartStatus } from '../../store/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const Loan = () => {
   const [nav, setNav] = useState([true, false, false]);
   const navigate = useNavigate();
-  const data = {
-    productId: 18,
-    category: 'LOAN',
-    productName: '신용대출',
-    companyName: '케이뱅크',
-    companyImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Kbank_logo.svg/2560px-Kbank_logo.svg.png',
-    productURL:
-      'https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&pkid=731&os=29654540&qvt=0&query=%EC%BC%80%EC%9D%B4%EB%B1%85%ED%81%AC%20%EC%8B%A0%EC%9A%A9%EB%8C%80%EC%B6%9C',
-    thumbnail: null,
-    lowRate: '6.44',
-    highRate: '10.49',
-    bound: ['연소득의 150% 범위내', '최대 2억원'],
-    qualification: ['직장인'],
-  };
+  const dispatch = useDispatch();
+  const [data, setData] = useState({
+    productId: 0,
+    category: 'card',
+    productName: '',
+    companyName: '',
+    companyImage: '',
+    productURL: '',
+    lowRate: 0,
+    highRate: 0,
+    bound: [''],
+  });
+  const { category, id } = useParams();
+  const [color, setColor] = useState(isInCart(Number(id)) ? 'red' : 'black');
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getDetailItem(Number(id));
+      setData(data?.resultData[0]);
+      console.log(data.resultData);
+    };
+    fetchData();
+  }, []);
 
   return (
     <>
-      <IoChevronBackOutline
-        size="22"
-        color="#353D4A"
-        onClick={() => {
-          navigate(-1);
-        }}
-        style={{ marginLeft: '-8px' }}
-      />
+      <Header>
+        <IoChevronBackOutline
+          size="22"
+          color="#353D4A"
+          onClick={() => {
+            navigate(-1);
+          }}
+          style={{ marginLeft: '-8px' }}
+        />
+        <AiOutlineHeart
+          size="23"
+          color={isInCart(Number(id)) ? 'red' : 'black'}
+          onClick={() => {
+            dispatch(changeCartStatus(data));
+          }}
+        />
+      </Header>
       <IntroContainer>
         <p>{data.companyName}</p>
         <img src={data.companyImage} alt="cardImage" />
@@ -138,6 +161,12 @@ const IntroContainer = styled.div`
     font-size: 15px;
     color: #888888;
   }
+`;
+
+const Header = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const BenefitContainer = styled.ul`

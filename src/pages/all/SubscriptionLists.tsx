@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { AiOutlineRight } from 'react-icons/ai';
 import { Item } from '../../store/cartSlice';
 import { isInCart } from '../../utils/isInCart';
 import { useDispatch } from 'react-redux';
-import { addCartItems, deleteCartItems } from '../../store/cartSlice';
 import { Link } from 'react-router-dom';
 
 const SubscriptionLists = ({ data }: { data: Item[] }) => {
@@ -12,7 +11,7 @@ const SubscriptionLists = ({ data }: { data: Item[] }) => {
 
   return (
     <Container>
-      {data.map((subscription) => (
+      {data?.map((subscription) => (
         <SubscriptionContainer key={subscription.productId}>
           <Link to={`/detail/${subscription.category}/${subscription.productId}`}>
             <Thumbnail>
@@ -22,27 +21,8 @@ const SubscriptionLists = ({ data }: { data: Item[] }) => {
               <h1>{subscription.productName}</h1>
               <p>{subscription.companyName}</p>
             </div>
+            <AiOutlineRight size="23" className="wish" />
           </Link>
-
-          {isInCart(subscription.productId) ? (
-            <AiFillHeart
-              size="24"
-              className="wish"
-              fill="red"
-              color="red"
-              onClick={() => {
-                dispatch(deleteCartItems(subscription));
-              }}
-            />
-          ) : (
-            <AiOutlineHeart
-              size="24"
-              className="wish"
-              onClick={() => {
-                dispatch(addCartItems(subscription));
-              }}
-            />
-          )}
         </SubscriptionContainer>
       ))}
     </Container>

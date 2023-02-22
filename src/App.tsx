@@ -22,11 +22,12 @@ const App = () => {
         console.log(err)
       }      
     }
-    getUserData()
+    // getUserData()
     
     const getCartData = async () => {
       const data = await getCart();
-      dispatch(setCartItems(data!.data.resultData));
+
+      dispatch(setCartItems(data!.resultData));
     };
     getCartData();
 
