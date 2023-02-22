@@ -2,97 +2,67 @@ import { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { TfiClose } from 'react-icons/tfi';
+import Toast from '../../../components/Toast';
 import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll } from '../../../common/api/Api';
 
-const KeywordsList = () => {
-  const [autoSave, setAutoSave] = useState(true);
-  // const [data, setData] = useState([]);
+type Props = {
+  keywordAutoSave: boolean;
+  setKeywordAutoSave: (el: boolean) => void;
+};
+
+interface StateObject {
+  searchId: number;
+  searchContent: string;
+  createdAt: string;
+}
+
+export interface StateArray extends Array<StateObject> {}
+
+const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
+  const [data, setData] = useState<StateArray>([]);
+  const [toast, setToast] = useState({ isTrue: false, count: 0 });
 
   useEffect(() => {
-    const getSeverData = async () => {
-      try {
-        const json = await getSearchKeywords();
-        return json;
-      } catch (err) {}
+    const getSeverSearchKeywordsData = async () => {
+      const json = await getSearchKeywords();
+      setData(json);
     };
-    getSeverData();
+    getSeverSearchKeywordsData();
   }, []);
 
-  const data = [
-    {
-      searchId: 1,
-      searchContent: '1',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 2,
-      searchContent: '2',
-      createdAt: '2021-10-29T05:18:51.868Z',
-    },
-    {
-      searchId: 3,
-      searchContent: '3',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 4,
-      searchContent: '4',
-      createdAt: '2021-10-30T05:18:51.868Z',
-    },
-    {
-      searchId: 5,
-      searchContent: '5',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 6,
-      searchContent: '6',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 7,
-      searchContent: '7',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 8,
-      searchContent: '8',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 9,
-      searchContent: '9',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 10,
-      searchContent: '10',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-    {
-      searchId: 11,
-      searchContent: '11',
-      createdAt: '2021-10-28T05:18:51.868Z',
-    },
-  ];
-
   // 삭제
-  const handleDeleteKeyword = () => {
-    // 검색어 단일삭제 api 요청
+  const handleDeleteKeyword = (id: number) => {
+    const deletedData = data.filter((element) => element.searchId !== id);
+    setData(deletedData);
+    deleteSearchKeywordsSingle(id);
   };
 
-  const handleDeleteKeywordAll = () => {
-    alert('최근 검색어를 모두 삭제하시겠습니까?');
-    // 검색어 전체삭제 api 요청
-    // 00개 삭제완료 토스트 띄우기
+  const handleDeleteKeywordAll = async () => {
+    if (confirm('최근 검색어를 모두 삭제하시겠습니까?')) {
+      setData([]);
+      const res = await deleteSearchKeywordsAll();
+
+      // 00개 삭제 완료 토스트 띄우기
+      res.status === 'success' && setToast({ isTrue: true, count: res.deletedNum });
+    }
   };
 
   // 자동저장
   const handleAutoSave = () => {
-    if (autoSave) {
-      confirm('최근 검색어 저장 기능을\n사용 중지하시겠습니까?') && setAutoSave((e) => !e);
+    const btnOff = () => {
+      localStorage.setItem('auto', 'false');
+      setKeywordAutoSave(false);
+    };
+
+    const btnOn = () => {
+      localStorage.setItem('auto', 'true');
+      setKeywordAutoSave(true);
+    };
+
+    if (keywordAutoSave) {
+      confirm('최근 검색어 저장 기능을\n사용 중지하시겠습니까?') && btnOff();
     } else {
-      confirm('최근 검색어 저장 기능을\n사용 하시겠습니까?') && setAutoSave((e) => !e);
+      confirm('최근 검색어 저장 기능을\n사용 하시겠습니까?') && btnOn();
     }
   };
 
@@ -101,11 +71,11 @@ const KeywordsList = () => {
       <div>
         <h4>최근에 찾아봤던</h4>
         <button className="autoSave" onClick={handleAutoSave}>
-          자동저장 {autoSave ? '끄기' : '켜기'}
+          자동저장 {keywordAutoSave ? '끄기' : '켜기'}
         </button>
       </div>
-      {autoSave ? (
-        data.length !== 0 ? (
+      {keywordAutoSave ? (
+        data && data.length !== 0 ? (
           <>
             <ol>
               {data
@@ -113,12 +83,12 @@ const KeywordsList = () => {
                   return +new Date(b.createdAt) - +new Date(a.createdAt);
                 })
                 .map((list) => (
-                  <li key={list.searchId}>
+                  <List key={list.searchId}>
                     <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
-                    <button onClick={handleDeleteKeyword}>
+                    <button onClick={() => handleDeleteKeyword(list.searchId)}>
                       <TfiClose />
                     </button>
-                  </li>
+                  </List>
                 ))}
             </ol>
             <button className="deleteAll" onClick={handleDeleteKeywordAll}>
@@ -126,11 +96,12 @@ const KeywordsList = () => {
             </button>
           </>
         ) : (
-          <p>최근 찾아봤던 내역이 없습니다.</p>
+          <Info>최근 찾아봤던 내역이 없습니다.</Info>
         )
       ) : (
-        <p>검색어 저장 기능이 꺼져있습니다.</p>
+        <Info>검색어 저장 기능이 꺼져있습니다.</Info>
       )}
+      <Toast toast={toast} message={`${toast.count}개가 삭제됐어요`} />
     </Container>
   );
 };
@@ -159,28 +130,28 @@ const Container = styled.div`
     color: var(--gray-color);
     font-size: var(--font-s);
   }
+`;
 
-  li {
-    display: flex;
-    justify-content: space-between;
+const List = styled.li`
+  display: flex;
+  justify-content: space-between;
 
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ebebeb;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ebebeb;
 
-    color: var(--black-color);
+  color: var(--black-color);
 
-    button {
-      font-size: 12px;
-    }
+  button {
+    font-size: 12px;
   }
+`;
 
-  p {
-    color: var(--black-color);
-    padding: 60px 0;
-    text-align: center;
-    border-bottom: 0.5px solid #ebebeb;
-  }
+const Info = styled.p`
+  color: var(--black-color);
+  padding: 60px 0;
+  text-align: center;
+  border-bottom: 0.5px solid #ebebeb;
 `;
 
 const SearchLink = styled(Link)`
