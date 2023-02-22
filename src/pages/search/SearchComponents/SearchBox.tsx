@@ -5,12 +5,13 @@ import { BiSearch } from 'react-icons/Bi';
 import { TiDelete } from 'react-icons/ti';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { addSearchKeywords, getSearchResults } from '../../../common/api/Api';
+import { ReducerType } from '../../../store/store';
 
-type Props = {
-  keywordAutoSave?: boolean;
-};
+import { useSelector } from 'react-redux';
 
-const SearchBox = ({ keywordAutoSave }: Props) => {
+const SearchBox = () => {
+  const isToggleTrue = useSelector<ReducerType>((state) => state.autosave.isToggleTrue);
+
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const SearchBox = ({ keywordAutoSave }: Props) => {
 
     const movepageAndAddkeywordAndCallApi = () => {
       navigate(`/search/${keyword}`);
-      keywordAutoSave && addSearchKeywords(keyword);
+      isToggleTrue && addSearchKeywords(keyword);
       getSearchResults(keyword, 'card', 1);
       getSearchResults(keyword, 'loan', 1);
       getSearchResults(keyword, 'savings', 1);

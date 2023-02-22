@@ -17,7 +17,6 @@ interface StateProps {
 
 const Search = () => {
   const [recentProduct, setRecentProduct] = useState<StateProps | undefined>();
-  const [keywordAutoSave, setKeywordAutoSave] = useState(true);
 
   useEffect(() => {
     const getSeverRecentProductData = async () => {
@@ -25,14 +24,11 @@ const Search = () => {
       setRecentProduct(json.slice(-1)[0]);
     };
     getSeverRecentProductData();
-
-    const getLocalStorageAutoSave = localStorage.getItem('auto') === 'true';
-    setKeywordAutoSave(getLocalStorageAutoSave);
   }, []);
 
   return (
     <Container>
-      <SearchBox keywordAutoSave={keywordAutoSave} />
+      <SearchBox />
       {recentProduct && (
         <RecentProducts>
           <h4>최근에 자세히 봤던</h4>
@@ -53,7 +49,7 @@ const Search = () => {
         </RecentProducts>
       )}
       <RecentKeywords>
-        <KeywordsList keywordAutoSave={keywordAutoSave} setKeywordAutoSave={setKeywordAutoSave} />
+        <KeywordsList />
       </RecentKeywords>
     </Container>
   );
