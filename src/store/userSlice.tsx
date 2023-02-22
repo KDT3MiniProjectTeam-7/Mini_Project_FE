@@ -11,11 +11,12 @@ export interface user {
 
 const userData = createSlice({
   name: 'user',
-  initialState: [] as user[],
+  initialState: {} as user,
   reducers: {
     setUserItems(state, actions: PayloadAction<user>) {
-        console.log(actions.payload)
-        state.push(actions.payload) ;
+      console.log(actions.payload)
+        // state = (actions.payload) ;
+        return actions.payload;
     },
   },
 });

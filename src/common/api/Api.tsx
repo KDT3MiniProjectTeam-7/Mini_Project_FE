@@ -172,4 +172,35 @@ export const getDetailItem = async (id: number) => {
   } catch (err: any) {
     console.log(err.message);
   }
-}
+};
+
+// 회원가입
+export const postUser = async (email: string, password: string, name: string, birth: string) => {
+  try {
+    const { data } = await defaultInstance.post('register', {
+      email: email,
+      password: password,
+      name: name,
+      birth: birth,
+    });
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
+// 로그인
+export const postLogin = async (email: string, password: string) => {
+  try {
+    const { data } = await defaultInstance.post('login', {
+      email: email,
+      password: password,
+    });
+    if (data.status === 'success') {
+      document.cookie = `accessToken=${data.accessToken}; max-age=3600`;
+    }
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};

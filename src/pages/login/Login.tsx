@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
 import { useState } from 'react';
+import { postLogin } from '../../common/api/Api';
 
 interface InputFormData {
   email: string;
@@ -20,32 +21,14 @@ const Login = () => {
 
   const [loginFail, setLoginFail] = useState(false);
 
-  const loginSubmit = async (email: string, pw: string) => {
-    try {
-      const res = await fetch('http://finance-seven.store/login', {
-        method: 'POST',
-        body: JSON.stringify({
-          email: email,
-          password: pw,
-        }),
-      });
-      if (!res.ok) throw new Error('요청 실패');
-      const json = await res.json();
-      console.log(json);
-      if (json.status === 'success') {
-        document.cookie = `accessToken=${json.accessToken}`;
-        console.log(document.cookie);
-        navigate('/');
-      } else {
-        setLoginFail(true);
-      }
-    } catch (error) {
-      console.log(error);
+  // 로그인하기
+  const onSubmit = async (data: any) => {
+    const resPostLogin = await postLogin(data.email, data.password);
+    if (resPostLogin.status === 'success') {
+      navigate('/');
+    } else {
+      setLoginFail(true);
     }
-  };
-
-  const onSubmit = (data: any) => {
-    loginSubmit(data.email, data.password);
   };
 
   return (
@@ -94,7 +77,7 @@ const MainContainer = styled.main`
   justify-content: center;
   flex-direction: column;
   height: 100vh;
-  margin: 0;
+  margin: 0 auto;
   gap: 20px;
 `;
 
@@ -111,6 +94,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-width: 400px;
 `;
 
 const Input = styled.input`

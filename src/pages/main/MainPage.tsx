@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getUserInfo, getRecommendation } from '../../common/api/Api';
+import { getRecommendation } from '../../common/api/Api';
+import { ReducerType } from '../../store/store';
+import { user } from '../../store/userSlice';
 
 const Main = () => {
   const [data, setData] = useState<any>();
-  const [user, setUser] = useState<any>();
 
   // toggle state
   const [toggleBtn1, setToggleBtn1] = useState<boolean>(false);
@@ -33,155 +35,177 @@ const Main = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const userData = await getUserInfo();
-  //     console.log(userData)
-  //     setUser(userData.tags.replaceAll('\\n', '&'));
-      
-  //     const getData = await getRecommendation(user);
-  //     setData(getData)
-  //   };
+  const userData = useSelector<ReducerType, user>((state) => state.user);
 
-  //   getUser();
-  // }, []);
+  useEffect(() => {
+    const getUser = async () => {
+      const getData = await getRecommendation(userData.tags.replaceAll('\\n', '&'));
+      setData(getData);
+    };
+    getUser();
+  }, [userData]);
 
-  // console.log(user)
-  // console.log(data)
+  interface Product {
+    annualFee?: number;
+    benefits?: string[];
+    category: string;
+    companyImage: string;
+    companyName: string;
+    productId: number;
+    productName: string;
+    productURL: string;
+    thumbnail: string | undefined;
+    highRate?: string;
+    lowRate?: string;
+    qualification?: string[];
+    bound?: string[] | number;
+    aboutRate?: string[];
+  }
 
   return (
     <>
       <Container>
         <Title>
-          안녕하세요 <span>한수산</span>님
+          안녕하세요 <span>{userData.name}</span>님
           <br />
           맞춤 추천 상품입니다.
         </Title>
-        { data ? (
+        
+        {data ? (
           <>
-            {/* <RecommenSection>
-              <h2
-                onClick={() => {
-                  toggleFn(1);
-                }}
-                className={toggleBtn1 ? 'showMenu' : undefined}
-              >
-                추천 카드 상품
-              </h2>
-              <div
-                className={toggleBtn1 ? 'showMenu' : undefined}
-                style={{ maxHeight: data.card.length * 170 + data.card.length * 10 + 'px' }}
-              >
-                {data.card.map((item, index) => {
-                  return (
-                    <ContainerBox key={index}>
-                      <CardContainer>
+            {data.card.length > 0 && (
+              <RecommenSection>
+                <h2
+                  onClick={() => {
+                    toggleFn(1);
+                  }}
+                  className={toggleBtn1 ? 'showMenu' : undefined}
+                >
+                  추천 카드 상품
+                </h2>
+
+                <div
+                  className={toggleBtn1 ? 'showMenu' : undefined}
+                  style={{ maxHeight: data.card.length * 170 + data.card.length * 10 + 'px' }}
+                >
+                  {data.card.map((item: Product) => {
+                    return (
+                      <ContainerBox key={item.productId}>
+                        <CardContainer>
+                          <p>
+                            <span>{item.companyName}</span>
+                            {item.productName}
+                          </p>
+                          <img src={item.thumbnail} alt="카드 이미지" />
+                        </CardContainer>
+                      </ContainerBox>
+                    );
+                  })}
+                </div>
+              </RecommenSection>
+            )}
+
+            {data.savings.length > 0 && (
+              <RecommenSection>
+                <h2
+                  onClick={() => {
+                    toggleFn(2);
+                  }}
+                  className={toggleBtn2 ? 'showMenu' : undefined}
+                >
+                  추천 예적금 상품
+                </h2>
+
+                <div
+                  className={toggleBtn2 ? 'showMenu' : undefined}
+                  style={{ maxHeight: data.savings.length * 170 + data.savings.length * 10 + 'px' }}
+                >
+                  {data.savings.map((item: Product) => {
+                    return (
+                      <SavingsContainer key={item.productId}>
+                        <img src={item.companyImage} alt="회사 로고" />
                         <p>
                           <span>{item.companyName}</span>
                           {item.productName}
                         </p>
-                        <img src={item.thumbnail} alt="카드 이미지" />
-                      </CardContainer>
-                    </ContainerBox>
-                  );
-                })}
-              </div>
-            </RecommenSection>
+                      </SavingsContainer>
+                    );
+                  })}
+                </div>
+              </RecommenSection>
+            )}
 
-            <RecommenSection>
-              <h2
-                onClick={() => {
-                  toggleFn(2);
-                }}
-                className={toggleBtn2 ? 'showMenu' : undefined}
-              >
-                추천 예적금 상품
-              </h2>
-              <div
-                className={toggleBtn2 ? 'showMenu' : undefined}
-                style={{ maxHeight: data.savings.length * 170 + data.savings.length * 10 + 'px' }}
-              >
-                {data.savings.map((item, index) => {
-                  return (
-                    <SavingsContainer key={index}>
-                      <img src={item.companyImage} alt="회사 로고" />
-                      <p>
-                        <span>{item.companyName}</span>
-                        {item.productName}
-                      </p>
-                    </SavingsContainer>
-                  );
-                })}
-              </div>
-            </RecommenSection>
+            {data.loan.length > 0 && (
+              <RecommenSection>
+                <h2
+                  onClick={() => {
+                    toggleFn(3);
+                  }}
+                  className={toggleBtn3 ? 'showMenu' : undefined}
+                >
+                  추천 대출 상품
+                </h2>
+                <div
+                  className={toggleBtn3 ? 'showMenu' : undefined}
+                  style={{ maxHeight: data.loan.length * 170 + data.loan.length * 10 + 'px' }}
+                >
+                  {data.loan.map((item: Product) => {
+                    return (
+                      <LoanContainer key={item.productId}>
+                        <div>
+                          <img src={item.companyImage} alt="카드 이미지" />
+                          <p>
+                            <span>{item.companyName}</span>
+                            {item.productName}
+                          </p>
+                        </div>
+                        <div>
+                          <p>
+                            금리 <span>{item.lowRate}</span>~<span>{item.highRate}</span>
+                          </p>
+                        </div>
+                      </LoanContainer>
+                    );
+                  })}
+                </div>
+              </RecommenSection>
+            )}
 
-            <RecommenSection>
-              <h2
-                onClick={() => {
-                  toggleFn(3);
-                }}
-                className={toggleBtn3 ? 'showMenu' : undefined}
-              >
-                추천 대출 상품
-              </h2>
-              <div
-                className={toggleBtn3 ? 'showMenu' : undefined}
-                style={{ maxHeight: data.loan.length * 170 + data.loan.length * 10 + 'px' }}
-              >
-                {data.loan.map((item, index) => {
-                  return (
-                    <LoanContainer key={index}>
-                      <div>
-                        <img src={item.companyImage} alt="카드 이미지" />
-                        <p>
-                          <span>{item.companyName}</span>
-                          {item.productName}
-                        </p>
-                      </div>
-                      <div>
-                        <p>
-                          금리 <span>{item.min}</span>~<span>{item.max}</span>
-                        </p>
-                      </div>
-                    </LoanContainer>
-                  );
-                })}
-              </div>
-            </RecommenSection>
-
-            <RecommenSection>
-              <h2
-                onClick={() => {
-                  toggleFn(4);
-                }}
-                className={toggleBtn4 ? 'showMenu' : undefined}
-              >
-                추천 청약 상품
-              </h2>
-              <div
-                className={toggleBtn4 ? 'showMenu' : undefined}
-                style={{ maxHeight: data.subscription.length * 170 + data.subscription.length * 10 + 'px' }}
-              >
-                {data.subscription.map((item, index) => {
-                  return (
-                    <SubscriptionContainer key={index}>
-                      <div>
-                        <img src={item.companyImage} alt="카드 이미지" />
-                        <p>
-                          <span>{item.companyName}</span>
-                          {item.productName}
-                        </p>
-                      </div>
-                      <div>
-                        <p>
-                          최고금리<span> {item.max}</span>
-                        </p>
-                      </div>
-                    </SubscriptionContainer>
-                  );
-                })}
-              </div>
-            </RecommenSection> */}
+            {data.subscription.length > 0 && (
+              <RecommenSection>
+                <h2
+                  onClick={() => {
+                    toggleFn(4);
+                  }}
+                  className={toggleBtn4 ? 'showMenu' : undefined}
+                >
+                  추천 청약 상품
+                </h2>
+                <div
+                  className={toggleBtn4 ? 'showMenu' : undefined}
+                  style={{ maxHeight: data.subscription.length * 170 + data.subscription.length * 10 + 'px' }}
+                >
+                  {data.subscription.map((item: Product) => {
+                    return (
+                      <SubscriptionContainer key={item.productId}>
+                        <div>
+                          <img src={item.companyImage} alt="카드 이미지" />
+                          <p>
+                            <span>{item.companyName}</span>
+                            {item.productName}
+                          </p>
+                        </div>
+                        <div>
+                          <p>
+                            최고금리<span> {item.highRate}</span>
+                          </p>
+                        </div>
+                      </SubscriptionContainer>
+                    );
+                  })}
+                </div>
+              </RecommenSection>
+            )}
           </>
         ) : (
           <DefaultStateContainer>

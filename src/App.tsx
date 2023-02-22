@@ -16,13 +16,12 @@ const App = () => {
     const getUserData = async () => {
       try {
         const userData = await getUserInfo()
-        console.log(userData)
         dispatch(setUserItems(userData));
       }catch(err){
         console.log(err)
       }      
     }
-    // getUserData()
+    getUserData()
     
     const getCartData = async () => {
       const data = await getCart();
