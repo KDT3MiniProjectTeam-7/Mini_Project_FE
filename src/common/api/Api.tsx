@@ -98,13 +98,23 @@ export const getPost = async () => {
   }
 };
 
-export async function getCart() {
+export const getCart = async () => {
   try {
     const { data } = await authInstance.get('/cart');
 
     return data;
   } catch (err: any) {
     console.log(err.message);
+  }
+}
+
+export const postTags = async (tags : string[]) => {
+  try {
+    const params = { tags: tags };
+    const { data } = await authInstance.post(`/user/tags`,params);
+    console.log(data, tags)
+  }catch(err){
+    console.log(err)
   }
 }
 
@@ -115,7 +125,28 @@ export const getCategoryItem = async (tags: string, category: string, page: numb
   } catch (err: any) {
     console.log(err.message);
   }
-};
+}
+
+export const getUserInfo = async () => {
+  try {
+    const { data } = await authInstance.get(`/user`);
+    console.log('성공')
+
+    return data;
+  } catch (err: any) {
+    console.log(err);
+  }
+}
+
+export const getRecommendation = async (tags:string) => {
+  try {
+    const { data } = await defaultInstance.get(`/Recommendation/${tags}`);
+
+    return data;
+  } catch (err: any) {
+    console.log(err);
+  }
+}
 
 export const getDetailItem = async (id: number) => {
   try {
@@ -142,3 +173,17 @@ export const postUser = async (email: string, password: string, name: string, bi
 };
 
 // 로그인
+export const postLogin = async (email: string, password: string) => {
+  try {
+    const { data } = await defaultInstance.post('login', {
+      email: email,
+      password: password,
+    });
+    if (data.status === 'success') {
+      document.cookie = `accessToken=${data.accessToken}; max-age=3600`;
+    }
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+}
