@@ -64,7 +64,7 @@ const UserInformation = (props: any) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <InputBox>
         <label htmlFor="email">Email</label>
         <Input
@@ -204,15 +204,27 @@ const UserInformation = (props: any) => {
           (errors.birthMonth && <Caution>{errors.birthMonth?.message}</Caution>) ||
           (errors.birthDay && <Caution>{errors.birthDay?.message}</Caution>) || <Caution />}
       </InputBox>
-      <Submit className="submit" type="submit" value="가입하기" />
-    </form>
+      <BottomContainer>
+        <input className="nextButton" type="submit" value="회원 가입하기" />
+      </BottomContainer>
+    </Form>
   );
 };
+
+const Form = styled.form`
+  height: 100vh;
+  padding: 60px 20px 110px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+  position: relative;
+`;
 
 const InputBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 28px;
+  margin-bottom: 25px;
 
   label {
     font-size: var(--font-s);
@@ -229,11 +241,11 @@ const InputBox = styled.div`
 
 const Input = styled.input`
   height: var(--input-height);
-  font-size: var(--font-m);
+  font-size: var(--font-s);
   box-sizing: border-box;
   border: none;
   border-bottom: 2px solid var(--lightgray-color);
-  margin-top: 6x;
+  margin-top: 6px;
   margin-bottom: 3px;
 
   :focus {
@@ -248,19 +260,28 @@ const Caution = styled.small`
   height: 10px;
 `;
 
-const Submit = styled(Input)`
+const BottomContainer = styled.div`
   width: 100%;
-  background-color: var(--main-color);
-  height: var(--input-height);
-  font-size: var(--font-m);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border: none;
-  font-weight: bold;
-  margin-top: 50px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  box-sizing: border-box;
+
+  .nextButton {
+    width: 100%;
+    background-color: var(--main-color);
+    height: 60px;
+    font-size: var(--font-m);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: none;
+    font-weight: bold;
+    margin-top: 10px;
+  }
 `;
 
 export default UserInformation;

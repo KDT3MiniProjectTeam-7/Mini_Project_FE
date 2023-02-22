@@ -179,7 +179,7 @@ export const postLogin = async (email: string, password: string) => {
       password: password,
     });
     if (data.status === 'success') {
-      document.cookie = `accessToken=${data.accessToken}; max-age=12`;
+      document.cookie = `accessToken=${data.accessToken}; max-age=3600`;
     }
     return data;
   } catch (err: any) {
