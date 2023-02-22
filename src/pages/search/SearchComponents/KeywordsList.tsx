@@ -75,7 +75,7 @@ const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
         </button>
       </div>
       {keywordAutoSave ? (
-        data.length !== 0 ? (
+        data && data.length !== 0 ? (
           <>
             <ol>
               {data
