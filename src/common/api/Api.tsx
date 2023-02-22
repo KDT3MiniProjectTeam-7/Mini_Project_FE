@@ -137,9 +137,8 @@ export const deleteSearchKeywordsAll = async () => {
   try {
     axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     const data = await axios.delete('http://finance-seven.store/user/keywords/all');
-    // console.log(data);
     console.log('전체삭제됨!');
-    return data;
+    return data.data;
   } catch (err: any) {
     console.log(err.message);
   }
@@ -150,8 +149,7 @@ export const getRecentProduct = async () => {
   try {
     axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     const data = await axios.get('http://finance-seven.store/user/recentproducts');
-    console.log(data.data.resultData);
-    return data;
+    return data.data.resultData;
   } catch (err: any) {
     console.log(err.message);
   }
@@ -161,6 +159,7 @@ export const addRecentProduct = async (productId: number) => {
   try {
     axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie.slice(12)}`;
     const data = await axios.post('http://finance-seven.store/user/recentproducts', { productId: productId });
+    console.log(data.data);
     console.log('최근 본 상품 추가 완료');
     return data;
   } catch (err: any) {
@@ -176,7 +175,7 @@ export const getSearchResults = async (title: string, category: string, page: nu
     console.log(data.data.resultData);
     return data.data.resultData;
   } catch (err: any) {
-    // console.log(err.message);
+    console.log(err.message);
   }
 };
 
