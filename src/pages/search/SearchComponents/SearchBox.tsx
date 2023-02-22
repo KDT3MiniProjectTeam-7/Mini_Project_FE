@@ -29,14 +29,16 @@ const SearchBox = ({ keywordAutoSave }: Props) => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const movepageAndAddkeyword = () => {
+    const movepageAndAddkeywordAndCallApi = () => {
       navigate(`/search/${keyword}`);
-      console.log(keywordAutoSave);
       keywordAutoSave && addSearchKeywords(keyword);
-      // getSearchResults(keyword, 'card', 1);
+      getSearchResults(keyword, 'card', 1);
+      getSearchResults(keyword, 'loan', 1);
+      getSearchResults(keyword, 'savings', 1);
+      getSearchResults(keyword, 'subscription', 1);
     };
 
-    keyword !== '' ? movepageAndAddkeyword() : alert('상품명을 입력해주세요.');
+    keyword !== '' ? movepageAndAddkeywordAndCallApi() : alert('상품명을 입력해주세요.');
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
