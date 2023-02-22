@@ -4,19 +4,32 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setCartItems } from './store/cartSlice';
 import { GlobalStyle } from './common/style/Style';
-import { getCart } from './common/api/Api';
+import { getCart, getUserInfo } from './common/api/Api';
 import Header from './components/Header';
 import TabBar from './components/TabBar';
+import { setUserItems } from './store/userSlice';
 
 // 전체 공통 적용
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const userData = await getUserInfo()
+        console.log(userData)
+        dispatch(setUserItems(userData));
+      }catch(err){
+        console.log(err)
+      }      
+    }
+    getUserData()
+    
     const getCartData = async () => {
       const data = await getCart();
       dispatch(setCartItems(data!.data.resultData));
     };
     getCartData();
+
   }, []);
 
   return (

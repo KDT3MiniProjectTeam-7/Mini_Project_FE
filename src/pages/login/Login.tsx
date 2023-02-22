@@ -24,9 +24,6 @@ const Login = () => {
     try {
       const res = await fetch('http://3.36.178.242:8080/login', {
         method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
         body: JSON.stringify({
           email: email,
           password: pw,

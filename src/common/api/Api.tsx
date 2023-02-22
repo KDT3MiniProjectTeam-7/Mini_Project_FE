@@ -127,11 +127,9 @@ export const getCart = async () => {
 
 export const postTags = async (tags : string[]) => {
   try {
-    const { data } = await authInstance.post(`/user/tags`, {
-      data : {
-        tags : tags
-      }
-    });
+    const params = { tags: tags };
+    const { data } = await authInstance.post(`/user/tags`,params);
+    console.log(data, tags)
 
     return data;
   } catch (err: any) {
@@ -142,6 +140,7 @@ export const postTags = async (tags : string[]) => {
 export const getUserInfo = async () => {
   try {
     const { data } = await authInstance.get(`/user`);
+    console.log('성공')
 
     return data;
   } catch (err: any) {
@@ -149,9 +148,9 @@ export const getUserInfo = async () => {
   }
 }
 
-export const getRecommendation = async () => {
+export const getRecommendation = async (tags:string) => {
   try {
-    const { data } = await defaultInstance.get(`/Recommendation/청년&대중교통&무주택자`);
+    const { data } = await defaultInstance.get(`/Recommendation/${tags}`);
 
     return data;
   } catch (err: any) {

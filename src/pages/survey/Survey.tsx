@@ -11,7 +11,7 @@ const Survey = () => {
 
   const onSubmit = (data:any) => {
     let submitData : any = Object.values(data).filter((v) => v !== false)
-    
+    console.log(submitData)
     try {
       postTags(submitData) 
       navigate('/')
@@ -20,6 +20,8 @@ const Survey = () => {
       alert('에러에요')
     }
   }
+
+
 
   return (
     <Container>
