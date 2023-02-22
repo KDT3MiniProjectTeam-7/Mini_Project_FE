@@ -10,12 +10,11 @@ const Complete = () => {
       const res = await fetch('http://finance-seven.store/user', {
         method: 'GET',
         headers: {
-          Authorization: document.cookie.slice(12),
+          Authorization: `Bearer ${document.cookie.slice(12)}`,
         },
       });
-      if (!res.ok) throw new Error('요청 실패');
       const json = await res.json();
-      console.log(json);
+      console.log('요청 결과', json);
     } catch (error) {
       console.log(error);
     }

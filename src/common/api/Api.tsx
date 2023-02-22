@@ -123,8 +123,6 @@ export async function getCart() {
     console.log(err.message);
   }
 }
-<<<<<<< HEAD
-=======
 
 export const getCategoryItem = async (tags: string, category: string, page: number) => {
   try {
@@ -143,4 +141,20 @@ export const getDetailItem = async (id: number) => {
     console.log(err.message);
   }
 };
->>>>>>> 32d5611d3e686f2419d91916b7c3cea11f154ba8
+
+// 회원가입
+export const postUser = async (email: string, password: string, name: string, birth: string) => {
+  try {
+    const { data } = await defaultInstance.post('register', {
+      email: email,
+      password: password,
+      name: name,
+      birth: birth,
+    });
+    return data;
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
+// 로그인

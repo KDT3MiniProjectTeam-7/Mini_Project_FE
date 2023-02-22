@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
 import { useState } from 'react';
+import { authInstance, defaultInstance } from '../../common/api/Axios';
 
 interface InputFormData {
   email: string;

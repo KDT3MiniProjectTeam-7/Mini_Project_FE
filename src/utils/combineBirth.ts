@@ -1,4 +1,4 @@
-export const convertBirth = (year: string, month: string, day: string) => {
+export const combineBirth = (year: string, month: string, day: string) => {
   if (month.length === 1) {
     month = '0' + month;
   }

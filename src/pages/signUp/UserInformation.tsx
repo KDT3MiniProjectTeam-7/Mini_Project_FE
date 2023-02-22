@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
-import { convertBirth } from '../../utils/convertBirth';
+import { combineBirth } from '../../utils/combineBirth';
+import { postUser } from '../../common/api/Api';
 
 interface InputFormData {
   email: string;
@@ -57,46 +58,30 @@ const UserInformation = (props: any) => {
 
   const [signUpFail, setSignUpFail] = useState(false);
 
-  // 생년월일 자리수 체크
+  // 자리수 체크(생년월일)
   const lengthCheck = (event: any, max: number) => {
     if (event.target.value.length > max) {
       event.target.value = event.target.value.slice(0, max);
     }
   };
 
-  const informationSubmit = async (email: string, pw: string, name: string, birth: string) => {
-    try {
-      const res = await fetch('http://3.36.178.242:8080/register', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: pw,
-          name: name,
-          birth: birth,
-          tag: [''],
-        }),
-      });
-      if (!res.ok) throw new Error('Request failed');
-      const json = await res.json();
-      console.log(json);
-      if (json.status === 'success') {
-        loginSubmit(email, pw);
-        props.setPage('Complete');
-      } else {
-        setSignUpFail(true);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // 가입하기
+  const onSubmit = async (data: any) => {
+    // 생일 통합
+    const birth = combineBirth(data.birthYear, data.birthMonth, data.birthDay);
 
-  // 제출
-  const onSubmit = (data: any) => {
-    const birth = convertBirth(data.birthYear, data.birthMonth, data.birthDay);
-    informationSubmit(data.email, data.password, data.name, birth);
+    // 회원가입 api 호출
+    const response = await postUser(data.email, data.password, data.name, birth);
+
+    // 가입성공 여부 분기
+    if (response.status === 'success') {
+      // 성공시, 로그인 api 호출
+      loginSubmit(data.email, data.password);
+      props.setPage('Complete');
+    } else {
+      // 실패시
+      setSignUpFail(true);
+    }
   };
 
   return (
