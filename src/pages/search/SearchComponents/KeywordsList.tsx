@@ -7,11 +7,19 @@ import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll 
 
 type Props = {
   keywordAutoSave: boolean;
-  setKeywordAutoSave: (el: boolean) => boolean;
+  setKeywordAutoSave: (el: boolean) => void;
 };
 
+interface StateObject {
+  searchId: number;
+  searchContent: string;
+  createdAt: string;
+}
+
+export interface StateArray extends Array<StateObject> {}
+
 const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<StateArray>([]);
   const [toast, setToast] = useState({ isTrue: false, count: 0 });
 
   useEffect(() => {
@@ -23,11 +31,9 @@ const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
   }, []);
 
   // 삭제
-  const handleDeleteKeyword = (event: Event | undefined, id: number) => {
-    // const keywordId = event.target.closest('li').id;
-    // const deletedData = data.filter((element) => element.searchId !== keywordId);
-    // console.log(deletedData);
-    // setData(deletedData);
+  const handleDeleteKeyword = (id: number) => {
+    const deletedData = data.filter((element) => element.searchId !== id);
+    setData(deletedData);
     deleteSearchKeywordsSingle(id);
   };
 
@@ -77,12 +83,12 @@ const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
                   return +new Date(b.createdAt) - +new Date(a.createdAt);
                 })
                 .map((list) => (
-                  <li key={list.searchId} id={list.searchId}>
+                  <List key={list.searchId}>
                     <SearchLink to={`/search/${list.searchContent}`}>{list.searchContent}</SearchLink>
-                    <button onClick={() => handleDeleteKeyword(event, list.searchId)}>
+                    <button onClick={() => handleDeleteKeyword(list.searchId)}>
                       <TfiClose />
                     </button>
-                  </li>
+                  </List>
                 ))}
             </ol>
             <button className="deleteAll" onClick={handleDeleteKeywordAll}>
@@ -124,20 +130,20 @@ const Container = styled.div`
     color: var(--gray-color);
     font-size: var(--font-s);
   }
+`;
 
-  li {
-    display: flex;
-    justify-content: space-between;
+const List = styled.li`
+  display: flex;
+  justify-content: space-between;
 
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ebebeb;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ebebeb;
 
-    color: var(--black-color);
+  color: var(--black-color);
 
-    button {
-      font-size: 12px;
-    }
+  button {
+    font-size: 12px;
   }
 `;
 
