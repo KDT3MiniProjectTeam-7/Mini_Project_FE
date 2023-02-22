@@ -2,24 +2,28 @@ import { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { TfiClose } from 'react-icons/tfi';
+import Toast from '../../../components/Toast';
 import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll } from '../../../common/api/Api';
 
-const KeywordsList = ({ autoSave, setAutoSave }) => {
+type Props = {
+  keywordAutoSave: boolean;
+  setKeywordAutoSave: (el: boolean) => boolean;
+};
+
+const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
   const [data, setData] = useState([]);
+  const [toast, setToast] = useState({ isTrue: false, count: 0 });
 
   useEffect(() => {
-    const getSeverData = async () => {
-      try {
-        const json = await getSearchKeywords();
-        setData(json);
-        return json;
-      } catch (err) {}
+    const getSeverSearchKeywordsData = async () => {
+      const json = await getSearchKeywords();
+      setData(json);
     };
-    getSeverData();
+    getSeverSearchKeywordsData();
   }, []);
 
   // 삭제
-  const handleDeleteKeyword = (event, id: number) => {
+  const handleDeleteKeyword = (event: Event | undefined, id: number) => {
     // const keywordId = event.target.closest('li').id;
     // const deletedData = data.filter((element) => element.searchId !== keywordId);
     // console.log(deletedData);
@@ -27,20 +31,32 @@ const KeywordsList = ({ autoSave, setAutoSave }) => {
     deleteSearchKeywordsSingle(id);
   };
 
-  const handleDeleteKeywordAll = () => {
+  const handleDeleteKeywordAll = async () => {
     if (confirm('최근 검색어를 모두 삭제하시겠습니까?')) {
       setData([]);
-      deleteSearchKeywordsAll();
-      // 00개 삭제완료 토스트 띄우기
+      const res = await deleteSearchKeywordsAll();
+
+      // 00개 삭제 완료 토스트 띄우기
+      res.status === 'success' && setToast({ isTrue: true, count: res.deletedNum });
     }
   };
 
   // 자동저장
   const handleAutoSave = () => {
-    if (autoSave) {
-      confirm('최근 검색어 저장 기능을\n사용 중지하시겠습니까?') && setAutoSave((e) => !e);
+    const btnOff = () => {
+      localStorage.setItem('auto', 'false');
+      setKeywordAutoSave(false);
+    };
+
+    const btnOn = () => {
+      localStorage.setItem('auto', 'true');
+      setKeywordAutoSave(true);
+    };
+
+    if (keywordAutoSave) {
+      confirm('최근 검색어 저장 기능을\n사용 중지하시겠습니까?') && btnOff();
     } else {
-      confirm('최근 검색어 저장 기능을\n사용 하시겠습니까?') && setAutoSave((e) => !e);
+      confirm('최근 검색어 저장 기능을\n사용 하시겠습니까?') && btnOn();
     }
   };
 
@@ -49,10 +65,10 @@ const KeywordsList = ({ autoSave, setAutoSave }) => {
       <div>
         <h4>최근에 찾아봤던</h4>
         <button className="autoSave" onClick={handleAutoSave}>
-          자동저장 {autoSave ? '끄기' : '켜기'}
+          자동저장 {keywordAutoSave ? '끄기' : '켜기'}
         </button>
       </div>
-      {autoSave ? (
+      {keywordAutoSave ? (
         data.length !== 0 ? (
           <>
             <ol>
@@ -74,11 +90,12 @@ const KeywordsList = ({ autoSave, setAutoSave }) => {
             </button>
           </>
         ) : (
-          <p>최근 찾아봤던 내역이 없습니다.</p>
+          <Info>최근 찾아봤던 내역이 없습니다.</Info>
         )
       ) : (
-        <p>검색어 저장 기능이 꺼져있습니다.</p>
+        <Info>검색어 저장 기능이 꺼져있습니다.</Info>
       )}
+      <Toast toast={toast} message={`${toast.count}개가 삭제됐어요`} />
     </Container>
   );
 };
@@ -122,13 +139,13 @@ const Container = styled.div`
       font-size: 12px;
     }
   }
+`;
 
-  p {
-    color: var(--black-color);
-    padding: 60px 0;
-    text-align: center;
-    border-bottom: 0.5px solid #ebebeb;
-  }
+const Info = styled.p`
+  color: var(--black-color);
+  padding: 60px 0;
+  text-align: center;
+  border-bottom: 0.5px solid #ebebeb;
 `;
 
 const SearchLink = styled(Link)`

@@ -25,6 +25,9 @@ const Search = () => {
       setRecentProduct(json.slice(-1)[0]);
     };
     getSeverRecentProductData();
+
+    const getLocalStorageAutoSave = localStorage.getItem('auto') === 'true';
+    setKeywordAutoSave(getLocalStorageAutoSave);
   }, []);
 
   return (
