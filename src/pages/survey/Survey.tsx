@@ -1,15 +1,27 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import { postTags } from '../../common/api/Api';
 
 const Survey = () => {
+  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
   const { register, handleSubmit } = useForm();
+
   const onSubmit = (data:any) => {
-    let submitData = Object.values(data).filter((v) => v !== false)
+    let submitData : any = Object.values(data).filter((v) => v !== false)
     console.log(submitData)
+    try {
+      postTags(submitData) 
+      navigate('/')
+      console.log('설문조사 완료')
+    }catch{
+      alert('에러에요')
+    }
   }
 
-  const [page, setPage] = useState(1);
+
 
   return (
     <Container>

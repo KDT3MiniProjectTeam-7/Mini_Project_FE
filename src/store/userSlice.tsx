@@ -1,16 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export interface User {
+export interface user {
+  accessToken : string
+  status: string;
+  birthday: string;
   email: string;
   name: string;
-  age: number;
-  tag: string[];
+  tags: string;
 }
 
-const user = createSlice({
+const userData = createSlice({
   name: 'user',
-  initialState: {} as User,
-  reducers: {},
+  initialState: {} as user,
+  reducers: {
+    setUserItems(state, actions: PayloadAction<user>) {
+        return actions.payload;
+    },
+  },
 });
 
-export default user;
+export const { setUserItems } = userData.actions;
+
+export default userData;
