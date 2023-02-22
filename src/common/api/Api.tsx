@@ -146,7 +146,6 @@ export const getRecommendation = async (tags:string) => {
   }
 }
 
-
 export const getDetailItem = async (id: number) => {
   try {
     const { data } = await defaultInstance.get(`items/${id}`);
@@ -185,4 +184,4 @@ export const postLogin = async (email: string, password: string) => {
   } catch (err: any) {
     console.log(err.message);
   }
-};
+}

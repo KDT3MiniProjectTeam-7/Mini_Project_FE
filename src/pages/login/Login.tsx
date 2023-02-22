@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
 import { useState } from 'react';
+import { authInstance, defaultInstance } from '../../common/api/Axios';
 
 interface InputFormData {
   email: string;
@@ -22,7 +23,7 @@ const Login = () => {
 
   const loginSubmit = async (email: string, pw: string) => {
     try {
-      const res = await fetch('http://3.36.178.242:8080/login', {
+      const res = await fetch('http://finance-seven.store/login', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
@@ -36,7 +37,7 @@ const Login = () => {
       const json = await res.json();
       console.log(json);
       if (json.status === 'success') {
-        document.cookie = `accessToken=${json.accessToken}`;
+        document.cookie = `accessToken=${json.accessToken}; max-age=3600`;
         console.log(document.cookie);
         navigate('/');
       } else {
