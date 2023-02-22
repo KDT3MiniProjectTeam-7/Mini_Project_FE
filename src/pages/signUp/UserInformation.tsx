@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { combineBirth } from '../../utils/combineBirth';
-import { postUser } from '../../common/api/Api';
+import { postLogin, postUser } from '../../common/api/Api';
 
 interface InputFormData {
   email: string;
@@ -20,32 +19,7 @@ interface InputFormData {
   };
 }
 
-const loginSubmit = async (email: string, pw: string) => {
-  try {
-    const res = await fetch('http://finance-seven.store/login', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: pw,
-      }),
-    });
-    const json = await res.json();
-    console.log(json);
-    if (json.status === 'success') {
-      document.cookie = `accessToken=${json.accessToken}; max-age=3600`;
-    } else {
-      console.log('에러');
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const UserInformation = (props: any) => {
-  const navigate = useNavigate();
   const {
     watch,
     register,
@@ -71,15 +45,20 @@ const UserInformation = (props: any) => {
     const birth = combineBirth(data.birthYear, data.birthMonth, data.birthDay);
 
     // 회원가입 api 호출
-    const response = await postUser(data.email, data.password, data.name, birth);
+    const resPostUser = await postUser(data.email, data.password, data.name, birth);
 
-    // 가입성공 여부 분기
-    if (response.status === 'success') {
-      // 성공시, 로그인 api 호출
-      loginSubmit(data.email, data.password);
-      props.setPage('Complete');
+    // 회원가입 성공시 자동 로그인
+    if (resPostUser.status === 'success') {
+      // 로그인 api 호출
+      const resPostLogin = await postLogin(data.email, data.password);
+      if (resPostLogin.status === 'success') {
+        props.setPage('Complete');
+      } else {
+        console.log('자동 로그인 에러', resPostLogin);
+      }
     } else {
-      // 실패시
+      // 회원가입 실패
+      console.log('회원가입 에러', resPostUser.status);
       setSignUpFail(true);
     }
   };

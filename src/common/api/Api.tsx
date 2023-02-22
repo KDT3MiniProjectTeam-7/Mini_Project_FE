@@ -153,8 +153,36 @@ export const postUser = async (email: string, password: string, name: string, bi
     });
     return data;
   } catch (err: any) {
-    console.log(err.message);
+    console.log('회원가입 api 에러', err.message);
   }
 };
 
 // 로그인
+export const postLogin = async (email: string, password: string) => {
+  try {
+    const { data } = await defaultInstance.post('login', {
+      email: email,
+      password: password,
+    });
+    if (data.status === 'success') {
+      document.cookie = `accessToken=${data.accessToken}; max-age=3600`;
+    }
+    return data;
+  } catch (err: any) {
+    console.log('로그인 api 에러', err.message);
+  }
+};
+
+// 로그아웃
+export const postLogout = async () => {
+  try {
+    const { data } = await authInstance.post('logout');
+    // if (data === 'success') {
+    console.log(data);
+    document.cookie = `${document.cookie}; expires=Thu, 01 Jan 1999 00:00:10 GMT;`;
+    // }
+    return data;
+  } catch (err: any) {
+    console.log('로그아웃 api 에러', err.message);
+  }
+};

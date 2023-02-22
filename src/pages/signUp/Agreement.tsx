@@ -7,7 +7,7 @@ const Agreement = (props: any) => {
 
   return (
     <>
-      <div onClick={handleClick}>약관동의</div>
+      <button onClick={handleClick}>약관동의</button>
     </>
   );
 };

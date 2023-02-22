@@ -1,41 +1,30 @@
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import { postLogout } from '../../common/api/Api';
 
 const MyPage = () => {
+  // const getUserInfo = async () => {
+  //   try {
+  //     const res = await fetch('http://finance-seven.store/user', {
+  //       method: 'GET',
+  //       headers: {
+  //         'content-type': 'application/json',
+  //         Authorization: `Bearer ${document.cookie.slice(12)}`,
+  //       },
+  //     });
+  //     const json = await res.json();
+  //     console.log('요청 결과', json);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // getUserInfo();
+
   const navigate = useNavigate();
 
-  const postLogout = async () => {
-    try {
-      const res = await fetch('http://finance-seven.store/logout', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${document.cookie.slice(12)}`,
-        },
-      });
-      const json = await res.json();
-      console.log('요청 결과', json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  console.log(document.cookie.slice(12));
 
-  const getUserInfo = async () => {
-    try {
-      const res = await fetch('http://finance-seven.store/user', {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json',
-          Authorization: `Bearer ${document.cookie.slice(12)}`,
-        },
-      });
-      const json = await res.json();
-      console.log('요청 결과', json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  getUserInfo();
-
+  // 목데이터
   const user = {
     name: '김효진',
     email: 'hanssan@naver.com',
@@ -45,8 +34,7 @@ const MyPage = () => {
   };
 
   const logoutClick = async () => {
-    postLogout();
-    document.cookie = `${document.cookie}; expires=Thu, 01 Jan 1999 00:00:10 GMT;`;
+    await postLogout();
     navigate('/login');
   };
 
