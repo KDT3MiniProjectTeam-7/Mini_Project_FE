@@ -6,8 +6,8 @@ import Toast from '../../../components/Toast';
 import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll } from '../../../common/api/Api';
 
 type Props = {
-  keywordAutoSave: boolean;
-  setKeywordAutoSave: (el: boolean) => void;
+  keywordAutoSave?: boolean;
+  setKeywordAutoSave?: any;
 };
 
 interface StateObject {
@@ -20,7 +20,8 @@ export interface StateArray extends Array<StateObject> {}
 
 const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
   const [data, setData] = useState<StateArray>([]);
-  const [toast, setToast] = useState({ isTrue: false, count: 0 });
+  const [toast, setToast] = useState(false);
+  const [deletedCount, setDeletedCount] = useState('');
 
   useEffect(() => {
     const getSeverSearchKeywordsData = async () => {
@@ -43,7 +44,8 @@ const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
       const res = await deleteSearchKeywordsAll();
 
       // 00개 삭제 완료 토스트 띄우기
-      res.status === 'success' && setToast({ isTrue: true, count: res.deletedNum });
+      res.status === 'success' && setToast(true);
+      setDeletedCount(res.deletedNum);
     }
   };
 
@@ -101,7 +103,7 @@ const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
       ) : (
         <Info>검색어 저장 기능이 꺼져있습니다.</Info>
       )}
-      <Toast toast={toast} message={`${toast.count}개가 삭제됐어요`} />
+      <Toast isTrue={toast} message={`${deletedCount}개가 삭제됐어요`} />
     </Container>
   );
 };

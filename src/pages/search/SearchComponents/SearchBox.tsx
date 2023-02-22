@@ -7,7 +7,7 @@ import { IoChevronBackOutline } from 'react-icons/io5';
 import { addSearchKeywords, getSearchResults } from '../../../common/api/Api';
 
 type Props = {
-  keywordAutoSave: boolean;
+  keywordAutoSave?: boolean;
 };
 
 const SearchBox = ({ keywordAutoSave }: Props) => {
