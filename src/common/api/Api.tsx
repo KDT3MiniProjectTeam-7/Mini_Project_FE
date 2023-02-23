@@ -135,7 +135,7 @@ export const getCart = async () => {
 
 export const postTags = async (tags: string[]) => {
   Instance()
-
+  
   try {
     const params = { tags: tags };
     const { data } = await authInstance.post(`/user/tags`, params);
@@ -220,7 +220,7 @@ export const postLogin = async (email: string, password: string) => {
 // 로그아웃
 export const postLogout = async () => {
   Instance()
-
+  
   try {
     // key value로 바꿔주면 업데이트
     const data = await authInstance.post('logout');
