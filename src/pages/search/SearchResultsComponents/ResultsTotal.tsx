@@ -12,13 +12,10 @@ interface TabProps {
 
 const ResultsTotal = ({ setTabIndex }: TabProps) => {
   const navigate = useNavigate();
-  useEffect(() => {});
+
   const cardData = useSelector<ReducerType, Item[]>((state) => state.searchCard);
-
   const loanData = useSelector<ReducerType, Item[]>((state) => state.searchLoan);
-
   const savingsData = useSelector<ReducerType, Item[]>((state) => state.searchSavings);
-
   const subscriptionData = useSelector<ReducerType, Item[]>((state) => state.searchSubscription);
 
   const title = ['카드', '대출', '예적금', '청약'];
@@ -49,7 +46,7 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
                         <img src={data.thumbnail} alt={`${data.productName}카드이미지`} />
                       </Image>
                       <div>
-                        <h4>{data.benefits[0]}</h4>
+                        <h4>{data.benefits && data.benefits[0]}</h4>
                         <p>{data.productName}</p>
                       </div>
                     </div>

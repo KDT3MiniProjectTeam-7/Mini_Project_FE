@@ -27,13 +27,13 @@ const ResultsCard = () => {
                     <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
                   </Thumbnail>
                   <Desc>
-                    <h3 className="benefits">{list.benefits[0]}</h3>
+                    <h3 className="benefits">{list.benefits && list.benefits[0]}</h3>
                     <p className="productname">{list.productName}</p>
                   </Desc>
                 </div>
                 <Fee>
                   <dt>연회비</dt>
-                  <dd>{list.annualFee.toLocaleString()}원</dd>
+                  <dd>{list.annualFee && list.annualFee.toLocaleString()}원</dd>
                 </Fee>
               </ResultsList>
             ))}
