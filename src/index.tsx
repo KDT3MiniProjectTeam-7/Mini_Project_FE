@@ -21,6 +21,7 @@ import SearchResults from './pages/search/SearchResultsPage';
 import Detail from './pages/detail/detailPage';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import SurveyComplate from './pages/survey/SurveyComplate';
 
 const persistor = persistStore(store);
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: '/mypage', element: <MyPage /> },
       { path: '/search', element: <Search /> },
       { path: '/survey', element: <Survey /> },
+      { path: '/surveyComplate', element: <SurveyComplate /> },
       { path: '/all', element: <ALL /> },
     ],
   },

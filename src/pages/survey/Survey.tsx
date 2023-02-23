@@ -11,17 +11,14 @@ const Survey = () => {
 
   const onSubmit = (data:any) => {
     let submitData : any = Object.values(data).filter((v) => v !== false)
-    console.log(submitData)
-    try {
-      postTags(submitData) 
-      navigate('/')
-      console.log('설문조사 완료')
-    }catch{
-      alert('에러에요')
+
+    if(submitData.filter((v : any) => v === null).length > 0){
+      alert('체크하지 않은 항목이 있는지 확인해주세요.')
+    }else {
+      postTags(submitData)
+      navigate('/surveyComplate')
     }
   }
-
-
 
   return (
     <Container>
@@ -123,7 +120,7 @@ const Survey = () => {
           page === 3 && (
             <>
               <div>
-                <p>관심 혜택</p>
+                <p>관심 혜택 <span>중복 체크 가능</span></p>
                 <div>
                   <input type="checkbox" id="movie" value="문화생활" {...register("영화")}/>
                   <label htmlFor="movie">영화</label>
@@ -176,7 +173,6 @@ const Container = styled.main`
   }
 
   form {
-    padding-top:50px;
     position:relative;
     height:400px;
 
@@ -200,18 +196,18 @@ const Container = styled.main`
 
     .prev_btn { 
       position:absolute;
-      bottom:0;
+      bottom:40px;
       left:0;
     }
 
     .next_btn,.submit_btn { 
       position:absolute;
-      bottom:0;
+      bottom:40px;
       right:0;
     }
 
     p {
-      margin:20px 0 10px;
+      margin-top:40px;
       font-size:15px;
       font-weight:500;
     }
