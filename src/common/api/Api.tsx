@@ -11,8 +11,10 @@ const Instance = () => {
 } 
 
 export const postCartItems = async (id: number) => {
+  Instance()
+  
   try {
-    const params = { productId: id , headers : { Authorization: `Bearer ${document.cookie.slice(12)}` }};
+    const params = { productId: id };
     await defaultInstance.post('/cart', params);
   } catch (err: any) {
     console.log(err.message);
