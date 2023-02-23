@@ -6,6 +6,11 @@ import { getRecommendation } from '../../common/api/Api';
 import { ReducerType } from '../../store/store';
 import { user } from '../../store/userSlice';
 
+// state 4개 제어
+//react hook form  input으로 만들고 제어
+//state 를 객체로 선언
+//useReducer 사용 가장 추천
+
 const Main = () => {
   const [data, setData] = useState<any>();
 

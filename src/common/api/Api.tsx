@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { defaultInstance, authInstance } from './Axios';
 
 export const postCartItems = async (id: number) => {

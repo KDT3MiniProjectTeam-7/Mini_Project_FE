@@ -23,7 +23,7 @@ const Login = () => {
 
   const loginSubmit = async (email: string, pw: string) => {
     try {
-      const res = await fetch('http://finance-seven.store/login', {
+      const res = await fetch('https://www.finance-seven.store/login', {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
