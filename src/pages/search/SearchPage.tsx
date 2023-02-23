@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { BiHistory } from 'react-icons/Bi';
+import { BiHistory } from 'react-icons/bi';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 
 import SearchBox from './SearchComponents/SearchBox';
