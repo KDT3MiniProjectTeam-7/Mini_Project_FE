@@ -41,16 +41,16 @@ const Main = () => {
 
   const dispatch = useDispatch();
 
-  let userData = useSelector<ReducerType, user>((state) => state.user)
-  
+  let userData = useSelector<ReducerType, user>((state) => state.user);
+
   useEffect(() => {
     // 유저데이터 받아서 로컬 저장
     const getUserData = async () => {
-      const userData = await getUserInfo()
+      const userData = await getUserInfo();
       dispatch(setUserItems(userData));
-      console.log(userData)
-    }
-    getUserData()
+      console.log(userData);
+    };
+    getUserData();
 
     // 카트데이터 받아서 로컬 저장
     const getCartData = async () => {
@@ -62,10 +62,10 @@ const Main = () => {
 
   useEffect(() => {
     // 로컬에 저장된 유저데이터 활용 추천상품 조회
-    const getUser = async () => {  
+    const getUser = async () => {
       const getData = await getRecommendation(userData.tags.replaceAll('\\n', '&'));
       setData(getData);
-    }
+    };
     getUser();
   }, [userData]);
 
@@ -89,13 +89,12 @@ const Main = () => {
   return (
     <>
       <Container>
-        
         <Title>
           안녕하세요 <span>{userData.name}</span>님
           <br />
           맞춤 추천 상품입니다.
         </Title>
-        
+
         {data ? (
           <>
             {data.card.length > 0 && (
@@ -253,7 +252,7 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom:150px;
+  margin-bottom: 150px;
 `;
 
 const Title = styled.h1`
@@ -406,7 +405,7 @@ const LoanContainer = styled.div`
       font-size: 20px;
       font-weight: 500;
       color: #eee;
-      line-height:1.2;
+      line-height: 1.2;
 
       span {
         display: block;
