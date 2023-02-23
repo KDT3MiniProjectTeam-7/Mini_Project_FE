@@ -11,6 +11,8 @@ const Instance = () => {
 };
 
 export const postCartItems = async (id: number) => {
+  Instance();
+
   try {
     Instance();
     const params = { productId: id };

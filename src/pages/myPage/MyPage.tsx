@@ -1,6 +1,10 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ModalLogout from './ModalLogout';
+import { ReducerType } from '../../store/store'
+import { user } from '../../store/userSlice'
+import { Link } from 'react-router-dom';
 
 const MyPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -10,47 +14,51 @@ const MyPage = () => {
     setModalOpen(true);
   };
 
-  // 목데이터
-  const user = {
-    name: '김효진',
-    email: 'hanssan@naver.com',
-    birth: 19960713,
-    age: 28,
-    favorite: ['쇼핑', '여행', '대중교통'],
-  };
+  let userData = useSelector<ReducerType, user>((state) => state.user)
+  let userTag = userData.tags.replaceAll('\\n', ' ').split(' ');
 
   return (
     <main>
-      <User>
-        <div>
-          <div className="name">
-            <span>{user.name}</span> 님
-          </div>
-          <Button className="change">수정</Button>
-        </div>
-        <div>
-          <p>
-            <span>{user.email}</span>
-          </p>
-          <p>
-            <span>{user.birth}</span> <span>(만{user.age}세)</span>
-          </p>
-        </div>
-      </User>
-      <Interest>
-        <div>
-          <p>{user.name}님의 관심 목록</p>
-          <Button> 테스트 다시하기 </Button>
-        </div>
-
-        <div className="itemSection">
-          {user.favorite.map((item, index) => (
-            <div className="item" key={index}>
-              {item}
+      {userData && (
+        <>
+          <User>
+            <div>
+              <div className="name">
+                <span>{userData.name}</span> 님
+              </div>
+              <Button className="change">수정</Button>
             </div>
-          ))}
-        </div>
-      </Interest>
+            <div>
+              <p>
+                <span>{userData.email}</span>
+              </p>
+              <p>
+                <span>{userData.birthday}</span> <span>(만{userData.age}세)</span>
+              </p>
+            </div>
+          </User>
+          {
+            userData.tags.length > 0 ? (
+              <Interest>
+                <div>
+                  <p>{userData.name}님의 관심 목록</p>
+                  <Button> <Link to={"/survey"}>테스트 다시하기</Link> </Button>
+                </div>
+                <div className="itemSection">
+                  {userTag.map((item, index) => (
+                    <div className="item" key={index}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                </Interest>
+            ) : (
+              null
+            )
+          }
+        </>
+      )}
+
       <Logout onClick={showModal}>로그아웃</Logout>
       {modalOpen && (
         <ModalBox>
@@ -125,11 +133,12 @@ const Interest = styled.div`
   & > div:last-child {
     margin-top: 20px;
     display: flex;
+    flex-wrap:wrap;
     align-items: center;
     gap: 10px;
 
     div {
-      padding: 5px 10px;
+      padding:5px 10px;
       background: #6e74b3;
       color: #fff;
       font-size: 14px;
@@ -146,6 +155,10 @@ const Button = styled.button`
   border: none;
   background: var(--main-color);
   padding: 0 15px;
+
+  a {
+    color:#fff;
+  }
 `;
 
 const Logout = styled(Button)`
@@ -155,6 +168,7 @@ const Logout = styled(Button)`
   height: 40px;
   font-size: 14px;
   font-weight: 500;
+  margin-top:20px;
 `;
 
 export default MyPage;
