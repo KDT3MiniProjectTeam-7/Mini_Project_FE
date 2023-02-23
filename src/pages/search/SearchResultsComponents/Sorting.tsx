@@ -68,6 +68,7 @@ const ProductSorting = ({ active, setActive }: Props) => {
 };
 
 const Container = styled.div`
+  margin: 0 20px;
   margin-bottom: 30px;
   font-size: var(--font-s);
   button {

@@ -125,10 +125,6 @@ const Container = styled.section`
 const Desc = styled.ol`
   border-bottom: 20px solid var(--lightgray-color);
 
-  li + li {
-    margin-top: 40px;
-  }
-
   button {
     border: none;
     background-color: transparent;
@@ -140,6 +136,10 @@ const Desc = styled.ol`
     color: var(--main-color);
     text-align: center;
     font-size: var(--font-m);
+
+    &:active {
+      opacity: 0.7;
+    }
   }
 `;
 
@@ -147,7 +147,14 @@ const Product = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 70px;
   padding: 0 20px;
+  transition: all 0.3s ease-in-out;
+
+  &:active {
+    scale: 0.98;
+    background-color: var(--lightgray-color);
+  }
 
   & > div {
     display: flex;

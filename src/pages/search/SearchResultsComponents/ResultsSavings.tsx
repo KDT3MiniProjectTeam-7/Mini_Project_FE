@@ -65,21 +65,29 @@ const ResultsSavings = () => {
 };
 
 const Container = styled.div`
-  padding: 30px 20px;
+  padding: 30px 0;
   line-height: 1.4;
+
+  & > li:active {
+    scale: 0.98;
+    background-color: var(--lightgray-color);
+  }
 `;
 
 const ResultsList = styled.li`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  height: 80px;
+  padding: 13px 20px;
+  transition: all 0.3s ease-in-out;
 
   & > div {
     display: flex;
   }
 
   & + li {
-    margin-top: 40px;
+    margin-top: 10px;
   }
 `;
 
