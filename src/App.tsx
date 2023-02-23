@@ -1,25 +1,31 @@
 import { useEffect } from 'react';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCartItems } from './store/cartSlice';
 import { GlobalStyle } from './common/style/Style';
 import { getCart, getUserInfo } from './common/api/Api';
 import Header from './components/Header';
 import TabBar from './components/TabBar';
 import { setUserItems } from './store/userSlice';
+import { user } from './store/userSlice';
+import { ReducerType } from './store/store';
 
 // 전체 공통 적용
 const App = () => {
+  
   const dispatch = useDispatch();
+
   useEffect(() => {
     const getUserData = async () => {
-      try {
-        const userData = await getUserInfo()
-        dispatch(setUserItems(userData));
-      }catch(err){
-        console.log(err)
-      }      
+      if(document.cookie){
+        try {
+          const userData = await getUserInfo()
+          dispatch(setUserItems(userData));
+        }catch(err){
+          console.log(err)
+        }    
+      }
     }
     getUserData()
     
@@ -29,7 +35,6 @@ const App = () => {
       dispatch(setCartItems(data!.resultData));
     };
     getCartData();
-
   }, []);
 
   return (

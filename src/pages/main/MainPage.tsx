@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getRecommendation } from '../../common/api/Api';
+import { getCart, getRecommendation, getUserInfo } from '../../common/api/Api';
+import { setCartItems } from '../../store/cartSlice';
 import { ReducerType } from '../../store/store';
-import { user } from '../../store/userSlice';
+import { setUserItems, user } from '../../store/userSlice';
 
-// state 4개 제어
-//react hook form  input으로 만들고 제어
 //state 를 객체로 선언
 //useReducer 사용 가장 추천
 
@@ -40,14 +39,38 @@ const Main = () => {
     }
   };
 
-  const userData = useSelector<ReducerType, user>((state) => state.user);
+  const dispatch = useDispatch();
+
+  let userData = useSelector<ReducerType, user>((state) => state.user)
+  
+  useEffect(() => {
+    // 유저데이터 받아서 로컬 저장
+    const getUserData = async () => {
+      const userData = await getUserInfo()
+      dispatch(setUserItems(userData));
+      console.log(userData)
+    }
+    getUserData()
+
+    // 카트데이터 받아서 로컬 저장
+    const getCartData = async () => {
+      const data = await getCart();
+      dispatch(setCartItems(data!.resultData));
+    };
+    getCartData();
+
+    console.log('실행1')
+  }, []);
 
   useEffect(() => {
-    const getUser = async () => {
+    // 로컬에 저장된 유저데이터 활용 추천상품 조회
+    const getUser = async () => {  
       const getData = await getRecommendation(userData.tags.replaceAll('\\n', '&'));
       setData(getData);
-    };
+    }
     getUser();
+
+    console.log('실행2')
   }, [userData]);
 
   interface Product {
@@ -70,6 +93,7 @@ const Main = () => {
   return (
     <>
       <Container>
+        
         <Title>
           안녕하세요 <span>{userData.name}</span>님
           <br />
@@ -233,6 +257,7 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-bottom:150px;
 `;
 
 const Title = styled.h1`
@@ -314,7 +339,7 @@ const CardContainer = styled.div`
     font-weight: 500;
     line-height: 1.2;
     color: #eee;
-    padding-right: 10px;
+    padding-right: 30px;
 
     span {
       display: block;
@@ -369,7 +394,7 @@ const LoanContainer = styled.div`
   border-radius: 10px;
 
   img {
-    width: 100px;
+    width: 80px;
   }
 
   & > div {
@@ -415,7 +440,7 @@ const SubscriptionContainer = styled.div`
   border-radius: 10px;
 
   img {
-    width: 100px;
+    width: 80px;
   }
 
   & > div {

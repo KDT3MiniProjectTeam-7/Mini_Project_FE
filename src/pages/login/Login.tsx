@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
 import { useState } from 'react';
-import { authInstance, defaultInstance } from '../../common/api/Axios';
+import { postLogin } from '../../common/api/Api';
 
 interface InputFormData {
   email: string;
@@ -21,35 +21,14 @@ const Login = () => {
 
   const [loginFail, setLoginFail] = useState(false);
 
-  const loginSubmit = async (email: string, pw: string) => {
-    try {
-      const res = await fetch('https://www.finance-seven.store/login', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: pw,
-        }),
-      });
-      if (!res.ok) throw new Error('요청 실패');
-      const json = await res.json();
-      console.log(json);
-      if (json.status === 'success') {
-        document.cookie = `accessToken=${json.accessToken}; max-age=3600`;
-        console.log(document.cookie);
-        navigate('/');
-      } else {
-        setLoginFail(true);
-      }
-    } catch (error) {
-      console.log(error);
+  // 로그인하기
+  const onSubmit = async (data: any) => {
+    const resPostLogin = await postLogin(data.email, data.password);
+    if (resPostLogin.status === 'success') {
+      navigate('/');
+    } else {
+      setLoginFail(true);
     }
-  };
-
-  const onSubmit = (data: any) => {
-    loginSubmit(data.email, data.password);
   };
 
   return (
