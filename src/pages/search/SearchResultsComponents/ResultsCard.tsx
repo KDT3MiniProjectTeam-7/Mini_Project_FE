@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -7,8 +8,25 @@ import NoResults from '../SearchComponents/NoResults';
 import { CardSorting } from './Sorting';
 
 const ResultsCard = () => {
-  const data = useSelector<ReducerType, Item[]>((state) => state.searchCard);
+  const [data, setData] = useState([]);
+  const [active, setActive] = useState('fee');
+  const storeData = useSelector<ReducerType, Item[]>((state) => state.searchCard);
 
+  // 정렬
+  useEffect(() => {
+    if (storeData) {
+      const newData = storeData.slice();
+      if (active === 'fee') {
+        const sortedFee = newData.sort((a: any, b: any) => a.annualFee - b.annualFee);
+        setData(sortedFee);
+      } else if (active === 'name') {
+        const sortedName = newData?.sort((a: any, b: any) => a.productName - b.productName);
+        setData(sortedName);
+      }
+    }
+  }, [active]);
+
+  // 상세보기 이동
   const navigate = useNavigate();
   const handleLi = (id: number) => {
     navigate(`/detail/card/${id}`);
@@ -18,7 +36,7 @@ const ResultsCard = () => {
     <Container>
       {data && data.length !== 0 ? (
         <>
-          <CardSorting />
+          <CardSorting active={active} setActive={setActive} />
           <div>
             {data.map((list) => (
               <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>

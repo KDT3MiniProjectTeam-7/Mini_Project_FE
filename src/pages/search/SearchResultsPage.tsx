@@ -28,8 +28,6 @@ const SearchResults = () => {
   const params = useParams();
   const [keywordParams, setKeywordParams] = useState('');
 
-  console.log(keywordParams);
-
   useEffect(() => {
     params.keywords !== undefined && setKeywordParams(params.keywords);
   }, [params]);

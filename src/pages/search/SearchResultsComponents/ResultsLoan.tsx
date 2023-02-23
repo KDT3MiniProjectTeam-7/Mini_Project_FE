@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -7,8 +8,25 @@ import NoResults from '../SearchComponents/NoResults';
 import { LoanSorting } from './Sorting';
 
 const ResultsLoan = () => {
-  const data = useSelector<ReducerType, Item[]>((state) => state.searchLoan);
+  const [data, setData] = useState([]);
+  const [active, setActive] = useState('lowRate');
+  const storeData = useSelector<ReducerType, Item[]>((state) => state.searchLoan);
 
+  // 정렬
+  useEffect(() => {
+    if (storeData) {
+      const newData = storeData.slice();
+      if (active === 'lowRate') {
+        const sortedLowRate = newData.sort((a: any, b: any) => a.lowRate - b.lowRate);
+        setData(sortedLowRate);
+      } else if (active === 'name') {
+        const sortedName = newData?.sort((a: any, b: any) => a.productName - b.productName);
+        setData(sortedName);
+      }
+    }
+  }, [active]);
+
+  // 상세보기로 이동
   const navigate = useNavigate();
   const handleLi = (id: number) => {
     navigate(`/detail/loan/${id}`);
@@ -18,7 +36,7 @@ const ResultsLoan = () => {
     <Container>
       {data && data.length !== 0 ? (
         <>
-          <LoanSorting />
+          <LoanSorting active={active} setActive={setActive} />
           <div>
             {data.map((list) => (
               <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>

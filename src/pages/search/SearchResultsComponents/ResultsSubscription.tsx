@@ -1,4 +1,5 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { ReducerType } from '../../../store/store';
@@ -7,9 +8,26 @@ import NoResults from '../SearchComponents/NoResults';
 import { ProductSorting } from './Sorting';
 
 const ResultsSubscription = () => {
-  const data = useSelector<ReducerType, Item[]>((state) => state.searchSubscription);
-  const navigate = useNavigate();
+  const [data, setData] = useState([]);
+  const [active, setActive] = useState('highRate');
+  const storeData = useSelector<ReducerType, Item[]>((state) => state.searchSubscription);
 
+  // 정렬
+  useEffect(() => {
+    if (storeData) {
+      const newData = storeData.slice();
+      if (active === 'highRate') {
+        const sortedHighRate = newData.sort((a: any, b: any) => b.highRate - a.highRate);
+        setData(sortedHighRate);
+      } else if (active === 'name') {
+        const sortedName = newData?.sort((a: any, b: any) => a.productName - b.productName);
+        setData(sortedName);
+      }
+    }
+  }, [active]);
+
+  // 상세보기로 이동
+  const navigate = useNavigate();
   const handleLi = (id: number) => {
     navigate(`/detail/subscription/${id}`);
   };
@@ -18,7 +36,7 @@ const ResultsSubscription = () => {
     <Container>
       {data && data.length !== 0 ? (
         <>
-          <ProductSorting />
+          <ProductSorting active={active} setActive={setActive} />
           <div>
             {data.map((list) => (
               <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>
