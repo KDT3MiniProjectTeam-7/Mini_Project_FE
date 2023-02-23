@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { postLogout } from '../../common/api/Api';
 
-const ModalLogout = ({ setModalOpen }: any) => {
+const ModalLogout = ({ setCloseModal }: any) => {
   const navigate = useNavigate();
 
   // 모달 끄기
   const closeModal = () => {
-    setModalOpen(false);
+    setCloseModal(false);
   };
 
   const modalRef = useRef<HTMLDivElement>(null);
@@ -18,7 +18,7 @@ const ModalLogout = ({ setModalOpen }: any) => {
     const handler = (event: any) => {
       // mousedown 이벤트가 발생한 영역이 모달창이 아닐 때, 모달창 제거 처리
       if (modalRef.current && !modalRef.current.contains(event?.target)) {
-        setModalOpen(false);
+        setCloseModal(false);
       }
     };
     // 이벤트 핸들러 등록

@@ -187,7 +187,7 @@ export const postLogin = async (email: string, password: string) => {
       password: password,
     });
     if (data.status === 'success') {
-      document.cookie = `accessToken=${data.accessToken}; max-age=10`;
+      document.cookie = `accessToken=${data.accessToken}; max-age=3600`;
     }
     return data;
   } catch (err: any) {
@@ -216,8 +216,6 @@ export const patchUser = async (name?: string, oldPassword?: string, newPassword
       newPassword: newPassword,
       birth: birth,
     });
-
-    console.log(data);
     return data;
   } catch (err: any) {
     console.log('회원정보 수정 api 에러', err.message);
