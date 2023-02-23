@@ -50,7 +50,6 @@ export const addSearchKeywords = async (keywords: string) => {
 
   try {
     await authInstance.post('/user/keywords', { searchContent: keywords });
-    console.log('검색어 추가 완료');
   } catch (err: any) {
     console.log(err.message);
   }
@@ -104,7 +103,6 @@ export const addRecentProduct = async (productId: number) => {
 export const getSearchResults = async (title: string, category: string, page: number) => {
   try {
     const { data } = await defaultInstance.get(`/search?title=${title}&category=${category}&page=${page}`);
-    console.log(data.resultData);
     return data.resultData;
   } catch (err: any) {
     console.log(err.message);
