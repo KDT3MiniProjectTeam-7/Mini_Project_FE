@@ -6,6 +6,7 @@ const baseApi = (url: string) => {
   });
   return instance;
 };
+
 export const authApi = (url: string, token: any) => {
   const instance = axios.create({
     baseURL: url,
@@ -15,4 +16,5 @@ export const authApi = (url: string, token: any) => {
   });
   return instance;
 };
+
 export const defaultInstance = baseApi(BASE_URL);
