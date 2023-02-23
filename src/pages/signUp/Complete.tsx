@@ -5,23 +5,6 @@ import styled from 'styled-components';
 const Complete = () => {
   const navigate = useNavigate();
 
-  // 테스트용입니다.
-  const getUserInfo = async () => {
-    try {
-      const res = await fetch('http://finance-seven.store/user', {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${document.cookie.slice(12)}`,
-        },
-      });
-      const json = await res.json();
-      console.log('요청 결과', json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  getUserInfo();
-
   const passClick = () => {
     navigate('/');
   };

@@ -23,12 +23,12 @@ const ModalLogout = ({ setModalOpen }: any) => {
     };
     // 이벤트 핸들러 등록
     document.addEventListener('mousedown', handler);
-    // document.addEventListener('touchstart', handler); // 모바일 대응
+    document.addEventListener('touchstart', handler); // 모바일 대응
 
     return () => {
       // 이벤트 핸들러 해제
       document.removeEventListener('mousedown', handler);
-      // document.removeEventListener('touchstart', handler); // 모바일 대응
+      document.removeEventListener('touchstart', handler); // 모바일 대응
     };
   });
 
