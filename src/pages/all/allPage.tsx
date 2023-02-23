@@ -8,6 +8,9 @@ import SubscriptionLists from './SubscriptionLists';
 import SavingsLists from './SavingsLists';
 import { getCategoryItem } from '../../common/api/Api';
 import { makeTagString } from '../../utils/makeTagString';
+import { useInView } from 'react-intersection-observer';
+import { Item } from '../../store/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const ALL = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -15,17 +18,49 @@ const ALL = () => {
   // 현재 select박스에서 선택된 태그들 모아놓음
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const [resultData, setResultData] = useState([]);
+  const [resultData, setResultData] = useState<Item[]>([]);
+
+  const [curPage, setCurPage] = useState(1);
+
+  const [totalPage, setTotalPage] = useState(1);
+
+  // 무한스크롤용
+  const [ref, inView] = useInView();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!document.cookie) {
+      navigate('/intro');
+    }
+  });
+
+  useEffect(() => {
+    setCurPage(1);
+    // 데이터 페칭 여기다 구현.
+    const fetchData = async (page: number) => {
+      const data = await getCategoryItem(makeTagString(selectedTags), categoryArr[tabIndex].category, page);
+      setTotalPage(data.totalPage);
+
+      setResultData(data?.resultData);
+    };
+
+    fetchData(curPage);
+  }, [tabIndex, selectedTags]);
 
   useEffect(() => {
     // 데이터 페칭 여기다 구현.
-    const fetchData = async () => {
-      const data = await getCategoryItem(makeTagString(selectedTags), categoryArr[tabIndex].category, 1);
-      setResultData(data?.resultData);
-      console.log(resultData);
+    const fetchData = async (page: number) => {
+      const data = await getCategoryItem(makeTagString(selectedTags), categoryArr[tabIndex].category, page);
+      let copy = [...resultData, ...data?.resultData];
+      setResultData(copy);
     };
-    fetchData();
-  }, [tabIndex, selectedTags]);
+
+    if (inView && curPage < totalPage) {
+      fetchData(curPage + 1);
+      setCurPage(curPage + 1);
+    }
+  }, [inView]);
 
   const [categoryArr, setCategoryArr] = useState([
     { category: 'card', title: '카드', content: <CardLists data={resultData} /> },
@@ -111,6 +146,7 @@ const ALL = () => {
           />
         </ButtonContainer>
         <ContainerBox>{ItemLists}</ContainerBox>
+        <div ref={ref}></div>
       </Container>
     </>
   );
