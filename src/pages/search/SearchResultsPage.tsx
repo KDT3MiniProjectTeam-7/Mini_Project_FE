@@ -57,8 +57,10 @@ const SearchResults = () => {
 
   return (
     <Container>
-      <SearchBox />
-      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={category} isOnAllPage={false} />
+      <Wrab>
+        <SearchBox />
+        <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={category} isOnAllPage={false} />
+      </Wrab>
       {category
         .filter((list, index) => index === tabIndex)
         .map((list) => (
@@ -78,6 +80,14 @@ const Container = styled.div`
   li {
     cursor: pointer;
   }
+`;
+
+const Wrab = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 108px;
+  background-color: #fff;
 `;
 
 const CategoryDesc = styled.div``;
