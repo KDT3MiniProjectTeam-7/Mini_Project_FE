@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { ReducerType } from '../../../store/store';
+import { useSelector } from 'react-redux';
 import { BiSearch } from 'react-icons/bi';
 import { TiDelete } from 'react-icons/ti';
 import { IoChevronBackOutline } from 'react-icons/io5';
-import { addSearchKeywords, getSearchResults } from '../../../common/api/Api';
-import { ReducerType } from '../../../store/store';
-
-import { useSelector } from 'react-redux';
+import { addSearchKeywords } from '../../../common/api/Api';
 
 const SearchBox = () => {
   const isToggleTrue = useSelector<ReducerType>((state) => state.autosave.isToggleTrue);
@@ -15,12 +14,12 @@ const SearchBox = () => {
   const location = useLocation();
   const params = useParams();
   const navigate = useNavigate();
-  const [keyword, setKeyword] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
   const findResultsPage = location.pathname.slice(0, 8) === '/search/';
 
   useEffect(() => {
-    params.keywords !== undefined && setKeyword(params.keywords);
+    params.keywords !== undefined && setInputValue(params.keywords);
   }, []);
 
   const handleBack = () => {
@@ -31,23 +30,19 @@ const SearchBox = () => {
     event.preventDefault();
 
     const movepageAndAddkeywordAndCallApi = () => {
-      navigate(`/search/${keyword}`);
-      isToggleTrue && addSearchKeywords(keyword);
-      getSearchResults(keyword, 'card', 1);
-      getSearchResults(keyword, 'loan', 1);
-      getSearchResults(keyword, 'savings', 1);
-      getSearchResults(keyword, 'subscription', 1);
+      navigate(`/search/${inputValue}`);
+      isToggleTrue && addSearchKeywords(inputValue);
     };
 
-    keyword !== '' ? movepageAndAddkeywordAndCallApi() : alert('상품명을 입력해주세요.');
+    inputValue !== '' ? movepageAndAddkeywordAndCallApi() : alert('상품명을 입력해주세요.');
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(event.target.value);
+    setInputValue(event.target.value);
   };
 
   const handleDeleteBtn = () => {
-    setKeyword('');
+    setInputValue('');
   };
 
   return (
@@ -60,9 +55,9 @@ const SearchBox = () => {
         <span className="search">
           <BiSearch />
         </span>
-        <input type="text" placeholder="필요한 상품을 찾아보세요" value={keyword} onChange={handleInputChange} />
+        <input type="text" placeholder="필요한 상품을 찾아보세요" value={inputValue} onChange={handleInputChange} />
         {/* 검색바에 글자 있을 때만 삭제버튼 노출 */}
-        {keyword !== '' ? (
+        {inputValue !== '' ? (
           <button type="button" className="delete" onClick={handleDeleteBtn}>
             <TiDelete />
           </button>

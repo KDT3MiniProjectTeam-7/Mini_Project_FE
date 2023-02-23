@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const autosave = createSlice({
   name: 'autosave',
-  initialState: { isToggleTrue: false },
+  initialState: { isToggleTrue: true },
   reducers: {
     toggle(state) {
       state.isToggleTrue = !state.isToggleTrue;
@@ -10,5 +10,5 @@ const autosave = createSlice({
   },
 });
 
-export const autusaveActions = autosave.actions;
+export const { toggle } = autosave.actions;
 export default autosave;

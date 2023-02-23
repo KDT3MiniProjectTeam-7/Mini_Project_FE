@@ -1,90 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { ReducerType } from '../../../store/store';
+import { Item } from '../../../store/cartSlice';
 import NoResults from '../SearchComponents/NoResults';
 import { CardSorting } from './Sorting';
 
 const ResultsCard = () => {
-  const navigate = useNavigate();
-  const data = [
-    {
-      productId: 1234,
-      category: 'card',
-      productName: '신한카드 OOO',
-      companyName: '신한은행',
-      companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
-      annualFee: 10000,
-    },
-    {
-      productId: 5678,
-      category: 'card',
-      productName: '신한카드 OOO',
-      companyName: '신한은행',
-      companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditAXKD3X.png',
-      benefits: ['주차앱 6천원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천원 캐시백'],
-      annualFee: 5000,
-    },
-    {
-      productId: 5679,
-      category: 'card',
-      productName: '신한카드 OOO',
-      companyName: '신한은행',
-      companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://vertical.pstatic.net/vertical-cardad/creatives/SK/4056/SK_4056_hor.PNG',
-      benefits: ['주차앱 6천원 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천원 캐시백'],
-      annualFee: 200000,
-    },
-    {
-      productId: 1834,
-      category: 'card',
-      productName: '신한카드 OOO',
-      companyName: '신한은행',
-      companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://vertical.pstatic.net/vertical-cardad/creatives/LO/10227/LO_10227_20230131-123810_ver.png',
-      benefits: ['주차앱 6천 원 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
-      annualFee: 15000,
-    },
-    {
-      productId: 9847,
-      category: 'card',
-      productName: '신한카드 OOO',
-      companyName: '신한은행',
-      companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
-      benefits: ['전기차 충전요금 10~40% 캐시백', '생활 가맹점 10~20% 캐시백', '주차앱 6천원 캐시백'],
-      annualFee: 10000,
-    },
-    {
-      productId: 8834,
-      category: 'card',
-      productName: '신한카드 OOO',
-      companyName: '신한은행',
-      companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://www.shinhancard.com/pconts/images/contents/card/plate/cdCreditBTDD41.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
-      annualFee: 10000,
-    },
-    {
-      productId: 8831,
-      category: 'card',
-      productName: '신한카드 OOO',
-      companyName: '신한은행',
-      companyImage: 'image/logo/shinhan.png',
-      thumbnail: 'https://www.hyundaicard.com/img/com/card/028879GT_h.png',
-      benefits: ['전기차 충전요금 20~40% 캐시백', '생활 가맹점 5~20% 캐시백', '주차앱 5천원 캐시백'],
-      annualFee: 18000,
-    },
-  ];
+  const data = useSelector<ReducerType, Item[]>((state) => state.searchCard);
 
+  const navigate = useNavigate();
   const handleLi = (id: number) => {
     navigate(`/detail/card/${id}`);
   };
 
   return (
     <Container>
-      {data.length !== 0 ? (
+      {data && data.length !== 0 ? (
         <>
           <CardSorting />
           <div>
@@ -95,13 +27,13 @@ const ResultsCard = () => {
                     <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
                   </Thumbnail>
                   <Desc>
-                    <h3 className="benefits">{list.benefits[0]}</h3>
+                    <h3 className="benefits">{list.benefits && list.benefits[0]}</h3>
                     <p className="productname">{list.productName}</p>
                   </Desc>
                 </div>
                 <Fee>
                   <dt>연회비</dt>
-                  <dd>{list.annualFee.toLocaleString()}원</dd>
+                  <dd>{list.annualFee && list.annualFee.toLocaleString()}원</dd>
                 </Fee>
               </ResultsList>
             ))}

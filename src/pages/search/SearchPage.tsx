@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { BiHistory } from 'react-icons/bi';
 import { IoChevronForwardOutline } from 'react-icons/io5';
@@ -16,6 +16,16 @@ interface StateProps {
 }
 
 const Search = () => {
+  // 자동 로그아웃
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!document.cookie) {
+      navigate('/intro');
+    }
+  });
+
+  // 최근 본 상품
   const [recentProduct, setRecentProduct] = useState<StateProps | undefined>();
 
   useEffect(() => {
