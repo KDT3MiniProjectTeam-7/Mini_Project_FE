@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ interface InputFormData {
   };
 }
 
-const EditUser = () => {
+const EditUser = ({ setEditOpen }: any) => {
   const {
     watch,
     register,
@@ -44,6 +44,11 @@ const EditUser = () => {
   let userData = useSelector<ReducerType, user>((state) => state.user);
 
   const [patchFail, setPatchFail] = useState(false);
+
+  // 회원정보수정 끄기
+  const closeEdit = () => {
+    setEditOpen(false);
+  };
 
   // 자리수 체크(생년월일)
   const lengthCheck = (event: any, max: number) => {
@@ -72,10 +77,10 @@ const EditUser = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Title>
         {/* 회원정보 수정 */}
-        <IoMdClose />
+        <IoMdClose onClick={closeEdit} />
       </Title>
       <InputBox>
         <label htmlFor="oldPassword">현재 비밀번호</label>
@@ -212,9 +217,19 @@ const EditUser = () => {
           (errors.birthDay && <Caution>{errors.birthDay?.message}</Caution>) || <Caution />}
       </InputBox>
       <Submit className="nextButton" type="submit" value="회원정보 수정하기" />
-    </form>
+    </Form>
   );
 };
+
+const Form = styled.form`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 20px;
+  margin: 70px auto 60px;
+  background-color: white;
+  z-index: 1000;
+`;
 
 const Title = styled.h2`
   font-size: var(--font-l);
