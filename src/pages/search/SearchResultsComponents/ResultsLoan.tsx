@@ -11,11 +11,11 @@ const ResultsLoan = () => {
   const [data, setData] = useState([]);
   const [active, setActive] = useState('lowRate');
   const storeData = useSelector<ReducerType, Item[]>((state) => state.searchLoan);
+  const newData = storeData?.slice();
 
   // 정렬
   useEffect(() => {
-    if (storeData) {
-      const newData = storeData.slice();
+    if (newData) {
       if (active === 'lowRate') {
         const sortedLowRate = newData.sort((a: any, b: any) => a.lowRate - b.lowRate);
         setData(sortedLowRate);
@@ -24,7 +24,7 @@ const ResultsLoan = () => {
         setData(sortedName);
       }
     }
-  }, [active]);
+  }, [active, storeData]);
 
   // 상세보기로 이동
   const navigate = useNavigate();

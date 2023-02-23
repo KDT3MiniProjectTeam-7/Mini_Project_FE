@@ -11,11 +11,11 @@ const ResultsCard = () => {
   const [data, setData] = useState([]);
   const [active, setActive] = useState('fee');
   const storeData = useSelector<ReducerType, Item[]>((state) => state.searchCard);
+  const newData = storeData?.slice();
 
   // 정렬
   useEffect(() => {
-    if (storeData) {
-      const newData = storeData.slice();
+    if (newData) {
       if (active === 'fee') {
         const sortedFee = newData.sort((a: any, b: any) => a.annualFee - b.annualFee);
         setData(sortedFee);
@@ -24,7 +24,7 @@ const ResultsCard = () => {
         setData(sortedName);
       }
     }
-  }, [active]);
+  }, [active, storeData]);
 
   // 상세보기 이동
   const navigate = useNavigate();

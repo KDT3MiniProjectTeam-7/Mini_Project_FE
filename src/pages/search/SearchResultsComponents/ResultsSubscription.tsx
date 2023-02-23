@@ -11,11 +11,11 @@ const ResultsSubscription = () => {
   const [data, setData] = useState([]);
   const [active, setActive] = useState('highRate');
   const storeData = useSelector<ReducerType, Item[]>((state) => state.searchSubscription);
+  const newData = storeData?.slice();
 
   // 정렬
   useEffect(() => {
-    if (storeData) {
-      const newData = storeData.slice();
+    if (newData) {
       if (active === 'highRate') {
         const sortedHighRate = newData.sort((a: any, b: any) => b.highRate - a.highRate);
         setData(sortedHighRate);
@@ -24,7 +24,7 @@ const ResultsSubscription = () => {
         setData(sortedName);
       }
     }
-  }, [active]);
+  }, [active, storeData]);
 
   // 상세보기로 이동
   const navigate = useNavigate();

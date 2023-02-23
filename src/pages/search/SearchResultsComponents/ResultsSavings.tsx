@@ -11,11 +11,11 @@ const ResultsSavings = () => {
   const [data, setData] = useState([]);
   const [active, setActive] = useState('highRate');
   const storeData = useSelector<ReducerType, Item[]>((state) => state.searchSavings);
+  const newData = storeData?.slice();
 
   // 정렬
   useEffect(() => {
-    if (storeData) {
-      const newData = storeData.slice();
+    if (newData) {
       if (active === 'highRate') {
         const sortedPrimeRate = newData.sort((a: any, b: any) => b.primeRate - a.primeRate);
         setData(sortedPrimeRate);
@@ -24,7 +24,7 @@ const ResultsSavings = () => {
         setData(sortedName);
       }
     }
-  }, [active]);
+  }, [active, storeData]);
 
   // 상세보기 이동
   const navigate = useNavigate();
