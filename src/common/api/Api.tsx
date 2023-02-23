@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isExpiredToken } from '../../utils/isExpiredToken';
 import { defaultInstance, authInstance } from './Axios';
 
 export const postCartItems = async (id: number) => {
@@ -51,7 +52,8 @@ export const deleteSearchKeywordsSingle = async (searchId: number) => {
 
 export const deleteSearchKeywordsAll = async () => {
   try {
-    await authInstance.delete('/user/keywords/all');
+    const { data } = await authInstance.delete('/user/keywords/all');
+    return data;
   } catch (err: any) {
     console.log(err.message);
   }
@@ -69,10 +71,8 @@ export const getRecentProduct = async () => {
 
 export const addRecentProduct = async (productId: number) => {
   try {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${document.cookie}`;
-    const data = await axios.post('http://3.36.178.242:8080/user/recentproducts', { productId: productId });
-    // console.log(data.data.resultData);
-    return data.data.resultData;
+    const params = { productId: productId };
+    await authInstance.post('/user/recentproducts', params);
   } catch (err: any) {
     console.log(err.message);
   }
@@ -169,7 +169,7 @@ export const postUser = async (email: string, password: string, name: string, bi
     });
     return data;
   } catch (err: any) {
-    console.log(err.message);
+    console.log('회원가입 api 에러', err.message);
   }
 };
 
@@ -185,6 +185,18 @@ export const postLogin = async (email: string, password: string) => {
     }
     return data;
   } catch (err: any) {
-    console.log(err.message);
+    console.log('로그인 api 에러', err.message);
+  }
+};
+
+// 로그아웃
+export const postLogout = async () => {
+  try {
+    // key value로 바꿔주면 업데이트
+    const data = await authInstance.post('logout');
+    document.cookie = `${document.cookie}; expires=Thu, 01 Jan 1999 00:00:10 GMT;`;
+    return data;
+  } catch (err: any) {
+    console.log('로그아웃 api 에러', err.message);
   }
 };
