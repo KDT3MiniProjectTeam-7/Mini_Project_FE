@@ -11,9 +11,12 @@ const Instance = () => {
 };
 
 export const postCartItems = async (id: number) => {
+  Instance();
+
   try {
-    const params = { productId: id, headers: { Authorization: `Bearer ${document.cookie.slice(12)}` } };
-    await defaultInstance.post('/cart', params);
+    Instance();
+    const params = { productId: id };
+    const data = await authInstance.post('/cart', params);
   } catch (err: any) {
     console.log(err.message);
   }
@@ -23,7 +26,7 @@ export const delCartItems = async (id: number) => {
   Instance();
 
   try {
-    await authInstance.delete('/cart', {
+    const data = await authInstance.delete('/cart', {
       data: {
         productId: id,
       },
@@ -197,6 +200,7 @@ export const postLogin = async (email: string, password: string) => {
 // 로그아웃
 export const postLogout = async () => {
   Instance();
+
   try {
     // key value로 바꿔주면 업데이트
     const data = await authInstance.post('logout');

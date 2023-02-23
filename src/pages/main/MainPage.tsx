@@ -58,8 +58,6 @@ const Main = () => {
       dispatch(setCartItems(data!.resultData));
     };
     getCartData();
-
-    console.log('실행1');
   }, []);
 
   useEffect(() => {
@@ -69,8 +67,6 @@ const Main = () => {
       setData(getData);
     };
     getUser();
-
-    console.log('실행2');
   }, [userData]);
 
   interface Product {
@@ -378,8 +374,7 @@ const SavingsContainer = styled.div`
   }
 
   img {
-    max-height: 25px;
-    max-width: 110px;
+    width: 80px;
   }
 `;
 
@@ -410,6 +405,7 @@ const LoanContainer = styled.div`
       font-size: 20px;
       font-weight: 500;
       color: #eee;
+      line-height: 1.2;
 
       span {
         display: block;
