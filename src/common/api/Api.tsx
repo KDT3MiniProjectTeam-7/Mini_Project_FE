@@ -1,17 +1,27 @@
-import axios from 'axios';
-import { isExpiredToken } from '../../utils/isExpiredToken';
-import { defaultInstance, authInstance } from './Axios';
+import { defaultInstance, authApi } from './Axios';
+
+const BASE_URL = import.meta.env.VITE_HOST_URL;
+let token;
+let authInstance : any;
+
+// 변하는 쿠키값을 반영해서 instance 정의
+const Instance = () => {
+  token = document.cookie.slice(12)
+  authInstance = authApi(BASE_URL , token);
+} 
 
 export const postCartItems = async (id: number) => {
   try {
-    const params = { productId: id };
-    await authInstance.post('/cart', params);
+    const params = { productId: id , headers : { Authorization: `Bearer ${document.cookie.slice(12)}` }};
+    await defaultInstance.post('/cart', params);
   } catch (err: any) {
     console.log(err.message);
   }
 };
 
 export const delCartItems = async (id: number) => {
+  Instance()
+
   try {
     await authInstance.delete('/cart', {
       data: {
@@ -25,6 +35,8 @@ export const delCartItems = async (id: number) => {
 
 // 최근 검색어
 export const getSearchKeywords = async () => {
+  Instance()
+
   try {
     const { data } = await authInstance.get('/user/keywords');
     return data.resultData;
@@ -34,6 +46,8 @@ export const getSearchKeywords = async () => {
 };
 
 export const addSearchKeywords = async (keywords: string) => {
+  Instance()
+
   try {
     await authInstance.post('/user/keywords', { searchContent: keywords });
   } catch (err: any) {
@@ -42,6 +56,8 @@ export const addSearchKeywords = async (keywords: string) => {
 };
 
 export const deleteSearchKeywordsSingle = async (searchId: number) => {
+  Instance()
+
   try {
     await authInstance.delete('/user/keywords', { data: { searchId: searchId } });
   } catch (err: any) {
@@ -50,6 +66,8 @@ export const deleteSearchKeywordsSingle = async (searchId: number) => {
 };
 
 export const deleteSearchKeywordsAll = async () => {
+  Instance()
+
   try {
     const { data } = await authInstance.delete('/user/keywords/all');
     return data;
@@ -60,6 +78,8 @@ export const deleteSearchKeywordsAll = async () => {
 
 // 최근 본 상품
 export const getRecentProduct = async () => {
+  Instance()
+
   try {
     const { data } = await authInstance.get('/user/recentproducts');
     return data.resultData;
@@ -69,6 +89,8 @@ export const getRecentProduct = async () => {
 };
 
 export const addRecentProduct = async (productId: number) => {
+  Instance()
+
   try {
     const params = { productId: productId };
     await authInstance.post('/user/recentproducts', params);
@@ -98,6 +120,8 @@ export const getPost = async () => {
 };
 
 export const getCart = async () => {
+  Instance()
+
   try {
     const { data } = await authInstance.get('/cart');
 
@@ -108,6 +132,8 @@ export const getCart = async () => {
 };
 
 export const postTags = async (tags: string[]) => {
+  Instance()
+  
   try {
     const params = { tags: tags };
     const { data } = await authInstance.post(`/user/tags`, params);
@@ -127,6 +153,8 @@ export const getCategoryItem = async (tags: string, category: string, page: numb
 };
 
 export const getUserInfo = async () => {
+  Instance()
+
   try {
     const { data } = await authInstance.get(`/user`);
     console.log('성공');
@@ -189,6 +217,8 @@ export const postLogin = async (email: string, password: string) => {
 
 // 로그아웃
 export const postLogout = async () => {
+  Instance()
+  
   try {
     // key value로 바꿔주면 업데이트
     const data = await authInstance.post('logout');
