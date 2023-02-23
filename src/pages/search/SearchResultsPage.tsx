@@ -11,20 +11,18 @@ import ResultsSubscription from './SearchResultsComponents/ResultsSubscription';
 const SearchResults = () => {
   const [tabIndex, setTabIndex] = useState(0);
 
-  const categoryArr = [
+  const [category, setCategory] = useState([
     { category: 'total', title: '통합', content: <ResultsTotal setTabIndex={setTabIndex} /> },
     { category: 'card', title: '카드', content: <ResultsCard /> },
     { category: 'loan', title: '대출', content: <ResultsLoan /> },
     { category: 'savings', title: '예적금', content: <ResultsSavings /> },
     { category: 'subscription', title: '청약', content: <ResultsSubscription /> },
-  ];
-
-  const [category, setCategory] = useState(categoryArr);
+  ]);
 
   return (
     <Container>
       <SearchBox />
-      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={categoryArr} isOnAllPage={false} />
+      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={category} isOnAllPage={false} />
       {category
         .filter((list, index) => index === tabIndex)
         .map((list) => (

@@ -10,8 +10,8 @@ import { searchCard, searchLoan, searchSavings, searchSubscription } from './sea
 const persistConfig = {
   key: 'root',
   storage: storage, // 저장 공간
-  whitelist: ['cart', 'user', 'autosave'], // 유지하고 싶은 값
-  blacklist: ['searchCard', 'searchLoan', 'searchSavings', 'searchSubscription'], // 유지하지 않을 내용
+  whitelist: ['cart', 'user', 'autosave', 'searchCard', 'searchLoan', 'searchSavings', 'searchSubscription'], // 유지하고 싶은 값
+  blacklist: [], // 유지하지 않을 내용
 };
 
 const reducer = combineReducers({

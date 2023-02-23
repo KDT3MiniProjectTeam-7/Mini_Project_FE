@@ -35,19 +35,17 @@ const SearchBox = () => {
       navigate(`/search/${keyword}`);
       isToggleTrue && addSearchKeywords(keyword);
 
-      if (findResultsPage) {
-        const getServerResultData = async () => {
-          const cardData = await getSearchResults(keyword, 'card', 1);
-          dispatch(addCardResults(cardData));
-          const loanData = await getSearchResults(keyword, 'loan', 1);
-          dispatch(addLoanResults(loanData));
-          const savingsData = await getSearchResults(keyword, 'savings', 1);
-          dispatch(addSavingsResults(savingsData));
-          const subscriptionData = await getSearchResults(keyword, 'subscription', 1);
-          dispatch(addSubscriptionResults(subscriptionData));
-        };
-        getServerResultData();
-      }
+      const getServerResultData = async () => {
+        const cardData = await getSearchResults(keyword, 'card', 1);
+        dispatch(addCardResults(cardData));
+        const loanData = await getSearchResults(keyword, 'loan', 1);
+        dispatch(addLoanResults(loanData));
+        const savingsData = await getSearchResults(keyword, 'savings', 1);
+        dispatch(addSavingsResults(savingsData));
+        const subscriptionData = await getSearchResults(keyword, 'subscription', 1);
+        dispatch(addSubscriptionResults(subscriptionData));
+      };
+      getServerResultData();
     };
 
     keyword !== '' ? movepageAndAddkeywordAndCallApi() : alert('상품명을 입력해주세요.');
