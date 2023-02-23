@@ -1,37 +1,22 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { ReducerType } from '../../../store/store';
+import { Item } from '../../../store/cartSlice';
 import NoResults from '../SearchComponents/NoResults';
 import { ProductSorting } from './Sorting';
 
 const ResultsSubscription = () => {
-  const location = useLocation();
-  const data = [
-    {
-      productId: 4111,
-      category: 'subscription',
-      productName: '청년 우대형 주택청약종합저축',
-      companyName: '우리은행',
-      companyImage: 'https://simg.wooribank.com/img/intro/header/h1_01.png',
-      highRate: 2.1,
-    },
-    {
-      productId: 4112,
-      category: 'subscription',
-      productName: '주택청약종합저축',
-      companyName: '신한은행',
-      companyImage: 'https://simg.wooribank.com/img/intro/header/h1_01.png',
-      highRate: 3.6,
-    },
-  ];
-
+  const data = useSelector<ReducerType, Item[]>((state) => state.searchSubscription);
   const navigate = useNavigate();
+
   const handleLi = (id: number) => {
     navigate(`/detail/subscription/${id}`);
   };
 
   return (
     <Container>
-      {data.length !== 0 ? (
+      {data && data.length !== 0 ? (
         <>
           <ProductSorting />
           <div>
