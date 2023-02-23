@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const CardSorting = () => {
-  const [active, setActive] = useState('fee');
+type Props = {
+  active: string;
+  setActive: (value: string) => void;
+};
 
+const CardSorting = ({ active, setActive }: Props) => {
   const sortFee = () => {
     setActive('fee');
   };
@@ -24,9 +27,7 @@ const CardSorting = () => {
   );
 };
 
-const LoanSorting = () => {
-  const [active, setActive] = useState('lowRate');
-
+const LoanSorting = ({ active, setActive }: Props) => {
   const sortName = () => {
     setActive('name');
   };
@@ -46,9 +47,7 @@ const LoanSorting = () => {
   );
 };
 
-const ProductSorting = () => {
-  const [active, setActive] = useState('highRate');
-
+const ProductSorting = ({ active, setActive }: Props) => {
   const sortName = () => {
     setActive('name');
   };
