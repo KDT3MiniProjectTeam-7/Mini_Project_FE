@@ -1,53 +1,22 @@
-import { useNavigate } from 'react-router';
+import { useState } from 'react';
 import styled from 'styled-components';
+import ModalLogout from './ModalLogout';
 
 const MyPage = () => {
-  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const postLogout = async () => {
-    try {
-      const res = await fetch('http://finance-seven.store/logout', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${document.cookie.slice(12)}`,
-        },
-      });
-      const json = await res.json();
-      console.log('요청 결과', json);
-    } catch (error) {
-      console.log(error);
-    }
+  // 모달창 노출
+  const showModal = () => {
+    setModalOpen(true);
   };
 
-  const getUserInfo = async () => {
-    try {
-      const res = await fetch('http://finance-seven.store/user', {
-        method: 'GET',
-        headers: {
-          'content-type': 'application/json',
-          Authorization: `Bearer ${document.cookie.slice(12)}`,
-        },
-      });
-      const json = await res.json();
-      console.log('요청 결과', json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  getUserInfo();
-
+  // 목데이터
   const user = {
     name: '김효진',
     email: 'hanssan@naver.com',
     birth: 19960713,
     age: 28,
     favorite: ['쇼핑', '여행', '대중교통'],
-  };
-
-  const logoutClick = async () => {
-    postLogout();
-    document.cookie = `${document.cookie}; expires=Thu, 01 Jan 1999 00:00:10 GMT;`;
-    navigate('/login');
   };
 
   return (
@@ -68,7 +37,6 @@ const MyPage = () => {
           </p>
         </div>
       </User>
-
       <Interest>
         <div>
           <p>{user.name}님의 관심 목록</p>
@@ -83,11 +51,27 @@ const MyPage = () => {
           ))}
         </div>
       </Interest>
-
-      <Logout onClick={logoutClick}>로그아웃</Logout>
+      <Logout onClick={showModal}>로그아웃</Logout>
+      {modalOpen && (
+        <ModalBox>
+          <ModalLogout className="modal" setModalOpen={setModalOpen} />
+        </ModalBox>
+      )}
     </main>
   );
 };
+
+const ModalBox = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+`;
 
 const User = styled.div`
   width: 100%;

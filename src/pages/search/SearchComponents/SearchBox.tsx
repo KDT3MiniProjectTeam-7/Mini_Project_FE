@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { ReducerType } from '../../../store/store';
 import { useSelector, useDispatch } from 'react-redux';
 import { addCardResults, addLoanResults, addSavingsResults, addSubscriptionResults } from '../../../store/searchSlice';
-import { BiSearch } from 'react-icons/Bi';
+import { BiSearch } from 'react-icons/bi';
 import { TiDelete } from 'react-icons/ti';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { addSearchKeywords, getSearchResults } from '../../../common/api/Api';
