@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers, getDefaultMiddleware } from '@reduxjs/toolkit';
 import cart from './cartSlice';
 import user from './userSlice';
 import { persistReducer } from 'redux-persist';
@@ -14,13 +14,17 @@ const persistConfig = {
 
 const reducer = combineReducers({
   cart: cart.reducer,
-  user: userData.reducer
+  user: userData.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
 export default configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export type ReducerType = ReturnType<typeof reducer>;
