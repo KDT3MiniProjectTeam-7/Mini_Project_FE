@@ -106,7 +106,7 @@ export const addRecentProduct = async (productId: number) => {
 export const getSearchResults = async (title: string, category: string, page: number) => {
   try {
     const { data } = await defaultInstance.get(`/search?title=${title}&category=${category}&page=${page}`);
-    return data.resultData;
+    return data;
   } catch (err: any) {
     console.log(err.message);
   }

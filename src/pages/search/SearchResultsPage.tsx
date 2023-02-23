@@ -35,13 +35,13 @@ const SearchResults = () => {
   useEffect(() => {
     const getServerResultData = async () => {
       const cardData = await getSearchResults(keywordParams, 'card', 1);
-      dispatch(addCardResults(cardData));
+      dispatch(addCardResults(cardData.resultData));
       const loanData = await getSearchResults(keywordParams, 'loan', 1);
-      dispatch(addLoanResults(loanData));
+      dispatch(addLoanResults(loanData.resultData));
       const savingsData = await getSearchResults(keywordParams, 'savings', 1);
-      dispatch(addSavingsResults(savingsData));
+      dispatch(addSavingsResults(savingsData.resultData));
       const subscriptionData = await getSearchResults(keywordParams, 'subscription', 1);
-      dispatch(addSubscriptionResults(subscriptionData));
+      dispatch(addSubscriptionResults(subscriptionData.resultData));
     };
     keywordParams && getServerResultData();
   }, [keywordParams]);
@@ -86,7 +86,7 @@ const Wrab = styled.div`
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 108px;
+  height: fit-content;
   background-color: #fff;
 `;
 
