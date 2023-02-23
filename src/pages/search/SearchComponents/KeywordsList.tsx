@@ -5,10 +5,9 @@ import { TfiClose } from 'react-icons/tfi';
 import Toast from '../../../components/Toast';
 import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll } from '../../../common/api/Api';
 
-type Props = {
-  keywordAutoSave: boolean;
-  setKeywordAutoSave: (el: boolean) => void;
-};
+import { useSelector, useDispatch } from 'react-redux';
+import { autusaveActions } from '../../../store/autosaveSlice';
+import { ReducerType } from '../../../store/store';
 
 interface StateObject {
   searchId: number;
@@ -18,9 +17,17 @@ interface StateObject {
 
 export interface StateArray extends Array<StateObject> {}
 
-const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
+const KeywordsList = () => {
+  // 리덕스 자동저장 state
+  const dispatch = useDispatch();
+  const toggleAutosaveHandler = () => {
+    dispatch(autusaveActions.toggle());
+  };
+  const isToggleTrue = useSelector<ReducerType>((state) => state.autosave.isToggleTrue);
+
   const [data, setData] = useState<StateArray>([]);
-  const [toast, setToast] = useState({ isTrue: false, count: 0 });
+  const [toast, setToast] = useState(false);
+  const [deletedCount, setDeletedCount] = useState('');
 
   useEffect(() => {
     const getSeverSearchKeywordsData = async () => {
@@ -43,26 +50,17 @@ const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
       const res = await deleteSearchKeywordsAll();
 
       // 00개 삭제 완료 토스트 띄우기
-      res.status === 'success' && setToast({ isTrue: true, count: res.deletedNum });
+      res.status === 'success' && setToast(true);
+      setDeletedCount(res.deletedNum);
     }
   };
 
   // 자동저장
   const handleAutoSave = () => {
-    const btnOff = () => {
-      localStorage.setItem('auto', 'false');
-      setKeywordAutoSave(false);
-    };
-
-    const btnOn = () => {
-      localStorage.setItem('auto', 'true');
-      setKeywordAutoSave(true);
-    };
-
-    if (keywordAutoSave) {
-      confirm('최근 검색어 저장 기능을\n사용 중지하시겠습니까?') && btnOff();
+    if (isToggleTrue) {
+      confirm('최근 검색어 저장 기능을\n사용 중지하시겠습니까?') && toggleAutosaveHandler();
     } else {
-      confirm('최근 검색어 저장 기능을\n사용 하시겠습니까?') && btnOn();
+      confirm('최근 검색어 저장 기능을\n사용 하시겠습니까?') && toggleAutosaveHandler();
     }
   };
 
@@ -71,10 +69,10 @@ const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
       <div>
         <h4>최근에 찾아봤던</h4>
         <button className="autoSave" onClick={handleAutoSave}>
-          자동저장 {keywordAutoSave ? '끄기' : '켜기'}
+          자동저장 {isToggleTrue ? '끄기' : '켜기'}
         </button>
       </div>
-      {keywordAutoSave ? (
+      {isToggleTrue ? (
         data && data.length !== 0 ? (
           <>
             <ol>
@@ -101,7 +99,7 @@ const KeywordsList = ({ keywordAutoSave, setKeywordAutoSave }: Props) => {
       ) : (
         <Info>검색어 저장 기능이 꺼져있습니다.</Info>
       )}
-      <Toast toast={toast} message={`${toast.count}개가 삭제됐어요`} />
+      <Toast isTrue={toast} message={`${deletedCount}개가 삭제됐어요`} />
     </Container>
   );
 };

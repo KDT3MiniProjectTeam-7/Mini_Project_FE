@@ -51,7 +51,8 @@ export const deleteSearchKeywordsSingle = async (searchId: number) => {
 
 export const deleteSearchKeywordsAll = async () => {
   try {
-    await authInstance.delete('/user/keywords/all');
+    const { data } = await authInstance.delete('/user/keywords/all');
+    return data;
   } catch (err: any) {
     console.log(err.message);
   }
@@ -69,7 +70,8 @@ export const getRecentProduct = async () => {
 
 export const addRecentProduct = async (productId: number) => {
   try {
-    await authInstance.post('/user/recentproducts', { productId: productId });
+    const params = { productId: productId };
+    await authInstance.post('/user/recentproducts', params);
   } catch (err: any) {
     console.log(err.message);
   }

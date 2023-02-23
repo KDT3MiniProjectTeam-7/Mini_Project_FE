@@ -1,15 +1,14 @@
-import { useEffect } from 'react';
 import styled from 'styled-components';
 import { HiCheckCircle } from 'react-icons/hi';
 
 interface toastProps {
-  toast: { isTrue: boolean; count: number };
+  isTrue: boolean;
   message: string;
 }
 
-const Toast = ({ toast, message }: toastProps) => {
+const Toast = ({ isTrue, message }: toastProps) => {
   return (
-    <Container className={toast.isTrue ? 'active' : ''}>
+    <Container className={isTrue ? 'active' : ''}>
       <span>
         <HiCheckCircle color="#59BD83" size="26" />
       </span>
