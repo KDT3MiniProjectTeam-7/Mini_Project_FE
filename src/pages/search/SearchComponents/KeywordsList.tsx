@@ -6,7 +6,7 @@ import Toast from '../../../components/Toast';
 import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll } from '../../../common/api/Api';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { autusaveActions } from '../../../store/autosaveSlice';
+import { toggle } from '../../../store/autosaveSlice';
 import { ReducerType } from '../../../store/store';
 
 interface StateObject {
@@ -21,7 +21,7 @@ const KeywordsList = () => {
   // 리덕스 자동저장 state
   const dispatch = useDispatch();
   const toggleAutosaveHandler = () => {
-    dispatch(autusaveActions.toggle());
+    dispatch(toggle());
   };
   const isToggleTrue = useSelector<ReducerType>((state) => state.autosave.isToggleTrue);
 

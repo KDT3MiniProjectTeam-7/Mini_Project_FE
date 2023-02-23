@@ -10,5 +10,5 @@ const autosave = createSlice({
   },
 });
 
-export const autusaveActions = autosave.actions;
+export const { toggle } = autosave.actions;
 export default autosave;
