@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface user {
+  age:number
   accessToken : string
   status: string;
   birthday: string;
