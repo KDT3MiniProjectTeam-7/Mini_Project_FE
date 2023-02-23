@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { ReducerType } from '../../../store/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { addCardResults, addLoanResults, addSavingsResults, addSubscriptionResults } from '../../../store/searchSlice';
 import { BiSearch } from 'react-icons/Bi';
 import { TiDelete } from 'react-icons/ti';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { addSearchKeywords, getSearchResults } from '../../../common/api/Api';
-import { ReducerType } from '../../../store/store';
-
-import { useSelector } from 'react-redux';
 
 const SearchBox = () => {
+  const dispatch = useDispatch();
   const isToggleTrue = useSelector<ReducerType>((state) => state.autosave.isToggleTrue);
 
   const location = useLocation();
@@ -33,10 +34,20 @@ const SearchBox = () => {
     const movepageAndAddkeywordAndCallApi = () => {
       navigate(`/search/${keyword}`);
       isToggleTrue && addSearchKeywords(keyword);
-      getSearchResults(keyword, 'card', 1);
-      getSearchResults(keyword, 'loan', 1);
-      getSearchResults(keyword, 'savings', 1);
-      getSearchResults(keyword, 'subscription', 1);
+
+      if (findResultsPage) {
+        const getServerResultData = async () => {
+          const cardData = await getSearchResults(keyword, 'card', 1);
+          dispatch(addCardResults(cardData));
+          const loanData = await getSearchResults(keyword, 'loan', 1);
+          dispatch(addLoanResults(loanData));
+          const savingsData = await getSearchResults(keyword, 'savings', 1);
+          dispatch(addSavingsResults(savingsData));
+          const subscriptionData = await getSearchResults(keyword, 'subscription', 1);
+          dispatch(addSubscriptionResults(subscriptionData));
+        };
+        getServerResultData();
+      }
     };
 
     keyword !== '' ? movepageAndAddkeywordAndCallApi() : alert('상품명을 입력해주세요.');
