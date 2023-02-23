@@ -76,6 +76,10 @@ const Container = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
   margin-top: 106px;
+
+  li {
+    cursor: pointer;
+  }
 `;
 
 const CategoryDesc = styled.div``;
