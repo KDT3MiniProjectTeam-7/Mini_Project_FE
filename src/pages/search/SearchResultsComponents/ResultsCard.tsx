@@ -8,7 +8,7 @@ import NoResults from '../SearchComponents/NoResults';
 import { CardSorting } from './Sorting';
 
 const ResultsCard = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Item[]>([]);
   const [active, setActive] = useState('fee');
   const storeData = useSelector<ReducerType, Item[]>((state) => state.searchCard);
   const newData = storeData?.slice();

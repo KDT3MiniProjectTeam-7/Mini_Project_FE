@@ -8,7 +8,7 @@ import NoResults from '../SearchComponents/NoResults';
 import { LoanSorting } from './Sorting';
 
 const ResultsLoan = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Item[]>([]);
   const [active, setActive] = useState('lowRate');
   const storeData = useSelector<ReducerType, Item[]>((state) => state.searchLoan);
   const newData = storeData?.slice();

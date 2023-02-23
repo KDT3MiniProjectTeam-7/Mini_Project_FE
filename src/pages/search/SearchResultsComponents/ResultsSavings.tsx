@@ -8,7 +8,7 @@ import NoResults from '../SearchComponents/NoResults';
 import { ProductSorting } from './Sorting';
 
 const ResultsSavings = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Item[]>([]);
   const [active, setActive] = useState('highRate');
   const storeData = useSelector<ReducerType, Item[]>((state) => state.searchSavings);
   const newData = storeData?.slice();

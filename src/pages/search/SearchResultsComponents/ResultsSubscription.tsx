@@ -8,7 +8,7 @@ import NoResults from '../SearchComponents/NoResults';
 import { ProductSorting } from './Sorting';
 
 const ResultsSubscription = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Item[]>([]);
   const [active, setActive] = useState('highRate');
   const storeData = useSelector<ReducerType, Item[]>((state) => state.searchSubscription);
   const newData = storeData?.slice();
