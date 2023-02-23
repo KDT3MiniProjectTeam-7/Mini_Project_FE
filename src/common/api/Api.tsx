@@ -189,7 +189,7 @@ export const postLogin = async (email: string, password: string) => {
       password: password,
     });
     if (data.status === 'success') {
-      document.cookie = `accessToken=${data.accessToken}; max-age=3600`;
+      document.cookie = `accessToken=${data.accessToken}; max-age=10`;
     }
     return data;
   } catch (err: any) {
@@ -199,7 +199,6 @@ export const postLogin = async (email: string, password: string) => {
 // 로그아웃
 export const postLogout = async () => {
   Instance();
-
   try {
     // key value로 바꿔주면 업데이트
     const data = await authInstance.post('logout');
@@ -207,5 +206,22 @@ export const postLogout = async () => {
     return data;
   } catch (err: any) {
     console.log('로그아웃 api 에러', err.message);
+  }
+};
+// 회원정보 수정
+export const patchUser = async (name?: string, oldPassword?: string, newPassword?: string, birth?: string) => {
+  Instance();
+  try {
+    const { data } = await authInstance.patch('user', {
+      name: name,
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+      birth: birth,
+    });
+
+    console.log(data);
+    return data;
+  } catch (err: any) {
+    console.log('회원정보 수정 api 에러', err.message);
   }
 };

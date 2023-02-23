@@ -12,14 +12,14 @@ interface StepData {
 const SignUp = () => {
   const navigate = useNavigate();
 
+  const [page, setPage] = useState('Agreement');
+  const [step, setStep] = useState('0');
+
   useEffect(() => {
     if (document.cookie) {
       navigate('/');
     }
   });
-
-  const [page, setPage] = useState('Agreement');
-  const [step, setStep] = useState('0');
 
   useEffect(() => {
     if (page === 'Agreement') {

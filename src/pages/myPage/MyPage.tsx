@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { patchUser } from '../../common/api/Api';
+import { ReducerType } from '../../store/store';
+import { user } from '../../store/userSlice';
 import ModalLogout from './ModalLogout';
 
 const MyPage = () => {
@@ -12,6 +16,16 @@ const MyPage = () => {
       navigate('/intro');
     }
   });
+
+  const testFunction = async () => {
+    // 테스트용
+    let userData = useSelector<ReducerType, user>((state) => state.user);
+    console.log('유저데이터', userData);
+
+    const data = await patchUser('변경성공', '11111111', '11111111', '2022-01-01');
+    console.log('데이터', data);
+  };
+  testFunction();
 
   // 모달창 노출
   const showModal = () => {

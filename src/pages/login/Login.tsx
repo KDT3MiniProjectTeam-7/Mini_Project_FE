@@ -13,12 +13,6 @@ interface InputFormData {
 const Login = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (document.cookie) {
-      navigate('/');
-    }
-  });
-
   const {
     register,
     handleSubmit,
@@ -27,11 +21,11 @@ const Login = () => {
 
   const [loginFail, setLoginFail] = useState(false);
 
-  if (document.cookie) {
-    console.log('쿠키있다.');
-  } else {
-    console.log('쿠키없다.');
-  }
+  useEffect(() => {
+    if (document.cookie) {
+      navigate('/');
+    }
+  });
 
   // 로그인하기
   const onSubmit = async (data: any) => {
