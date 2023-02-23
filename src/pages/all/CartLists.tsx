@@ -43,7 +43,6 @@ const CartLists = ({ data }: { data: Item[] }) => {
 
 const Container = styled.div`
   width: 100%;
-  margin-bottom: 60px;
 `;
 
 const CartContainer = styled.div`

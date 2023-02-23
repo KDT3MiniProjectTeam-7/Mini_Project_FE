@@ -22,6 +22,17 @@ export const postCartItems = async (id: number) => {
   }
 };
 
+export const delAllCartItems = async () => {
+  Instance();
+
+  try {
+    const data = await authInstance.delete('/cart/all');
+    console.log(data);
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
 export const delCartItems = async (id: number) => {
   Instance();
 
@@ -35,6 +46,7 @@ export const delCartItems = async (id: number) => {
     console.log(err.message);
   }
 };
+
 // 최근 검색어
 export const getSearchKeywords = async () => {
   Instance();
