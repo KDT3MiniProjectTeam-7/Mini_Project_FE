@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ReducerType } from '../../../store/store';
+import { addCardResults, addLoanResults, addSavingsResults, addSubscriptionResults } from '../../../store/searchSlice';
 import { Item } from '../../../store/cartSlice';
+import { getSearchResults } from '../../../common/api/Api';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 
 interface TabProps {
@@ -11,7 +13,27 @@ interface TabProps {
 }
 
 const ResultsTotal = ({ setTabIndex }: TabProps) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
+  const [keywordParams, setKeywordParams] = useState('');
+
+  useEffect(() => {
+    params.keywords !== undefined && setKeywordParams(params.keywords);
+
+    const getServerResultData = async () => {
+      const cardData = await getSearchResults(keywordParams, 'card', 1);
+      console.log(cardData);
+      dispatch(addCardResults(cardData));
+      const loanData = await getSearchResults(keywordParams, 'loan', 1);
+      dispatch(addLoanResults(loanData));
+      const savingsData = await getSearchResults(keywordParams, 'savings', 1);
+      dispatch(addSavingsResults(savingsData));
+      const subscriptionData = await getSearchResults(keywordParams, 'subscription', 1);
+      dispatch(addSubscriptionResults(subscriptionData));
+    };
+    keywordParams && getServerResultData();
+  }, [keywordParams]);
 
   const cardData = useSelector<ReducerType, Item[]>((state) => state.searchCard);
   const loanData = useSelector<ReducerType, Item[]>((state) => state.searchLoan);
