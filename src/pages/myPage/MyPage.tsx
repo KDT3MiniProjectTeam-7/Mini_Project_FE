@@ -1,9 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ModalLogout from './ModalLogout';
 
 const MyPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!document.cookie) {
+      navigate('/intro');
+    }
+  });
 
   // 모달창 노출
   const showModal = () => {

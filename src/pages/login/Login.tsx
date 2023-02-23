@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { postLogin } from '../../common/api/Api';
 
 interface InputFormData {
@@ -11,15 +11,27 @@ interface InputFormData {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (document.cookie) {
+      navigate('/');
+    }
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<InputFormData>();
 
-  const navigate = useNavigate();
-
   const [loginFail, setLoginFail] = useState(false);
+
+  if (document.cookie) {
+    console.log('쿠키있다.');
+  } else {
+    console.log('쿠키없다.');
+  }
 
   // 로그인하기
   const onSubmit = async (data: any) => {
