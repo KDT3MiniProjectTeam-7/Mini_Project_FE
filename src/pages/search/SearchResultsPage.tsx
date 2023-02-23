@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import SearchBox from './SearchComponents/SearchBox';
 import CategoryTab from './SearchResultsComponents/CategoryTab';
 import ResultsTotal from './SearchResultsComponents/ResultsTotal';
@@ -9,8 +10,17 @@ import ResultsSavings from './SearchResultsComponents/ResultsSavings';
 import ResultsSubscription from './SearchResultsComponents/ResultsSubscription';
 
 const SearchResults = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+  // 자동 로그아웃
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!document.cookie) {
+      navigate('/intro');
+    }
+  });
+
+  // 탭 변경
+  const [tabIndex, setTabIndex] = useState(0);
   const [category, setCategory] = useState([
     { category: 'total', title: '통합', content: <ResultsTotal setTabIndex={setTabIndex} /> },
     { category: 'card', title: '카드', content: <ResultsCard /> },
