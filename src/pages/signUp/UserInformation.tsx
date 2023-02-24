@@ -271,7 +271,7 @@ const BottomContainer = styled.div`
   .nextButton {
     width: 100%;
     background-color: var(--main-color);
-    height: 60px;
+    height: 50px;
     font-size: var(--font-m);
     color: #ffffff;
     display: flex;
@@ -281,6 +281,7 @@ const BottomContainer = styled.div`
     border: none;
     font-weight: bold;
     margin-top: 10px;
+    border-radius:50px;
   }
 `;
 

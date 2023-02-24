@@ -40,6 +40,7 @@ const Link = styled(LinkForm)`
   justify-content: center;
   font-weight: bold;
   text-decoration: none;
+  border-radius:20px;
 `;
 
 export default Intro;
