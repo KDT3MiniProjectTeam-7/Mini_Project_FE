@@ -103,6 +103,7 @@ const Input = styled.input`
   box-sizing: border-box;
   border: none;
   border-bottom: 2px solid var(--lightblue-color);
+  padding:0 10px;
 
   :focus {
     outline: none;
@@ -129,6 +130,7 @@ const Submit = styled(Input)`
   text-decoration: none;
   border: none;
   font-weight: bold;
+  border-radius:20px;
 `;
 
 const Link = styled(LinkForm)`

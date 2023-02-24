@@ -213,7 +213,9 @@ const Header = styled.div`
 `;
 
 const Container = styled.main`
-  margin-top: 20px;
+  margin:0 auto;
+  height:100vh;
+  padding-top:20px;
 
   & > p {
     line-height: 1.5;
@@ -222,7 +224,6 @@ const Container = styled.main`
   }
 
   form {
-    position: relative;
     height: 400px;
 
     & > div > div {
@@ -246,14 +247,14 @@ const Container = styled.main`
     .prev_btn {
       position: absolute;
       bottom: 40px;
-      left: 0;
+      left: 20px;
     }
 
     .next_btn,
     .submit_btn {
       position: absolute;
       bottom: 40px;
-      right: 0;
+      right: 20px;
     }
 
     p {
