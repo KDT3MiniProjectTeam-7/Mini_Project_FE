@@ -28,7 +28,6 @@ export const delAllCartItems = async () => {
 
   try {
     const data = await authInstance.delete('/cart/all');
-    console.log(data);
   } catch (err: any) {
     console.log(err.message);
   }
@@ -128,8 +127,8 @@ export const getPost = async () => {
   try {
     const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`);
     return data;
-  } catch (error) {
-    console.log(error);
+  } catch (err: any) {
+    console.log(err.message);
   }
 };
 
@@ -150,9 +149,8 @@ export const postTags = async (tags: string[]) => {
   try {
     const params = { tags: tags };
     const { data } = await authInstance.post(`/user/tags`, params);
-    console.log(data, tags);
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    console.log(err.message);
   }
 };
 
@@ -170,10 +168,9 @@ export const getUserInfo = async () => {
 
   try {
     const { data } = await authInstance.get(`/user`);
-    console.log('성공');
     return data;
   } catch (err: any) {
-    console.log(err);
+    console.log(err.message);
   }
 };
 
@@ -182,7 +179,7 @@ export const getRecommendation = async (tags: string) => {
     const { data } = await defaultInstance.get(`/Recommendation/${tags}`);
     return data;
   } catch (err: any) {
-    console.log(err);
+    console.log(err.message);
   }
 };
 
