@@ -50,7 +50,9 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
                         <p>{data.productName}</p>
                       </div>
                     </div>
-                    <IoChevronForwardOutline color="#969696" />
+                    <Icon>
+                      <IoChevronForwardOutline color="#969696" size="16" />
+                    </Icon>
                   </Product>
                 ))
               : ''}
@@ -67,7 +69,9 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
                         <p>{data.companyName}</p>
                       </div>
                     </div>
-                    <IoChevronForwardOutline color="#969696" />
+                    <Icon>
+                      <IoChevronForwardOutline color="#969696" size="21" />
+                    </Icon>
                   </Product>
                 ))
               : ''}
@@ -84,7 +88,9 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
                         <p>{data.companyName}</p>
                       </div>
                     </div>
-                    <IoChevronForwardOutline color="#969696" />
+                    <Icon>
+                      <IoChevronForwardOutline color="#969696" size="21" />
+                    </Icon>
                   </Product>
                 ))
               : ''}
@@ -101,7 +107,9 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
                         <p>{data.companyName}</p>
                       </div>
                     </div>
-                    <IoChevronForwardOutline color="#969696" />
+                    <Icon>
+                      <IoChevronForwardOutline color="#969696" size="15" />
+                    </Icon>
                   </Product>
                 ))
               : ''}
@@ -141,6 +149,10 @@ const Desc = styled.ol`
       opacity: 0.7;
     }
   }
+
+  li + li {
+    margin-top: 15px;
+  }
 `;
 
 const Product = styled.li`
@@ -148,7 +160,7 @@ const Product = styled.li`
   justify-content: space-between;
   align-items: center;
   height: 70px;
-  padding: 0 20px;
+  padding: 10px 20px;
   transition: all 0.3s ease-in-out;
 
   &:active {
@@ -189,6 +201,13 @@ const Image = styled.div`
     max-width: 40px;
     max-height: 40px;
   }
+`;
+
+const Icon = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 30px;
+  width: 23px;
 `;
 
 export default ResultsTotal;

@@ -18,7 +18,7 @@ const CardLists = ({ data }: { data: Item[] }) => {
               <h1>{card.productName}</h1>
               <p>{card.companyName}</p>
             </div>
-            <IoChevronForwardOutline size="21" className="wish" color="969696" />
+            <IoChevronForwardOutline size="21" className="wish" color="#969696" />
           </Link>
         </CardContainer>
       ))}
