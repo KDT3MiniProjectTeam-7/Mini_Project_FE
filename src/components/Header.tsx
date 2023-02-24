@@ -17,7 +17,7 @@ const Header = () => {
           <img src={logo} alt="Finance seven Logo" />
         </Logo>
         <StyledLink to={'/cart'}>
-          <AiOutlineHeart size="24" color="#424242" />
+          <AiOutlineHeart size="24" color="#424242" className="wish" />
           <WishLength>{cartItems.length}</WishLength>
         </StyledLink>
       </HeaderComponents>
@@ -54,6 +54,13 @@ const StyledLink = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.3s ease-in-out;
+
+  .wish {
+    &:active {
+      scale: 0.98;
+    }
+  }
 `;
 
 const WishLength = styled.span`
