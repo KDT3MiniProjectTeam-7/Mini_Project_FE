@@ -7,7 +7,7 @@ let authInstance: any;
 
 // 변하는 쿠키값을 반영해서 instance 정의
 const Instance = () => {
-  token = document.cookie.slice(12);
+  token = getTokenFromCookies();
   authInstance = authApi(BASE_URL, token);
 };
 

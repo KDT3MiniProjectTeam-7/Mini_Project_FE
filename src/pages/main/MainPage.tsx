@@ -70,8 +70,6 @@ const Main = () => {
     getUser();
   }, [userData]);
 
-  console.log(userRecommendProduct)
-
   return (
     <>
       <Container>
@@ -80,7 +78,7 @@ const Main = () => {
           <br />
           맞춤 추천 상품입니다.
         </Title>
-
+        
         {userRecommendProduct ? (
           <>
             {userRecommendProduct.card.length > 0 && (
