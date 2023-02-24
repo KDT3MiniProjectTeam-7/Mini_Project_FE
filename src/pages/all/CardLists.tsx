@@ -1,15 +1,11 @@
-import React from 'react';
 import styled from 'styled-components';
-import { AiOutlineRight } from 'react-icons/ai';
+import { IoChevronForwardOutline } from 'react-icons/io5';
 import { Item } from '../../store/cartSlice';
-import { isInCart } from '../../utils/isInCart';
 import { useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
 const CardLists = ({ data }: { data: Item[] }) => {
-  const dispatch = useDispatch();
-
   return (
     <Container>
       {data?.map((card) => (
@@ -22,7 +18,7 @@ const CardLists = ({ data }: { data: Item[] }) => {
               <h1>{card.productName}</h1>
               <p>{card.companyName}</p>
             </div>
-            <AiOutlineRight size="21" className="wish" color="rgb(150,150,150)" />
+            <IoChevronForwardOutline size="21" className="wish" color="969696" />
           </Link>
         </CardContainer>
       ))}
