@@ -31,14 +31,8 @@
 
 |한수산👑|노준영|이은영|김효진|
 |:---:|:---:|:---:|:---:|
-|<a href="https://github.com/0nesan"><img src="https://avatars.githubusercontent.com/u/76930602?v=4" width=160/></a>
-|<a href="https://github.com/ghgt1"><img src="https://avatars.githubusercontent.com/u/35508595?v=4" width=160/></a>
-|<a href="https://github.com/eun0leee"><img src="https://avatars.githubusercontent.com/u/90189513?v=4" width=160/></a>
-|<a href="https://github.com/Hyojina"><img src="https://avatars.githubusercontent.com/u/107975281?v=4" width=160/></a>|
-|초기세팅<br>테스트 페이지<br>마이 페이지
-|상세 페이지<br>모아보기 페이지<br>장바구니 페이지
-|검색 페이지<br>검색결과 페이지<br>헤더 & 탭바
-|로그인 페이지<br>회원가입 페이지<br>회원정보 수정 & 로그아웃|
+|<a href="https://github.com/0nesan"><img src="https://avatars.githubusercontent.com/u/76930602?v=4" width=160/></a>|<a href="https://github.com/ghgt1"><img src="https://avatars.githubusercontent.com/u/35508595?v=4" width=160/></a>|<a href="https://github.com/eun0leee"><img src="https://avatars.githubusercontent.com/u/90189513?v=4" width=160/></a>|<a href="https://github.com/Hyojina"><img src="https://avatars.githubusercontent.com/u/107975281?v=4" width=160/></a>|
+|초기세팅<br>테스트 페이지<br>마이 페이지|상세 페이지<br>모아보기 페이지<br>장바구니 페이지|검색 페이지<br>검색결과 페이지<br>헤더 & 탭바|로그인 페이지<br>회원가입 페이지<br>회원정보 수정 & 로그아웃|
 
 <br><br>
 
@@ -70,7 +64,7 @@
 <br><br>
 
 # 5. 협업 방식 🤝
-<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/notion-fc9847?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white"> <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/notion-fc9847?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
 - **Github**
 <br>팀 레포를 생성하고, develop 브랜치와 각자의 이름으로 브랜치를 생성하였습니다.
 <br>작업이 끝나면 각자의 브랜치로 push 후 pull request를 남기면 팀장님이 merge 했습니다.
