@@ -1,3 +1,4 @@
+import { getCookie } from '../../utils/getTokenFromCookies';
 import { defaultInstance, authApi } from './Axios';
 
 const BASE_URL = import.meta.env.VITE_HOST_URL;
@@ -6,7 +7,7 @@ let authInstance: any;
 
 // 변하는 쿠키값을 반영해서 instance 정의
 const Instance = () => {
-  token = document.cookie.slice(12);
+  token = getCookie();
   authInstance = authApi(BASE_URL, token);
 };
 
@@ -189,6 +190,8 @@ export const postLogin = async (email: string, password: string) => {
       email: email,
       password: password,
     });
+    // 로그인 시, 로컬스토리지 클리어
+    localStorage.clear();
     if (data.status === 'success') {
       document.cookie = `accessToken=${data.accessToken}; max-age=3600`;
     }
