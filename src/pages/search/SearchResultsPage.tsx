@@ -28,8 +28,6 @@ const SearchResults = () => {
   const params = useParams();
   const [keywordParams, setKeywordParams] = useState('');
 
-  console.log(keywordParams);
-
   useEffect(() => {
     params.keywords !== undefined && setKeywordParams(params.keywords);
   }, [params]);
@@ -37,13 +35,13 @@ const SearchResults = () => {
   useEffect(() => {
     const getServerResultData = async () => {
       const cardData = await getSearchResults(keywordParams, 'card', 1);
-      dispatch(addCardResults(cardData));
+      dispatch(addCardResults(cardData.resultData));
       const loanData = await getSearchResults(keywordParams, 'loan', 1);
-      dispatch(addLoanResults(loanData));
+      dispatch(addLoanResults(loanData.resultData));
       const savingsData = await getSearchResults(keywordParams, 'savings', 1);
-      dispatch(addSavingsResults(savingsData));
+      dispatch(addSavingsResults(savingsData.resultData));
       const subscriptionData = await getSearchResults(keywordParams, 'subscription', 1);
-      dispatch(addSubscriptionResults(subscriptionData));
+      dispatch(addSubscriptionResults(subscriptionData.resultData));
     };
     keywordParams && getServerResultData();
   }, [keywordParams]);
@@ -59,8 +57,10 @@ const SearchResults = () => {
 
   return (
     <Container>
-      <SearchBox />
-      <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={category} isOnAllPage={false} />
+      <Wrab>
+        <SearchBox />
+        <CategoryTab tabIndex={tabIndex} setTabIndex={setTabIndex} categoryArr={category} isOnAllPage={false} />
+      </Wrab>
       {category
         .filter((list, index) => index === tabIndex)
         .map((list) => (
@@ -80,6 +80,14 @@ const Container = styled.div`
   li {
     cursor: pointer;
   }
+`;
+
+const Wrab = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: fit-content;
+  background-color: #fff;
 `;
 
 const CategoryDesc = styled.div``;
