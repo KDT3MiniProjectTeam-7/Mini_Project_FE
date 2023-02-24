@@ -106,7 +106,7 @@ const BottomContainer = styled.div`
   .nextButton {
     width: 100%;
     background-color: var(--main-color);
-    height: 60px;
+    height: 50px;
     font-size: var(--font-m);
     color: #ffffff;
     display: flex;
@@ -116,19 +116,8 @@ const BottomContainer = styled.div`
     border: none;
     font-weight: bold;
     margin-top: 10px;
+    border-radius:50px;
   }
 `;
-
-// const Container = styled.div`
-//   width: 100%;
-//   position: absolute;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-
-//   margin: 0;
-//   gap: 20px;
-// `;
 
 export default Complete;
