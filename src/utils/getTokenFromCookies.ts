@@ -1,4 +1,4 @@
-export const getCookie = () => {
+export const getTokenFromCookies = () => {
   let matches = document.cookie.match(
     new RegExp('(?:^|; )' + 'accessToken'.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
   );

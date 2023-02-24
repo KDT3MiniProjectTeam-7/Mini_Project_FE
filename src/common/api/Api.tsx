@@ -1,4 +1,4 @@
-import { getCookie } from '../../utils/getTokenFromCookies';
+import { getTokenFromCookies } from '../../utils/getTokenFromCookies';
 import { defaultInstance, authApi } from './Axios';
 
 const BASE_URL = import.meta.env.VITE_HOST_URL;
@@ -7,7 +7,7 @@ let authInstance: any;
 
 // 변하는 쿠키값을 반영해서 instance 정의
 const Instance = () => {
-  token = getCookie();
+  token = getTokenFromCookies();
   authInstance = authApi(BASE_URL, token);
 };
 
