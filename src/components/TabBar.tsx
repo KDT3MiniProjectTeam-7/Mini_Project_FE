@@ -57,12 +57,12 @@ const StyledLink = styled(Link)`
   align-items: center;
 
   width: 66px;
-  padding: 4px 0;
-  border-radius: 20px;
+  border-radius: 15px;
   transition: all 0.3s ease-in-out;
 
   &:active {
-    scale: 0.98;
+    scale: 0.95;
+    background-color: var(--lightgray-color);
   }
 
   span {

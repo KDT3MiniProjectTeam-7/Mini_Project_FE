@@ -57,8 +57,9 @@ const StyledLink = styled(Link)`
   transition: all 0.3s ease-in-out;
 
   .wish {
+    transition: all 0.3s ease-in-out;
     &:active {
-      scale: 0.98;
+      scale: 0.95;
     }
   }
 `;
