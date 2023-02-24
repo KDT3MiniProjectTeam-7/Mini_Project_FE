@@ -25,12 +25,6 @@ const App = () => {
 
 // 헤더, 탭바 있음
 const IncludedLayout = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!document.cookie) navigate('/intro');
-  }, []);
-
   return (
     <>
       <Header />

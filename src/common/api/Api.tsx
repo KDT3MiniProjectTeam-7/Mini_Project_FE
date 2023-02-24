@@ -47,7 +47,6 @@ export const delCartItems = async (id: number) => {
     console.log(err.message);
   }
 };
-
 // 최근 검색어
 export const getSearchKeywords = async () => {
   Instance();
