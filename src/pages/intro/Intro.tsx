@@ -16,7 +16,7 @@ const MainContainer = styled.main`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   gap: 20px;
 `;
@@ -40,7 +40,7 @@ const Link = styled(LinkForm)`
   justify-content: center;
   font-weight: bold;
   text-decoration: none;
-  border-radius:20px;
+  border-radius: 20px;
 `;
 
 export default Intro;
