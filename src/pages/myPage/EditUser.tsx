@@ -294,6 +294,11 @@ const Submit = styled.input`
   border-radius: 20px;
   border: none;
   background: var(--main-color);
+  transition: all 0.3s ease-in-out;
+
+  &:active {
+    opacity: 0.7;
+  }
 `;
 
 export default EditUser;
