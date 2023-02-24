@@ -80,7 +80,14 @@ const Container = styled.main`
   }
 `;
 
-const RecentProducts = styled.section``;
+const RecentProducts = styled.section`
+  div {
+    transition: all 0.3s ease-in-out;
+    &:active {
+      opacity: 0.7;
+    }
+  }
+`;
 
 const DetailLink = styled(Link)`
   display: flex;

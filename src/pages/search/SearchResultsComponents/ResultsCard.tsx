@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { ReducerType } from '../../../store/store';
@@ -7,8 +9,25 @@ import NoResults from '../SearchComponents/NoResults';
 import { CardSorting } from './Sorting';
 
 const ResultsCard = () => {
-  const data = useSelector<ReducerType, Item[]>((state) => state.searchCard);
+  const [data, setData] = useState<Item[]>([]);
+  const [active, setActive] = useState('fee');
+  const storeData = useSelector<ReducerType, Item[]>((state) => state.searchCard);
+  const newData = storeData?.slice();
 
+  // 정렬
+  useEffect(() => {
+    if (newData) {
+      if (active === 'fee') {
+        const sortedFee = newData.sort((a: any, b: any) => a.annualFee - b.annualFee);
+        setData(sortedFee);
+      } else if (active === 'name') {
+        const sortedName = newData?.sort((a: any, b: any) => a.productName - b.productName);
+        setData(sortedName);
+      }
+    }
+  }, [active, storeData]);
+
+  // 상세보기 이동
   const navigate = useNavigate();
   const handleLi = (id: number) => {
     navigate(`/detail/card/${id}`);
@@ -18,24 +37,26 @@ const ResultsCard = () => {
     <Container>
       {data && data.length !== 0 ? (
         <>
-          <CardSorting />
+          <CardSorting active={active} setActive={setActive} />
           <div>
             {data.map((list) => (
-              <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>
-                <div>
-                  <Thumbnail>
-                    <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
-                  </Thumbnail>
-                  <Desc>
-                    <h3 className="benefits">{list.benefits && list.benefits[0]}</h3>
-                    <p className="productname">{list.productName}</p>
-                  </Desc>
-                </div>
-                <Fee>
-                  <dt>연회비</dt>
-                  <dd>{list.annualFee && list.annualFee.toLocaleString()}원</dd>
-                </Fee>
-              </ResultsList>
+              <>
+                <ResultsList key={list.productId} onClick={() => handleLi(list.productId)}>
+                  <div>
+                    <Thumbnail>
+                      <img src={list.thumbnail} alt={`${list.productName}카드이미지`} />
+                    </Thumbnail>
+                    <Desc>
+                      <h3 className="benefits">{list.benefits && list.benefits[0]}</h3>
+                      <p className="productname">{list.productName}</p>
+                    </Desc>
+                  </div>
+                  <Fee>
+                    <dt>연회비</dt>
+                    <dd>{list.annualFee && list.annualFee.toLocaleString()}원</dd>
+                  </Fee>
+                </ResultsList>
+              </>
             ))}
           </div>
         </>
@@ -47,13 +68,21 @@ const ResultsCard = () => {
 };
 
 const Container = styled.ol`
-  padding: 30px 20px;
+  padding: 30px 0;
+
+  & > li:active {
+    scale: 0.98;
+    background-color: var(--lightgray-color);
+  }
 `;
 
 const ResultsList = styled.li`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  height: 80px;
+  padding: 13px 20px;
+  transition: all 0.3s ease-in-out;
 
   & > div {
     display: flex;
@@ -62,7 +91,7 @@ const ResultsList = styled.li`
   }
 
   & + li {
-    margin-top: 40px;
+    margin-top: 10px;
   }
 `;
 
