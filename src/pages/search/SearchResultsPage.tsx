@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import SearchBox from './SearchComponents/SearchBox';
 import CategoryTab from './SearchResultsComponents/CategoryTab';
 import ResultsTotal from './SearchResultsComponents/ResultsTotal';
@@ -14,15 +14,6 @@ import { getSearchResults } from '../../common/api/Api';
 import { addCardResults, addLoanResults, addSavingsResults, addSubscriptionResults } from '../../store/searchSlice';
 
 const SearchResults = () => {
-  // 자동 로그아웃
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!document.cookie) {
-      navigate('/intro');
-    }
-  });
-
   // 검색결과
   const dispatch = useDispatch();
   const params = useParams();

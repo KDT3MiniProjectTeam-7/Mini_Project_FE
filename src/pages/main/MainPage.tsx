@@ -61,12 +61,12 @@ const Main = () => {
 
   useEffect(() => {
     // 로컬에 저장된 유저데이터 활용 추천상품 로칼 저장
-    const getUser = async () => {  
-      if(userData.tags) {
+    const getUser = async () => {
+      if (userData.tags) {
         const getData = await getRecommendation(userData.tags.replaceAll('\\n', '&'));
         dispatch(setRecommendProducts(getData));
       }
-    }
+    };
     getUser();
   }, [userData]);
 
@@ -78,10 +78,10 @@ const Main = () => {
           <br />
           맞춤 추천 상품입니다.
         </Title>
-        
+
         {userRecommendProduct ? (
           <>
-            {userRecommendProduct.card.length > 0 && (
+            {userRecommendProduct.card?.length > 0 && (
               <RecommenSection>
                 <h2
                   onClick={() => {
@@ -94,7 +94,9 @@ const Main = () => {
 
                 <div
                   className={toggleBtn1 ? 'showMenu' : undefined}
-                  style={{ maxHeight: userRecommendProduct.card.length * 170 + userRecommendProduct.card.length * 10 + 'px' }}
+                  style={{
+                    maxHeight: userRecommendProduct.card.length * 170 + userRecommendProduct.card.length * 10 + 'px',
+                  }}
                 >
                   {userRecommendProduct.card.map((item: Product) => {
                     return (
@@ -115,7 +117,7 @@ const Main = () => {
               </RecommenSection>
             )}
 
-            {userRecommendProduct.savings.length > 0 && (
+            {userRecommendProduct.savings?.length > 0 && (
               <RecommenSection>
                 <h2
                   onClick={() => {
@@ -128,7 +130,10 @@ const Main = () => {
 
                 <div
                   className={toggleBtn2 ? 'showMenu' : undefined}
-                  style={{ maxHeight: userRecommendProduct.savings.length * 170 + userRecommendProduct.savings.length * 10 + 'px' }}
+                  style={{
+                    maxHeight:
+                      userRecommendProduct.savings.length * 170 + userRecommendProduct.savings.length * 10 + 'px',
+                  }}
                 >
                   {userRecommendProduct.savings.map((item: Product) => {
                     return (
@@ -147,7 +152,7 @@ const Main = () => {
               </RecommenSection>
             )}
 
-            {userRecommendProduct.loan.length > 0 && (
+            {userRecommendProduct.loan?.length > 0 && (
               <RecommenSection>
                 <h2
                   onClick={() => {
@@ -159,7 +164,9 @@ const Main = () => {
                 </h2>
                 <div
                   className={toggleBtn3 ? 'showMenu' : undefined}
-                  style={{ maxHeight: userRecommendProduct.loan.length * 170 + userRecommendProduct.loan.length * 10 + 'px' }}
+                  style={{
+                    maxHeight: userRecommendProduct.loan.length * 170 + userRecommendProduct.loan.length * 10 + 'px',
+                  }}
                 >
                   {userRecommendProduct.loan.map((item: Product) => {
                     return (
@@ -185,7 +192,7 @@ const Main = () => {
               </RecommenSection>
             )}
 
-            {userRecommendProduct.subscription.length > 0 && (
+            {userRecommendProduct.subscription?.length > 0 && (
               <RecommenSection>
                 <h2
                   onClick={() => {
@@ -197,7 +204,12 @@ const Main = () => {
                 </h2>
                 <div
                   className={toggleBtn4 ? 'showMenu' : undefined}
-                  style={{ maxHeight: userRecommendProduct.subscription.length * 170 + userRecommendProduct.subscription.length * 10 + 'px' }}
+                  style={{
+                    maxHeight:
+                      userRecommendProduct.subscription.length * 170 +
+                      userRecommendProduct.subscription.length * 10 +
+                      'px',
+                  }}
                 >
                   {userRecommendProduct.subscription.map((item: Product) => {
                     return (
