@@ -6,6 +6,7 @@ import { ReducerType } from '../../store/store';
 import { user } from '../../store/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import EditUser from './EditUser';
+import { getTokenFromCookies } from '../../utils/getTokenFromCookies';
 
 const MyPage = () => {
   const [modalOpen, setModalOpen] = useState(false);

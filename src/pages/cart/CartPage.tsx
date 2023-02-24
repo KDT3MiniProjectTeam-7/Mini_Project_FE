@@ -24,12 +24,6 @@ const Cart = () => {
     }
   });
 
-  useEffect(() => {
-    if (!document.cookie) {
-      navigate('/intro');
-    }
-  });
-
   const cartItems = useSelector<ReducerType, Item[]>((state) => state.cart);
   // 상품 넣기 완료.
   // 렌더링 단계에서는 카테고리에 맞는 카드 컨테이너를 잘 출력시키면 됨
