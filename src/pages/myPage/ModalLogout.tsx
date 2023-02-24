@@ -78,6 +78,11 @@ const Modal = styled.section`
     bottom: 0;
     border-top: 1px solid var(--lightgray-color);
     font-size: var(--font-m);
+    transition: all 0.3s ease-in-out;
+
+    &:active {
+      color: var(--main-color);
+    }
   }
 
   .logout {
