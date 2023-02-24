@@ -14,12 +14,12 @@ const userData = createSlice({
   name: 'user',
   initialState: {} as user,
   reducers: {
-    setUserItems(state, actions: PayloadAction<user>) {
+    setUserData(state, actions: PayloadAction<user>) {
         return actions.payload;
     },
   },
 });
 
-export const { setUserItems } = userData.actions;
+export const { setUserData } = userData.actions;
 
 export default userData;

@@ -6,6 +6,7 @@ import { ReducerType } from '../../store/store';
 import { user } from '../../store/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import EditUser from './EditUser';
+import { getTokenFromCookies } from '../../utils/getTokenFromCookies';
 
 const MyPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -14,10 +15,10 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!document.cookie) {
+    if (!getTokenFromCookies()) {
       navigate('/intro');
     }
-  });
+  }, []);
 
   // 로그아웃 모달 노출
   const showModal = () => {
@@ -28,8 +29,12 @@ const MyPage = () => {
     setEditOpen(true);
   };
 
-  let userData = useSelector<ReducerType, user>((state) => state.user);
-  let userTag = userData.tags.replaceAll('\\n', ' ').split(' ');
+  let userData = useSelector<ReducerType, user>((state) => state.user)
+  let userTag;
+  
+  if(userData.tags) {
+    userTag = userData.tags.replaceAll('\\n', ' ').split(' ');
+  }
 
   return (
     <main>
@@ -53,24 +58,25 @@ const MyPage = () => {
               </p>
             </div>
           </User>
-          {userData.tags.length > 0 ? (
-            <Interest>
-              <div>
-                <p>{userData.name}님의 관심 목록</p>
-                <Button>
-                  {' '}
-                  <Link to={'/survey'}>테스트 다시하기</Link>{' '}
-                </Button>
-              </div>
-              <div className="itemSection">
-                {userTag.map((item, index) => (
-                  <div className="item" key={index}>
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </Interest>
-          ) : null}
+          {
+            userTag ? (
+              <Interest>
+                <div>
+                  <p>{userData.name}님의 관심 목록</p>
+                  <Button> <Link to={"/survey"}>테스트 다시하기</Link> </Button>
+                </div>
+                <div className="itemSection">
+                  {userTag.map((item, index) => (
+                    <div className="item" key={index}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+                </Interest>
+            ) : (
+              null
+            )
+          }
           <Logout onClick={showModal}>로그아웃</Logout>
         </>
       )}

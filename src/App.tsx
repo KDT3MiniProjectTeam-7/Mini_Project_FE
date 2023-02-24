@@ -3,13 +3,14 @@ import { Outlet, ScrollRestoration, useNavigate } from 'react-router-dom';
 import { GlobalStyle } from './common/style/Style';
 import Header from './components/Header';
 import TabBar from './components/TabBar';
+import { getTokenFromCookies } from './utils/getTokenFromCookies';
 
 // 전체 공통 적용
 const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!document.cookie) {
+    if (!getTokenFromCookies()) {
       navigate('/intro');
     }
   }, []);
@@ -24,12 +25,6 @@ const App = () => {
 
 // 헤더, 탭바 있음
 const IncludedLayout = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!document.cookie) navigate('/intro');
-  }, []);
-
   return (
     <>
       <Header />
