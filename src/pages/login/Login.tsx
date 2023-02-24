@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { postLogin } from '../../common/api/Api';
-import { getTokenFromCookies } from '../../utils/getTokenFromCookies';
 
 interface InputFormData {
   email: string;
@@ -21,12 +20,6 @@ const Login = () => {
   } = useForm<InputFormData>();
 
   const [loginFail, setLoginFail] = useState(false);
-
-  useEffect(() => {
-    if (getTokenFromCookies()) {
-      navigate('/');
-    }
-  }, []);
 
   // 로그인하기
   const onSubmit = async (data: any) => {
