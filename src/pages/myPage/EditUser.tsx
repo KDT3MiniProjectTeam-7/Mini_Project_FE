@@ -222,10 +222,6 @@ const EditUser = ({ setEditOpen }: any) => {
 };
 
 const Form = styled.form`
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0 20px;
   margin: 70px auto 60px;
   background-color: white;
   z-index: 1000;
@@ -298,6 +294,11 @@ const Submit = styled.input`
   border-radius: 20px;
   border: none;
   background: var(--main-color);
+  transition: all 0.3s ease-in-out;
+
+  &:active {
+    opacity: 0.7;
+  }
 `;
 
 export default EditUser;

@@ -31,51 +31,53 @@ const MyPage = () => {
 
   return (
     <main>
-      {userData && (
-        <>
-          <User>
-            <div>
-              <div className="name">
-                <span>{userData.name}</span> 님
-              </div>
-              <Button className="change" onClick={showEdit}>
-                수정
-              </Button>
-            </div>
-            <div>
-              <p>
-                <span>{userData.email}</span>
-              </p>
-              <p>
-                <span>{userData.birthday}</span> <span>(만{userData.age}세)</span>
-              </p>
-            </div>
-          </User>
-          {userTag ? (
-            <Interest>
+      {editOpen ? (
+        <EditUser setEditOpen={setEditOpen} />
+      ) : (
+        userData && (
+          <>
+            <User>
               <div>
-                <p>{userData.name}님의 관심 목록</p>
-                <Button>
-                  {' '}
-                  <Link to={'/survey'} className="testAgain">
-                    테스트 다시하기
-                  </Link>{' '}
+                <div className="name">
+                  <span>{userData.name}</span> 님
+                </div>
+                <Button className="change" onClick={showEdit}>
+                  수정
                 </Button>
               </div>
-              <div className="itemSection">
-                {userTag.map((item, index) => (
-                  <div className="item" key={index}>
-                    {item}
-                  </div>
-                ))}
+              <div>
+                <p>
+                  <span>{userData.email}</span>
+                </p>
+                <p>
+                  <span>{userData.birthday}</span> <span>(만{userData.age}세)</span>
+                </p>
               </div>
-            </Interest>
-          ) : null}
-          <Logout onClick={showModal}>로그아웃</Logout>
-        </>
+            </User>
+            {userTag ? (
+              <Interest>
+                <div>
+                  <p>{userData.name}님의 관심 목록</p>
+                  <Button>
+                    {' '}
+                    <Link to={'/survey'} className="testAgain">
+                      테스트 다시하기
+                    </Link>{' '}
+                  </Button>
+                </div>
+                <div className="itemSection">
+                  {userTag.map((item, index) => (
+                    <div className="item" key={index}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </Interest>
+            ) : null}
+            <Logout onClick={showModal}>로그아웃</Logout>
+          </>
+        )
       )}
-
-      {editOpen && <EditUser setEditOpen={setEditOpen} />}
       {modalOpen && (
         <ModalBox>
           <ModalLogout className="modal" setModalOpen={setModalOpen} />
