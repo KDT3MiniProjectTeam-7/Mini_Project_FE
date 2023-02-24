@@ -1,6 +1,9 @@
 <div align="center">
-  <img src="////////////" width=500 />
-  <h1>파이낸스 세븐</h1>
+  <img src="https://user-images.githubusercontent.com/90189513/221166566-c9021592-1c56-4083-98ac-d5c7f36fb535.png" width="320" />
+  
+  <br>
+
+  <h1>파이낸스 세븐</h1>  
   <h4>Mini Project 7조 FE: 한수산, 노준영, 이은영, 김효진</h4>
 </div>
 
@@ -16,7 +19,7 @@
 
 ### 링크 모음
 <a href="https://finance-seven.netlify.app/">
-  <img src="https://img.shields.io/badge/배포사이트-FF0000?style=for-the-badge&logo=youtube&logoColor=white" />
+  <img src="https://img.shields.io/badge/배포사이트-0e76ff?style=for-the-badge&logo=InternetExplorer&logoColor=white" />
 </a>&nbsp;&nbsp;
 <a href="https://github.com/KDT3MiniProjectTeam-7/Mini_Project_FE">
   <img src="https://img.shields.io/badge/팀레포-181717?style=for-the-badge&logo=github&logoColor=white" />
@@ -56,10 +59,11 @@
 - 여긴 아직 수정해야합니다.
 - 아래처럼 이미지로 넣을 예정입니다.
 - 다른 의견 있으면 알려주세요.
+
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
 <br><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/reacticons-e91e63?style=for-the-badge&logo=react&logoColor=white">
 <br><img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=node.js&logoColor=white"> <img src="https://img.shields.io/badge/json-616161?style=for-the-badge&logo=json&logoColor=white"> <img src="https://img.shields.io/badge/Axios-671ddf?style=for-the-badge&logo=Axios&logoColor=white"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black">
-<br><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white">
+<br><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white"> <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white">
 
 <br><br>
 
@@ -131,15 +135,49 @@
 <details>
 <summary>검색 페이지</summary>
 
-1. API
-   - 검색(search)
-      - URL주소의 q값으로 데이터 요청. useLocation과 URLSearchParams 사용
-   - 특정 동영상(video)
-      - 위 검색 API 응답에서 video id 종류가 video인 경우 요청
-   - 특정 채널(channel)
-      - 위 검색 API 응답에서 video id 종류가 channel인 경우 요청
-2. 검색 리스트
-   - 채널과 영상을 다른 구조로 렌더링
+1. 검색바
+- 상품명 입력이 가능한 바
+- 검색바에 입력된 글자가 있을 때만, 우측 삭제 버튼 등장
+- Submit 시에 검색결과 페이지로 이동
+- 검색어 없으면, confirm('검색어를 입력해주세요')
+
+2. 최근 본 상품
+- 상세정보 눌러봤던 상품 중 최근 것 1개 조회 가능
+- 클릭시 해당 상품의 상세페이지로 이동
+- 최근 본 상품이 없을시 해당 섹션 전체 숨김
+
+3. 최근 검색어
+- 최대 10개까지 제공
+- 검색 최신순으로 정렬
+- 개별 삭제 가능
+- 전체 삭제 클릭시, confirm 메시지(최근검색어를 모두 삭제하시겠습니까?) 띄우기
+- 전체 삭제 완료시, 삭제 개수 메시지(ex. 00개가 삭제됐어요)
+- 최근 검색어 없을 시, 메시지 제공(최근 찾아봤던 내역이 없습니다.)
+
+4. 검색어 자동저장 끄기/켜기
+- 켜져있을 때, 검색한 것이 최근 검색어 목록에 저장됨.
+- 꺼져있을 때, 검색한 것이 최근 검색어에 목록에 저장 안됨. 최근 검색어 영역에는 메시지 제공(검색어 저장 기능이 꺼져있습니다.)
+- 켜기 버튼 클릭시, confirm(최근 검색어 저장 기능을 사용하시겠습니까?)
+- 끄기 버튼 클릭시, confirm(최근 검색어 저장 기능을 사용 중지하시겠습니까?)
+</details>
+
+<details>
+<summary>검색결과 페이지</summary>
+
+- 목록에 있는 상품 클릭시 해당상품 상세페이지로 이동
+
+1. 카테고리 탭
+- 검색시 기본으로 통합 페이지에 결과 제공
+- 결과 중 카드, 대출, 예적금, 청약에 해당하는 것만 볼 수 있는 탭임
+
+2. 통합 탭
+- 카테고리별로 최대 3개까지 결과 제공
+- 모두보기 버튼 클릭시 해당 카테고리의 결과를 더 제공
+
+3. 카드, 대출, 예적금, 청약
+- 정렬 버튼에 따라 상품 목록 순서 변경
+- 검색결과 없을 시 메시지(ex. '00'의 검색결과가 없어요 등등), 최근 검색어 목록 제공
+
 </details>
 
 <details>
@@ -184,10 +222,25 @@
 - **👎 Bad**
   - 아쉬웠던 점
 ### 이은영
-- **👍 Good**
-  - 좋았던 점
-- **👎 Bad**
-  - 아쉬웠던 점
+- 👍개발 관련
+  - redux에 대한 이해도가 낮아 기능을 제대로 구현 못한 것이 아쉬움.
+  - typescript를 사용한 프로젝트는 처음이었는데, 이해도가 낮아 협업에 맞게 더 다양하고 정확하게 사용하지 못한 것이 아쉬움. 다만 여러 에러에 대해 해결하는 법에 대해 알 수 있어 좋았음.
+  - 비즈니스 로직과 상태관리에 대해 아직 감은 잘 안오지만, 고민해볼 수 있는 경험이 됐음.
+  - 프로젝트 기간에 쫓겨 정말 효율적인지, 정말 필요한 기능인지, 모든 것에 대해 정말 그래야하는지 등 고민하는 시간이 적었던 것이 아쉬움.
+  - 구글링 능력이 또 한층 올라감. 모르는 것은 알면 된다는 것을 또 느낌.
+  - 데이터, UX/UI, 기능, 코드 등 모든 것에 대해 확장성을 고려해서 개발해야한다는 것을 깨달음.
+  - 이론 공부 및 기본기의 중요성을 또 깨달음.
+- 👍 협업 관련
+    - 회의록, 기능명세서, 와이드 프레임 등의 문서나 기타 명시적으로 볼 수 있는 것들로 공통의 생각을 정리하는 것이 필요하고 중요하다는 것을 느낌. 명시적이고 구체적일 수록 더 좋은 결과물이 나올 수 있고, 빈틈이 생길 수 있는 가능성이 줄어들 수 있다는 것을 깨달음.
+    - 일정조율 과정이 없었던 것이 아쉬움.
+    - 프로젝트로 해결할 수 있는 문제 및 목표를 더 명확히하는 기획 작업이 충분하지 않았다고 생각됨. 이로 인해 디자인이나 기능의 컨셉이 모호한 부분이 있었다고 생각함.
+    - 백엔드와 첫 협업 경험이어서 의논할 게 무엇이고, 어떤 역할을 해야하는지 파악하는게 쉽지 않았음.
+    - 기능 개발 전 백엔드와 논의단계에서 데이터별로 중복처리, 정렬, 데이터 타입에 대해 명확히 하는 것이 중요하다는 것을 알게 됨.
+    - 백엔드 서버 배포시, API가 기능대로 구현된 것이 맞는지/데이터 타입/반환 값을 전부 확인하는 것의 중요성을 알게 됨. 꼼꼼히 확인하지 못해서 작업 중간 또는 마지막에 수정 요청한 것들이 있었음.
+    - 1일 1회, 3일 1회 등 백엔드와 진행상황을 공유하는 룰이 있었다면, 더 원활한 소통을 통해 프로젝트에 대해서 놓치는 부분이 줄어들 수 있었을 거라고 생각함.
+    - 프로젝트의 전체 과정까지는 아니지만, 대략적인 흐름에 대해 파악할 수 있는 좋은 경험이었음.
+
+  
 ### 김효진
 - **👍 Good**
   - 좋았던 점
