@@ -34,7 +34,6 @@ const ModalLogout = ({ setModalOpen }: any) => {
 
   const logoutClick = async () => {
     const resPostLogout = await postLogout();
-    console.log(resPostLogout);
     navigate('/login');
   };
 

@@ -66,8 +66,6 @@ const EditUser = ({ setEditOpen }: any) => {
 
     const resPatchUser = await patchUser(newName, data.oldPassword, newPassword, newBirthday);
 
-    console.log(resPatchUser.status);
-
     if (resPatchUser.status === 'success') {
       navigate('/');
     } else {

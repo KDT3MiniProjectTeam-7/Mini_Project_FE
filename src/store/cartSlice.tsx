@@ -41,11 +41,8 @@ const cart = createSlice({
           status = true;
         }
       });
-      console.log(status);
 
       if (status) {
-        console.log('이슴');
-
         let copy = state.filter((item) => item.productId !== actions.payload.productId);
         delCartItems(actions.payload.productId);
         return copy;
