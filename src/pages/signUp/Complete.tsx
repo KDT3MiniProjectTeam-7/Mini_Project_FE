@@ -31,7 +31,7 @@ const Complete = () => {
 };
 
 const Container = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   padding: 100px 20px 110px;
   display: flex;
   justify-content: center;
@@ -116,7 +116,7 @@ const BottomContainer = styled.div`
     border: none;
     font-weight: bold;
     margin-top: 10px;
-    border-radius:50px;
+    border-radius: 50px;
   }
 `;
 

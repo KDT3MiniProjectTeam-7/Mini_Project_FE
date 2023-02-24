@@ -212,8 +212,8 @@ const UserInformation = (props: any) => {
 };
 
 const Form = styled.form`
-  height: 100vh;
-  padding: 60px 20px 110px;
+  min-height: 100vh;
+  padding: 60px 20px 100px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -281,7 +281,7 @@ const BottomContainer = styled.div`
     border: none;
     font-weight: bold;
     margin-top: 10px;
-    border-radius:50px;
+    border-radius: 50px;
   }
 `;
 
