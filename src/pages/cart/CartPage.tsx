@@ -6,6 +6,8 @@ import { ReducerType } from '../../store/store';
 import CartLists from '../all/CartLists';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { delAllItems } from '../../store/cartSlice';
 // 장바구니 전략필요.
 // 조회, 삭제, 추가 모두 당연히 api를 사용해야함
 // 그러나 state반영을 위하여 삭제와 추가는 redux와 연동을 할것임(action)
@@ -14,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 // persist로 구현하지않아도, app이나 index에서 불러오고 redux에 넣어두는 과정만 해두면 된다.
 const Cart = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!document.cookie) {
@@ -41,6 +44,15 @@ const Cart = () => {
         관심있는 상품을 <span>한번</span>에 만나보세요.
       </Title>
       <CartLists data={cartItems} />
+      {cartItems.length !== 0 && (
+        <SubmitButton
+          onClick={() => {
+            dispatch(delAllItems());
+          }}
+        >
+          장바구니 비우기
+        </SubmitButton>
+      )}
     </MainContainer>
   );
 };
@@ -56,5 +68,18 @@ const Title = styled.h1`
   span {
     color: rgb(14, 118, 255);
   }
+`;
+
+const SubmitButton = styled.button`
+  margin-top: 20px;
+  width: 100%;
+  height: 48px;
+  padding: 3px 8px;
+  color: #ffffff;
+  font-size: 17px;
+  background-color: rgb(14, 118, 255);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
 `;
 export default Cart;
