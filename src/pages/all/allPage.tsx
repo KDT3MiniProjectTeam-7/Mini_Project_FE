@@ -28,6 +28,16 @@ const ALL = () => {
 
   useEffect(() => {
     setCurPage(1);
+    const fetchData = async (page: number) => {
+      const data = await getCategoryItem(makeTagString(selectedTags), categoryArr[tabIndex].category, page);
+      setTotalPage(data.totalPage);
+
+      setResultData(data?.resultData);
+    };
+    fetchData(curPage);
+  }, [tabIndex, selectedTags]);
+
+  useEffect(() => {
     // 데이터 페칭 여기다 구현.
     const fetchData = async (page: number) => {
       const data = await getCategoryItem(makeTagString(selectedTags), categoryArr[tabIndex].category, page);
@@ -35,9 +45,10 @@ const ALL = () => {
 
       setResultData(data?.resultData);
     };
-
-    fetchData(curPage);
-  }, [tabIndex, selectedTags]);
+    if (curPage === 1) {
+      fetchData(curPage);
+    }
+  }, [curPage]);
 
   useEffect(() => {
     // 데이터 페칭 여기다 구현.
