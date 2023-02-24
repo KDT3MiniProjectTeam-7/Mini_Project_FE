@@ -10,7 +10,6 @@ import { getCategoryItem } from '../../common/api/Api';
 import { makeTagString } from '../../utils/makeTagString';
 import { useInView } from 'react-intersection-observer';
 import { Item } from '../../store/cartSlice';
-import { useNavigate } from 'react-router-dom';
 
 const ALL = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -26,14 +25,6 @@ const ALL = () => {
 
   // 무한스크롤용
   const [ref, inView] = useInView();
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!document.cookie) {
-      navigate('/intro');
-    }
-  });
 
   useEffect(() => {
     setCurPage(1);

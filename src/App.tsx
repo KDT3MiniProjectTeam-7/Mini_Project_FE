@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, ScrollRestoration, useNavigate } from 'react-router-dom';
+import { Outlet, ScrollRestoration, useLocation, useNavigate } from 'react-router-dom';
 import { GlobalStyle } from './common/style/Style';
 import Header from './components/Header';
 import TabBar from './components/TabBar';
@@ -8,12 +8,26 @@ import { getTokenFromCookies } from './utils/getTokenFromCookies';
 // 전체 공통 적용
 const App = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!getTokenFromCookies()) {
+    // 쿠키에 토큰이 없을 때, 접속 페이지로 보내기
+    if (
+      !getTokenFromCookies() &&
+      location.pathname !== '/intro' &&
+      location.pathname !== '/login' &&
+      location.pathname !== '/signup'
+    ) {
       navigate('/intro');
     }
-  }, []);
+    // 쿠키에 토큰이 있을 때, 접속/회원가입/로그인으로 이동 막기
+    else if (
+      getTokenFromCookies() &&
+      (location.pathname === '/intro' || location.pathname === '/login' || location.pathname === '/signup')
+    ) {
+      navigate('/');
+    }
+  });
 
   return (
     <>
@@ -25,12 +39,6 @@ const App = () => {
 
 // 헤더, 탭바 있음
 const IncludedLayout = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!document.cookie) navigate('/intro');
-  }, []);
-
   return (
     <>
       <Header />

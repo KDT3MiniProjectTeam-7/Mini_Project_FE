@@ -6,19 +6,12 @@ import { ReducerType } from '../../store/store';
 import { user } from '../../store/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import EditUser from './EditUser';
-import { getTokenFromCookies } from '../../utils/getTokenFromCookies';
 
 const MyPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!getTokenFromCookies()) {
-      navigate('/intro');
-    }
-  }, []);
 
   // 로그아웃 모달 노출
   const showModal = () => {
