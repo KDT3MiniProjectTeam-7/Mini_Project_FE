@@ -1,12 +1,17 @@
-import styled from 'styled-components';
+import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { patchUser } from '../../common/api/Api';
+import { ReducerType } from '../../store/store';
+import { user } from '../../store/userSlice';
 import { combineBirth } from '../../utils/combineBirth';
-import { postLogin, postUser } from '../../common/api/Api';
+import { IoMdClose } from 'react-icons/io';
 
 interface InputFormData {
-  email: string;
-  password: string;
+  oldPassword: string;
+  newPassword: string;
   passwordConfirm: string;
   name: string;
   birthYear: number;
@@ -19,18 +24,31 @@ interface InputFormData {
   };
 }
 
-const UserInformation = (props: any) => {
+const EditUser = ({ setEditOpen }: any) => {
   const {
     watch,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<InputFormData>({ mode: 'onBlur' });
+  } = useForm<InputFormData>({});
 
-  const password = useRef<any>();
-  password.current = watch('password');
+  const navigate = useNavigate();
 
-  const [signUpFail, setSignUpFail] = useState(false);
+  const newPassword = useRef<any>();
+  newPassword.current = watch('newPassword');
+  const birthYear = useRef<any>();
+  birthYear.current = watch('birthYear');
+  const birthMonth = useRef<any>();
+  birthMonth.current = watch('birthMonth');
+
+  let userData = useSelector<ReducerType, user>((state) => state.user);
+
+  const [patchFail, setPatchFail] = useState(false);
+
+  // 회원정보수정 끄기
+  const closeEdit = () => {
+    setEditOpen(false);
+  };
 
   // 자리수 체크(생년월일)
   const lengthCheck = (event: any, max: number) => {
@@ -39,60 +57,54 @@ const UserInformation = (props: any) => {
     }
   };
 
-  // 가입하기
   const onSubmit = async (data: any) => {
-    // 생일 통합
-    const birth = combineBirth(data.birthYear, data.birthMonth, data.birthDay);
+    const newName = data.name ? data.name : userData.name;
+    const newPassword = data.newPassword ? data.newPassword : data.oldPassword;
+    const newBirthday = data.birthYear
+      ? combineBirth(data.birthYear, data.birthMonth, data.birthDay)
+      : userData.birthday;
 
-    // 회원가입 api 호출
-    const resPostUser = await postUser(data.email, data.password, data.name, birth);
+    const resPatchUser = await patchUser(newName, data.oldPassword, newPassword, newBirthday);
 
-    // 회원가입 성공시 자동 로그인
-    if (resPostUser.status === 'success') {
-      // 로그인 api 호출
-      const resPostLogin = await postLogin(data.email, data.password);
-      if (resPostLogin.status === 'success') {
-        props.setPage('Complete');
-      } else {
-        console.log('자동 로그인 에러', resPostLogin);
-      }
+    if (resPatchUser.status === 'success') {
+      navigate('/');
     } else {
-      // 회원가입 실패
-      console.log('회원가입 에러', resPostUser.status);
-      setSignUpFail(true);
+      setPatchFail(true);
+      console.log('패치패일메시지', patchFail);
     }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
+      <Title>
+        {/* 회원정보 수정 */}
+        <IoMdClose onClick={closeEdit} />
+      </Title>
       <InputBox>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="oldPassword">현재 비밀번호</label>
         <Input
-          id="email"
-          type="text"
-          {...register('email', {
-            required: 'Email을 입력해주세요.',
-            pattern: {
-              value: /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,5}$/i,
-              message: 'Email을 정확히 입력해주세요.',
-            },
+          id="oldPassword"
+          type="password"
+          placeholder="※필수입력"
+          {...register('oldPassword', {
+            required: '현재 비밀번호를 입력해주세요.',
           })}
         />
-        {signUpFail ? (
-          <Caution>이미 가입된 Eamil 입니다.</Caution>
-        ) : errors.email ? (
-          <Caution>{errors.email?.message}</Caution>
+        {patchFail ? (
+          <Caution>비밀번호를 다시 입력해주세요.</Caution>
+        ) : errors.oldPassword ? (
+          <Caution>{errors.oldPassword?.message}</Caution>
         ) : (
           <Caution />
         )}
       </InputBox>
+
       <InputBox>
-        <label htmlFor="password">비밀번호</label>
+        <label htmlFor="newPassword">새 비밀번호</label>
         <Input
-          id="password"
+          id="newPassword"
           type="password"
-          {...register('password', {
-            required: '비밀번호를 입력해주세요.(8자 이상, 20자 이하)',
+          {...register('newPassword', {
             minLength: {
               value: 8,
               message: '8자 이상, 20자 이하로 입력해주세요.',
@@ -103,35 +115,34 @@ const UserInformation = (props: any) => {
             },
           })}
         />
-        {errors.password ? <Caution>{errors.password?.message}</Caution> : <Caution />}
+        {errors.newPassword ? <Caution>{errors.newPassword?.message}</Caution> : <Caution />}
       </InputBox>
+
       <InputBox>
-        <label htmlFor="passwordConfirm">비밀번호 확인</label>
+        <label htmlFor="passwordConfirm">새 비밀번호 확인</label>
         <Input
           id="passwordConfirm"
           type="password"
           {...register('passwordConfirm', {
-            required: '비밀번호 확인이 필요합니다.',
-            validate: (value) => value === password.current,
+            required: newPassword.current ? '비밀번호 확인이 필요합니다.' : false,
+            validate: (value) => {
+              return value === newPassword.current
+                ? true
+                : !value && !newPassword.current
+                ? true
+                : '비밀번호가 일치하지 않습니다.';
+            },
           })}
         />
-        {errors.passwordConfirm ? (
-          errors.passwordConfirm?.type === 'validate' ? (
-            <Caution>비밀번호가 일치하지 않습니다.</Caution>
-          ) : (
-            <Caution>{errors.passwordConfirm?.message}</Caution>
-          )
-        ) : (
-          <Caution />
-        )}
+        {errors.passwordConfirm ? <Caution>{errors.passwordConfirm?.message}</Caution> : <Caution />}
       </InputBox>
+
       <InputBox>
         <label htmlFor="name">이름</label>
         <Input
           id="name"
           type="text"
           {...register('name', {
-            required: '필수 입력 항목입니다.',
             minLength: {
               value: 2,
               message: '2자 이상 입력해주세요.',
@@ -156,7 +167,6 @@ const UserInformation = (props: any) => {
             placeholder="년도(4자리)"
             onInput={(event) => lengthCheck(event, 4)}
             {...register('birthYear', {
-              required: '태어난 년도(4자리)를 입력해주세요.',
               min: {
                 value: 1900,
                 message: '태어난 년도(4자리)를 정확하게 입력해주세요.',
@@ -172,7 +182,7 @@ const UserInformation = (props: any) => {
             placeholder="월"
             onInput={(event) => lengthCheck(event, 2)}
             {...register('birthMonth', {
-              required: '태어난 월을 입력해주세요.',
+              required: birthYear.current ? '태어난 월을 입력해주세요.' : false,
               min: {
                 value: 1,
                 message: '태어난 월을 정확하게 입력해주세요.',
@@ -188,7 +198,7 @@ const UserInformation = (props: any) => {
             placeholder="일"
             onInput={(event) => lengthCheck(event, 2)}
             {...register('birthDay', {
-              required: '태어난 일을 입력해주세요.',
+              required: birthMonth.current ? '태어난 일을 입력해주세요.' : false,
               min: {
                 value: 1,
                 message: '태어난 일을 정확하게 입력해주세요.',
@@ -204,27 +214,36 @@ const UserInformation = (props: any) => {
           (errors.birthMonth && <Caution>{errors.birthMonth?.message}</Caution>) ||
           (errors.birthDay && <Caution>{errors.birthDay?.message}</Caution>) || <Caution />}
       </InputBox>
-      <BottomContainer>
-        <input className="nextButton" type="submit" value="회원 가입하기" />
-      </BottomContainer>
+      <Submit className="nextButton" type="submit" value="회원정보 수정하기" />
     </Form>
   );
 };
 
 const Form = styled.form`
-  min-height: 100vh;
-  padding: 60px 20px 100px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  margin: 0 auto;
+  margin: 70px auto 60px;
+  background-color: white;
+  z-index: 1000;
+`;
+
+const Title = styled.h2`
+  font-size: var(--font-l);
+  margin-bottom: 12px;
   position: relative;
+
+  svg {
+    position: absolute;
+    right: 4px;
+    top: -8px;
+    width: 30px;
+    height: 30px;
+    color: var(--gray-color);
+  }
 `;
 
 const InputBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
 
   label {
     font-size: var(--font-s);
@@ -237,6 +256,10 @@ const InputBox = styled.div`
       width: 30%;
     }
   }
+  #oldPassword::placeholder {
+    color: var(--red-color);
+    opacity: 0.5;
+  }
 `;
 
 const Input = styled.input`
@@ -245,7 +268,7 @@ const Input = styled.input`
   box-sizing: border-box;
   border: none;
   border-bottom: 2px solid var(--lightgray-color);
-  margin-top: 6px;
+  margin-top: 3px;
   margin-bottom: 3px;
 
   :focus {
@@ -260,29 +283,20 @@ const Caution = styled.small`
   height: 10px;
 `;
 
-const BottomContainer = styled.div`
+const Submit = styled.input`
   width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding: 20px;
-  box-sizing: border-box;
+  font-size: var(--font-s);
+  font-weight: 500;
+  color: #ffffff;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  background: var(--main-color);
+  transition: all 0.3s ease-in-out;
 
-  .nextButton {
-    width: 100%;
-    background-color: var(--main-color);
-    height: 50px;
-    font-size: var(--font-m);
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    border: none;
-    font-weight: bold;
-    margin-top: 10px;
-    border-radius: 50px;
+  &:active {
+    opacity: 0.7;
   }
 `;
 
-export default UserInformation;
+export default EditUser;

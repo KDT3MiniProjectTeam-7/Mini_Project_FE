@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
 import { useState } from 'react';
 import { postLogin } from '../../common/api/Api';
+import logo from '../../assets/logo2_transparent.png';
 
 interface InputFormData {
   email: string;
@@ -11,13 +12,13 @@ interface InputFormData {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<InputFormData>();
-
-  const navigate = useNavigate();
 
   const [loginFail, setLoginFail] = useState(false);
 
@@ -33,7 +34,7 @@ const Login = () => {
 
   return (
     <MainContainer>
-      <Logo />
+      <Logo src={logo} />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           id="email"
@@ -76,17 +77,17 @@ const MainContainer = styled.main`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   gap: 20px;
 `;
 
 const Logo = styled.img.attrs({
-  src: 'https://blog.kakaocdn.net/dn/d0l1Pv/btqGmONiPmW/OluDzrKeEx79dtll0GFVik/img.png',
   alt: '로고 이미지',
 })`
-  width: 100%;
+  width: 260px;
   max-width: 400px;
+  margin-bottom: 50px;
 `;
 
 const Form = styled.form`
@@ -103,6 +104,7 @@ const Input = styled.input`
   box-sizing: border-box;
   border: none;
   border-bottom: 2px solid var(--lightblue-color);
+  padding: 0 10px;
 
   :focus {
     outline: none;
@@ -129,6 +131,7 @@ const Submit = styled(Input)`
   text-decoration: none;
   border: none;
   font-weight: bold;
+  border-radius: 20px;
 `;
 
 const Link = styled(LinkForm)`

@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { TfiClose } from 'react-icons/tfi';
 import Toast from '../../../components/Toast';
 import { getSearchKeywords, deleteSearchKeywordsSingle, deleteSearchKeywordsAll } from '../../../common/api/Api';
@@ -64,8 +64,12 @@ const KeywordsList = () => {
     }
   };
 
+  // 검색결과에서만 padding 값
+  const location = useLocation();
+  const findResultsPage = location.pathname.slice(0, 8) === '/search/';
+
   return (
-    <Container>
+    <Container className={findResultsPage ? 'resultPage' : ''}>
       <div>
         <h4>최근에 찾아봤던</h4>
         <button className="autoSave" onClick={handleAutoSave}>
@@ -107,6 +111,10 @@ const KeywordsList = () => {
 const Container = styled.div`
   font-size: var(--font-m);
 
+  &.resultPage {
+    padding: 0 20px;
+  }
+
   button {
     cursor: pointer;
     background-color: transparent;
@@ -115,6 +123,11 @@ const Container = styled.div`
 
     color: var(--gray-color);
     font-size: var(--font-s);
+    transition: all 0.3s ease-in-out;
+
+    &:active {
+      opacity: 0.7;
+    }
   }
 
   div {
@@ -139,9 +152,14 @@ const List = styled.li`
   border-bottom: 1px solid #ebebeb;
 
   color: var(--black-color);
+  transition: all 0.2s ease-in-out;
 
   button {
     font-size: 12px;
+  }
+
+  &:active {
+    opacity: 0.7;
   }
 `;
 

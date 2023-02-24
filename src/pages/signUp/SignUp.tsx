@@ -40,7 +40,7 @@ const SignUp = () => {
 };
 
 const MainContainer = styled.main`
-  height: 100vh;
+  min-height: 100vh;
   padding: 0;
   margin: 0 auto;
   position: relative;
@@ -49,7 +49,7 @@ const MainContainer = styled.main`
 const BottomContainer = styled.div<StepData>`
   width: 100%;
   position: absolute;
-  bottom: 70px;
+  bottom: 60px;
   padding: 20px;
 
   .step {
@@ -59,6 +59,7 @@ const BottomContainer = styled.div<StepData>`
   .stepNumber {
     position: absolute;
     font-size: var(--font-xs);
+    color: var(--gray-color);
     bottom: 8px;
     right: 0;
   }
@@ -69,6 +70,7 @@ const BottomContainer = styled.div<StepData>`
     height: 4px;
     width: 100%;
     background-color: var(--lightgray-color);
+    border-radius: 10px;
   }
 
   .line--blue {
@@ -78,6 +80,7 @@ const BottomContainer = styled.div<StepData>`
     transition-property: width, opacity;
     transition-duration: 0.7s;
     transition-timing-function: ease;
+    border-radius: 10px;
     ${({ step }) =>
       step === '1'
         ? css`

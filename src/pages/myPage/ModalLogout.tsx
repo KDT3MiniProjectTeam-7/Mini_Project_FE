@@ -23,18 +23,17 @@ const ModalLogout = ({ setModalOpen }: any) => {
     };
     // 이벤트 핸들러 등록
     document.addEventListener('mousedown', handler);
-    // document.addEventListener('touchstart', handler); // 모바일 대응
+    document.addEventListener('touchstart', handler); // 모바일 대응
 
     return () => {
       // 이벤트 핸들러 해제
       document.removeEventListener('mousedown', handler);
-      // document.removeEventListener('touchstart', handler); // 모바일 대응
+      document.removeEventListener('touchstart', handler); // 모바일 대응
     };
   });
 
   const logoutClick = async () => {
     const resPostLogout = await postLogout();
-    console.log(resPostLogout);
     navigate('/login');
   };
 
@@ -78,6 +77,11 @@ const Modal = styled.section`
     bottom: 0;
     border-top: 1px solid var(--lightgray-color);
     font-size: var(--font-m);
+    transition: all 0.3s ease-in-out;
+
+    &:active {
+      color: var(--main-color);
+    }
   }
 
   .logout {

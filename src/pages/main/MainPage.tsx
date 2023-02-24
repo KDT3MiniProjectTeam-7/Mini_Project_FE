@@ -5,13 +5,14 @@ import styled from 'styled-components';
 import { getCart, getRecommendation, getUserInfo } from '../../common/api/Api';
 import { setCartItems } from '../../store/cartSlice';
 import { ReducerType } from '../../store/store';
-import { setUserItems, user } from '../../store/userSlice';
+import { setRecommendProducts, ProductAll, Product } from '../../store/recommendProductsSlice';
+import { setUserData, user } from '../../store/userSlice';
 
 //state 를 객체로 선언
 //useReducer 사용 가장 추천
 
 const Main = () => {
-  const [data, setData] = useState<any>();
+  const [showProduct, setShowProduct] = useState(false);
 
   // toggle state
   const [toggleBtn1, setToggleBtn1] = useState<boolean>(false);
@@ -41,16 +42,16 @@ const Main = () => {
 
   const dispatch = useDispatch();
 
-  let userData = useSelector<ReducerType, user>((state) => state.user)
-  
+  let userData = useSelector<ReducerType, user>((state) => state.user);
+  let userRecommendProduct = useSelector<ReducerType, ProductAll>((state) => state.recommendProducts);
+
   useEffect(() => {
     // 유저데이터 받아서 로컬 저장
     const getUserData = async () => {
-      const userData = await getUserInfo()
-      dispatch(setUserItems(userData));
-      console.log(userData)
-    }
-    getUserData()
+      const userData = await getUserInfo();
+      dispatch(setUserData(userData));
+    };
+    getUserData();
 
     // 카트데이터 받아서 로컬 저장
     const getCartData = async () => {
@@ -61,44 +62,31 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    // 로컬에 저장된 유저데이터 활용 추천상품 조회
-    const getUser = async () => {  
-      const getData = await getRecommendation(userData.tags.replaceAll('\\n', '&'));
-      setData(getData);
-    }
+    // 로컬에 저장된 유저데이터 활용 추천상품 로칼 저장
+    const getUser = async () => {
+      if (userData.tags) {
+        const getData = await getRecommendation(userData.tags.replaceAll('\\n', '&'));
+        dispatch(setRecommendProducts(getData));
+        setShowProduct(true);
+      } else {
+        setShowProduct(false);
+      }
+    };
     getUser();
   }, [userData]);
-
-  interface Product {
-    annualFee?: number;
-    benefits?: string[];
-    category: string;
-    companyImage: string;
-    companyName: string;
-    productId: number;
-    productName: string;
-    productURL: string;
-    thumbnail: string | undefined;
-    highRate?: string;
-    lowRate?: string;
-    qualification?: string[];
-    bound?: string[] | number;
-    aboutRate?: string[];
-  }
 
   return (
     <>
       <Container>
-        
         <Title>
           안녕하세요 <span>{userData.name}</span>님
           <br />
           맞춤 추천 상품입니다.
         </Title>
-        
-        {data ? (
+
+        {userRecommendProduct && showProduct ? (
           <>
-            {data.card.length > 0 && (
+            {userRecommendProduct.card?.length > 0 && (
               <RecommenSection>
                 <h2
                   onClick={() => {
@@ -111,26 +99,30 @@ const Main = () => {
 
                 <div
                   className={toggleBtn1 ? 'showMenu' : undefined}
-                  style={{ maxHeight: data.card.length * 170 + data.card.length * 10 + 'px' }}
+                  style={{
+                    maxHeight: userRecommendProduct.card.length * 170 + userRecommendProduct.card.length * 10 + 'px',
+                  }}
                 >
-                  {data.card.map((item: Product) => {
+                  {userRecommendProduct.card.map((item: Product) => {
                     return (
-                      <ContainerBox key={item.productId}>
-                        <CardContainer>
-                          <p>
-                            <span>{item.companyName}</span>
-                            {item.productName}
-                          </p>
-                          <img src={item.thumbnail} alt="카드 이미지" />
-                        </CardContainer>
-                      </ContainerBox>
+                      <Link to={`/detail/card/${item.productId}`} key={item.productId}>
+                        <ContainerBox>
+                          <CardContainer>
+                            <p>
+                              <span>{item.companyName}</span>
+                              {item.productName}
+                            </p>
+                            <img src={item.thumbnail} alt="카드 이미지" />
+                          </CardContainer>
+                        </ContainerBox>
+                      </Link>
                     );
                   })}
                 </div>
               </RecommenSection>
             )}
 
-            {data.savings.length > 0 && (
+            {userRecommendProduct.savings?.length > 0 && (
               <RecommenSection>
                 <h2
                   onClick={() => {
@@ -143,24 +135,29 @@ const Main = () => {
 
                 <div
                   className={toggleBtn2 ? 'showMenu' : undefined}
-                  style={{ maxHeight: data.savings.length * 170 + data.savings.length * 10 + 'px' }}
+                  style={{
+                    maxHeight:
+                      userRecommendProduct.savings.length * 170 + userRecommendProduct.savings.length * 10 + 'px',
+                  }}
                 >
-                  {data.savings.map((item: Product) => {
+                  {userRecommendProduct.savings.map((item: Product) => {
                     return (
-                      <SavingsContainer key={item.productId}>
-                        <img src={item.companyImage} alt="회사 로고" />
-                        <p>
-                          <span>{item.companyName}</span>
-                          {item.productName}
-                        </p>
-                      </SavingsContainer>
+                      <Link to={`/detail/savings/${item.productId}`} key={item.productId}>
+                        <SavingsContainer>
+                          <img src={item.companyImage} alt="회사 로고" />
+                          <p>
+                            <span>{item.companyName}</span>
+                            {item.productName}
+                          </p>
+                        </SavingsContainer>
+                      </Link>
                     );
                   })}
                 </div>
               </RecommenSection>
             )}
 
-            {data.loan.length > 0 && (
+            {userRecommendProduct.loan?.length > 0 && (
               <RecommenSection>
                 <h2
                   onClick={() => {
@@ -172,31 +169,35 @@ const Main = () => {
                 </h2>
                 <div
                   className={toggleBtn3 ? 'showMenu' : undefined}
-                  style={{ maxHeight: data.loan.length * 170 + data.loan.length * 10 + 'px' }}
+                  style={{
+                    maxHeight: userRecommendProduct.loan.length * 170 + userRecommendProduct.loan.length * 10 + 'px',
+                  }}
                 >
-                  {data.loan.map((item: Product) => {
+                  {userRecommendProduct.loan.map((item: Product) => {
                     return (
-                      <LoanContainer key={item.productId}>
-                        <div>
-                          <img src={item.companyImage} alt="카드 이미지" />
-                          <p>
-                            <span>{item.companyName}</span>
-                            {item.productName}
-                          </p>
-                        </div>
-                        <div>
-                          <p>
-                            금리 <span>{item.lowRate}</span>~<span>{item.highRate}</span>
-                          </p>
-                        </div>
-                      </LoanContainer>
+                      <Link to={`/detail/loan/${item.productId}`} key={item.productId}>
+                        <LoanContainer>
+                          <div>
+                            <img src={item.companyImage} alt="카드 이미지" />
+                            <p>
+                              <span>{item.companyName}</span>
+                              {item.productName}
+                            </p>
+                          </div>
+                          <div>
+                            <p>
+                              금리 <span>{item.lowRate}</span>~<span>{item.highRate}</span>
+                            </p>
+                          </div>
+                        </LoanContainer>
+                      </Link>
                     );
                   })}
                 </div>
               </RecommenSection>
             )}
 
-            {data.subscription.length > 0 && (
+            {userRecommendProduct.subscription?.length > 0 && (
               <RecommenSection>
                 <h2
                   onClick={() => {
@@ -208,24 +209,31 @@ const Main = () => {
                 </h2>
                 <div
                   className={toggleBtn4 ? 'showMenu' : undefined}
-                  style={{ maxHeight: data.subscription.length * 170 + data.subscription.length * 10 + 'px' }}
+                  style={{
+                    maxHeight:
+                      userRecommendProduct.subscription.length * 170 +
+                      userRecommendProduct.subscription.length * 10 +
+                      'px',
+                  }}
                 >
-                  {data.subscription.map((item: Product) => {
+                  {userRecommendProduct.subscription.map((item: Product) => {
                     return (
-                      <SubscriptionContainer key={item.productId}>
-                        <div>
-                          <img src={item.companyImage} alt="카드 이미지" />
-                          <p>
-                            <span>{item.companyName}</span>
-                            {item.productName}
-                          </p>
-                        </div>
-                        <div>
-                          <p>
-                            최고금리<span> {item.highRate}</span>
-                          </p>
-                        </div>
-                      </SubscriptionContainer>
+                      <Link to={`/detail/subscription/${item.productId}`} key={item.productId}>
+                        <SubscriptionContainer>
+                          <div>
+                            <img src={item.companyImage} alt="카드 이미지" />
+                            <p>
+                              <span>{item.companyName}</span>
+                              {item.productName}
+                            </p>
+                          </div>
+                          <div>
+                            <p>
+                              최고금리<span> {item.highRate}</span>
+                            </p>
+                          </div>
+                        </SubscriptionContainer>
+                      </Link>
                     );
                   })}
                 </div>
@@ -253,14 +261,14 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom:150px;
+  margin-bottom: 150px;
 `;
 
 const Title = styled.h1`
   font-size: 22px;
   font-weight: 500;
   line-height: 1.5;
-  margin-top: 30px;
+  margin-top: 10px;
 
   span {
     color: var(--main-color);
@@ -406,7 +414,7 @@ const LoanContainer = styled.div`
       font-size: 20px;
       font-weight: 500;
       color: #eee;
-      line-height:1.2;
+      line-height: 1.2;
 
       span {
         display: block;

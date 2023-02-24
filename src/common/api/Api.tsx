@@ -1,31 +1,43 @@
+import { getTokenFromCookies } from '../../utils/getTokenFromCookies';
 import { defaultInstance, authApi } from './Axios';
 
 const BASE_URL = import.meta.env.VITE_HOST_URL;
 let token;
-let authInstance : any;
+let authInstance: any;
 
 // 변하는 쿠키값을 반영해서 instance 정의
 const Instance = () => {
-  token = document.cookie.slice(12)
-  authInstance = authApi(BASE_URL , token);
-} 
+  token = getTokenFromCookies();
+  authInstance = authApi(BASE_URL, token);
+};
 
 export const postCartItems = async (id: number) => {
-  Instance()
-  
+  Instance();
+
   try {
+    Instance();
     const params = { productId: id };
-    await defaultInstance.post('/cart', params);
+    const data = await authInstance.post('/cart', params);
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
+export const delAllCartItems = async () => {
+  Instance();
+
+  try {
+    const data = await authInstance.delete('/cart/all');
   } catch (err: any) {
     console.log(err.message);
   }
 };
 
 export const delCartItems = async (id: number) => {
-  Instance()
+  Instance();
 
   try {
-    await authInstance.delete('/cart', {
+    const data = await authInstance.delete('/cart', {
       data: {
         productId: id,
       },
@@ -37,7 +49,7 @@ export const delCartItems = async (id: number) => {
 
 // 최근 검색어
 export const getSearchKeywords = async () => {
-  Instance()
+  Instance();
 
   try {
     const { data } = await authInstance.get('/user/keywords');
@@ -48,7 +60,7 @@ export const getSearchKeywords = async () => {
 };
 
 export const addSearchKeywords = async (keywords: string) => {
-  Instance()
+  Instance();
 
   try {
     await authInstance.post('/user/keywords', { searchContent: keywords });
@@ -58,7 +70,7 @@ export const addSearchKeywords = async (keywords: string) => {
 };
 
 export const deleteSearchKeywordsSingle = async (searchId: number) => {
-  Instance()
+  Instance();
 
   try {
     await authInstance.delete('/user/keywords', { data: { searchId: searchId } });
@@ -68,7 +80,7 @@ export const deleteSearchKeywordsSingle = async (searchId: number) => {
 };
 
 export const deleteSearchKeywordsAll = async () => {
-  Instance()
+  Instance();
 
   try {
     const { data } = await authInstance.delete('/user/keywords/all');
@@ -80,7 +92,7 @@ export const deleteSearchKeywordsAll = async () => {
 
 // 최근 본 상품
 export const getRecentProduct = async () => {
-  Instance()
+  Instance();
 
   try {
     const { data } = await authInstance.get('/user/recentproducts');
@@ -91,7 +103,7 @@ export const getRecentProduct = async () => {
 };
 
 export const addRecentProduct = async (productId: number) => {
-  Instance()
+  Instance();
 
   try {
     const params = { productId: productId };
@@ -105,7 +117,7 @@ export const addRecentProduct = async (productId: number) => {
 export const getSearchResults = async (title: string, category: string, page: number) => {
   try {
     const { data } = await defaultInstance.get(`/search?title=${title}&category=${category}&page=${page}`);
-    return data.resultData;
+    return data;
   } catch (err: any) {
     console.log(err.message);
   }
@@ -114,19 +126,17 @@ export const getSearchResults = async (title: string, category: string, page: nu
 export const getPost = async () => {
   try {
     const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`);
-
     return data;
-  } catch (error) {
-    console.log(error);
+  } catch (err: any) {
+    console.log(err.message);
   }
 };
 
 export const getCart = async () => {
-  Instance()
+  Instance();
 
   try {
     const { data } = await authInstance.get('/cart');
-
     return data;
   } catch (err: any) {
     console.log(err.message);
@@ -134,14 +144,13 @@ export const getCart = async () => {
 };
 
 export const postTags = async (tags: string[]) => {
-  Instance()
-  
+  Instance();
+
   try {
     const params = { tags: tags };
     const { data } = await authInstance.post(`/user/tags`, params);
-    console.log(data, tags);
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    console.log(err.message);
   }
 };
 
@@ -155,25 +164,22 @@ export const getCategoryItem = async (tags: string, category: string, page: numb
 };
 
 export const getUserInfo = async () => {
-  Instance()
+  Instance();
 
   try {
     const { data } = await authInstance.get(`/user`);
-    console.log('성공');
-
     return data;
   } catch (err: any) {
-    console.log(err);
+    console.log(err.message);
   }
 };
 
 export const getRecommendation = async (tags: string) => {
   try {
     const { data } = await defaultInstance.get(`/Recommendation/${tags}`);
-
     return data;
   } catch (err: any) {
-    console.log(err);
+    console.log(err.message);
   }
 };
 
@@ -208,6 +214,8 @@ export const postLogin = async (email: string, password: string) => {
       email: email,
       password: password,
     });
+    // 로그인 시, 로컬스토리지 클리어
+    localStorage.clear();
     if (data.status === 'success') {
       document.cookie = `accessToken=${data.accessToken}; max-age=3600`;
     }
@@ -219,8 +227,8 @@ export const postLogin = async (email: string, password: string) => {
 
 // 로그아웃
 export const postLogout = async () => {
-  Instance()
-  
+  Instance();
+
   try {
     // key value로 바꿔주면 업데이트
     const data = await authInstance.post('logout');
@@ -228,5 +236,21 @@ export const postLogout = async () => {
     return data;
   } catch (err: any) {
     console.log('로그아웃 api 에러', err.message);
+  }
+};
+
+// 회원정보 수정
+export const patchUser = async (name?: string, oldPassword?: string, newPassword?: string, birth?: string) => {
+  Instance();
+  try {
+    const { data } = await authInstance.patch('user', {
+      name: name,
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+      birth: birth,
+    });
+    return data;
+  } catch (err: any) {
+    console.log('회원정보 수정 api 에러', err.message);
   }
 };

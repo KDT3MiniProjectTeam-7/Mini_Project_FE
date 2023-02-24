@@ -6,7 +6,6 @@ import Savings from './Savings';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { addRecentProduct } from '../../common/api/Api';
-
 //각 카테고리별로 레이아웃 제작후 detailPage에 어떤 카테고리 띄울지 결정
 
 const Detail = () => {

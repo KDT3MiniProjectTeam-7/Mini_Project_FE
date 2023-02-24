@@ -50,7 +50,9 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
                         <p>{data.productName}</p>
                       </div>
                     </div>
-                    <IoChevronForwardOutline color="#969696" />
+                    <Icon>
+                      <IoChevronForwardOutline color="#969696" size="16" />
+                    </Icon>
                   </Product>
                 ))
               : ''}
@@ -67,7 +69,9 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
                         <p>{data.companyName}</p>
                       </div>
                     </div>
-                    <IoChevronForwardOutline color="#969696" />
+                    <Icon>
+                      <IoChevronForwardOutline color="#969696" size="21" />
+                    </Icon>
                   </Product>
                 ))
               : ''}
@@ -84,7 +88,9 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
                         <p>{data.companyName}</p>
                       </div>
                     </div>
-                    <IoChevronForwardOutline color="#969696" />
+                    <Icon>
+                      <IoChevronForwardOutline color="#969696" size="21" />
+                    </Icon>
                   </Product>
                 ))
               : ''}
@@ -101,7 +107,9 @@ const ResultsTotal = ({ setTabIndex }: TabProps) => {
                         <p>{data.companyName}</p>
                       </div>
                     </div>
-                    <IoChevronForwardOutline color="#969696" />
+                    <Icon>
+                      <IoChevronForwardOutline color="#969696" size="15" />
+                    </Icon>
                   </Product>
                 ))
               : ''}
@@ -125,10 +133,6 @@ const Container = styled.section`
 const Desc = styled.ol`
   border-bottom: 20px solid var(--lightgray-color);
 
-  li + li {
-    margin-top: 40px;
-  }
-
   button {
     border: none;
     background-color: transparent;
@@ -140,6 +144,14 @@ const Desc = styled.ol`
     color: var(--main-color);
     text-align: center;
     font-size: var(--font-m);
+
+    &:active {
+      opacity: 0.7;
+    }
+  }
+
+  li + li {
+    margin-top: 15px;
   }
 `;
 
@@ -147,7 +159,14 @@ const Product = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  height: 70px;
+  padding: 10px 20px;
+  transition: all 0.3s ease-in-out;
+
+  &:active {
+    scale: 0.98;
+    background-color: var(--lightgray-color);
+  }
 
   & > div {
     display: flex;
@@ -182,6 +201,13 @@ const Image = styled.div`
     max-width: 40px;
     max-height: 40px;
   }
+`;
+
+const Icon = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 30px;
+  width: 23px;
 `;
 
 export default ResultsTotal;
