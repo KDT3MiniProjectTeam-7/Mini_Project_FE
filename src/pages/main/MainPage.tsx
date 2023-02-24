@@ -63,8 +63,10 @@ const Main = () => {
   useEffect(() => {
     // 로컬에 저장된 유저데이터 활용 추천상품 조회
     const getUser = async () => {  
-      const getData = await getRecommendation(userData.tags.replaceAll('\\n', '&'));
-      setData(getData);
+      if(userData.tags) {
+        const getData = await getRecommendation(userData.tags.replaceAll('\\n', '&'));
+        setData(getData);
+      }
     }
     getUser();
   }, [userData]);

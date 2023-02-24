@@ -15,7 +15,11 @@ const MyPage = () => {
   };
 
   let userData = useSelector<ReducerType, user>((state) => state.user)
-  let userTag = userData.tags.replaceAll('\\n', ' ').split(' ');
+  let userTag;
+  
+  if(userData.tags) {
+    userTag = userData.tags.replaceAll('\\n', ' ').split(' ');
+  }
 
   return (
     <main>
@@ -38,7 +42,7 @@ const MyPage = () => {
             </div>
           </User>
           {
-            userData.tags.length > 0 ? (
+            userTag ? (
               <Interest>
                 <div>
                   <p>{userData.name}님의 관심 목록</p>
