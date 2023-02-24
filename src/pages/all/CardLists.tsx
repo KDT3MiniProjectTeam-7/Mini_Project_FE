@@ -22,7 +22,7 @@ const CardLists = ({ data }: { data: Item[] }) => {
               <h1>{card.productName}</h1>
               <p>{card.companyName}</p>
             </div>
-            <AiOutlineRight size="23" className="wish" />
+            <AiOutlineRight size="21" className="wish" color="rgb(150,150,150)" />
           </Link>
         </CardContainer>
       ))}

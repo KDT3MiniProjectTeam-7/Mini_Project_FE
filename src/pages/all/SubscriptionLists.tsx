@@ -21,7 +21,7 @@ const SubscriptionLists = ({ data }: { data: Item[] }) => {
               <h1>{subscription.productName}</h1>
               <p>{subscription.companyName}</p>
             </div>
-            <AiOutlineRight size="23" className="wish" />
+            <AiOutlineRight size="21" className="wish" color="rgb(150,150,150)" />
           </Link>
         </SubscriptionContainer>
       ))}

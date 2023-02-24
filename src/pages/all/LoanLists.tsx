@@ -21,7 +21,7 @@ const LoanLists = ({ data }: { data: Item[] }) => {
               <h1>{loan.productName}</h1>
               <p>{loan.companyName}</p>
             </div>
-            <AiOutlineRight size="23" className="wish" />
+            <AiOutlineRight size="21" className="wish" color="rgb(150,150,150)" />
           </Link>
         </LoanContainer>
       ))}
