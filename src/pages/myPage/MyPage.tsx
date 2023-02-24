@@ -22,10 +22,10 @@ const MyPage = () => {
     setEditOpen(true);
   };
 
-  let userData = useSelector<ReducerType, user>((state) => state.user)
+  let userData = useSelector<ReducerType, user>((state) => state.user);
   let userTag;
-  
-  if(userData.tags) {
+
+  if (userData.tags) {
     userTag = userData.tags.replaceAll('\\n', ' ').split(' ');
   }
 
@@ -51,25 +51,26 @@ const MyPage = () => {
               </p>
             </div>
           </User>
-          {
-            userTag ? (
-              <Interest>
-                <div>
-                  <p>{userData.name}님의 관심 목록</p>
-                  <Button> <Link to={"/survey"}>테스트 다시하기</Link> </Button>
-                </div>
-                <div className="itemSection">
-                  {userTag.map((item, index) => (
-                    <div className="item" key={index}>
-                      {item}
-                    </div>
-                  ))}
-                </div>
-                </Interest>
-            ) : (
-              null
-            )
-          }
+          {userTag ? (
+            <Interest>
+              <div>
+                <p>{userData.name}님의 관심 목록</p>
+                <Button>
+                  {' '}
+                  <Link to={'/survey'} className="testAgain">
+                    테스트 다시하기
+                  </Link>{' '}
+                </Button>
+              </div>
+              <div className="itemSection">
+                {userTag.map((item, index) => (
+                  <div className="item" key={index}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </Interest>
+          ) : null}
           <Logout onClick={showModal}>로그아웃</Logout>
         </>
       )}
@@ -102,6 +103,7 @@ const User = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
   & > div:first-child {
     width: 100%;
     display: flex;
@@ -163,8 +165,20 @@ const Button = styled.button`
   border: none;
   background: var(--main-color);
   padding: 0 15px;
+  transition: all 0.3s ease-in-out;
+
   a {
     color: #fff;
+  }
+
+  &:active {
+    opacity: 0.7;
+  }
+
+  .testAgain {
+    &:active {
+      opacity: 0.7;
+    }
   }
 `;
 
@@ -176,6 +190,11 @@ const Logout = styled(Button)`
   font-size: 14px;
   font-weight: 500;
   margin-top: 20px;
+  transition: all 0.3s ease-in-out;
+
+  &:active {
+    opacity: 0.7;
+  }
 `;
 
 export default MyPage;

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Item } from '../store/cartSlice';
 import { ReducerType } from '../store/store';
+import logo from '../assets/financeSeven.png';
 
 const Header = () => {
   const cartItems = useSelector<ReducerType, Item[]>((state) => state.cart);
@@ -12,9 +13,11 @@ const Header = () => {
   return (
     <>
       <HeaderComponents>
-        <Logo to={'/'}>파이낸스세븐</Logo>
+        <Logo to={'/'}>
+          <img src={logo} alt="Finance seven Logo" />
+        </Logo>
         <StyledLink to={'/cart'}>
-          <AiOutlineHeart size="24" color="#424242" />
+          <AiOutlineHeart size="24" color="#424242" className="wish" />
           <WishLength>{cartItems.length}</WishLength>
         </StyledLink>
       </HeaderComponents>
@@ -39,6 +42,10 @@ const HeaderComponents = styled.header`
 const Logo = styled(Link)`
   color: var(--main-color);
   font-weight: 700;
+
+  img {
+    height: 40px;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -47,6 +54,13 @@ const StyledLink = styled(Link)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: all 0.3s ease-in-out;
+
+  .wish {
+    &:active {
+      scale: 0.98;
+    }
+  }
 `;
 
 const WishLength = styled.span`

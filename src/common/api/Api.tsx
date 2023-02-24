@@ -47,6 +47,7 @@ export const delCartItems = async (id: number) => {
     console.log(err.message);
   }
 };
+
 // 최근 검색어
 export const getSearchKeywords = async () => {
   Instance();
@@ -58,6 +59,7 @@ export const getSearchKeywords = async () => {
     console.log(err.message);
   }
 };
+
 export const addSearchKeywords = async (keywords: string) => {
   Instance();
 
@@ -67,6 +69,7 @@ export const addSearchKeywords = async (keywords: string) => {
     console.log(err.message);
   }
 };
+
 export const deleteSearchKeywordsSingle = async (searchId: number) => {
   Instance();
 
@@ -76,6 +79,7 @@ export const deleteSearchKeywordsSingle = async (searchId: number) => {
     console.log(err.message);
   }
 };
+
 export const deleteSearchKeywordsAll = async () => {
   Instance();
 
@@ -86,6 +90,7 @@ export const deleteSearchKeywordsAll = async () => {
     console.log(err.message);
   }
 };
+
 // 최근 본 상품
 export const getRecentProduct = async () => {
   Instance();
@@ -97,6 +102,7 @@ export const getRecentProduct = async () => {
     console.log(err.message);
   }
 };
+
 export const addRecentProduct = async (productId: number) => {
   Instance();
 
@@ -107,6 +113,7 @@ export const addRecentProduct = async (productId: number) => {
     console.log(err.message);
   }
 };
+
 // 검색결과 조회
 export const getSearchResults = async (title: string, category: string, page: number) => {
   try {
@@ -116,6 +123,7 @@ export const getSearchResults = async (title: string, category: string, page: nu
     console.log(err.message);
   }
 };
+
 export const getPost = async () => {
   try {
     const { data } = await defaultInstance.get(`items/all/청년&학생&문화&?category=subscription&page=1`);
@@ -124,6 +132,7 @@ export const getPost = async () => {
     console.log(error);
   }
 };
+
 export const getCart = async () => {
   Instance();
 
@@ -134,6 +143,7 @@ export const getCart = async () => {
     console.log(err.message);
   }
 };
+
 export const postTags = async (tags: string[]) => {
   Instance();
 
@@ -145,6 +155,7 @@ export const postTags = async (tags: string[]) => {
     console.log(err);
   }
 };
+
 export const getCategoryItem = async (tags: string, category: string, page: number) => {
   try {
     const { data } = await defaultInstance.get(`items/all/${tags}?category=${category}&page=${page}`);
@@ -153,6 +164,7 @@ export const getCategoryItem = async (tags: string, category: string, page: numb
     console.log(err.message);
   }
 };
+
 export const getUserInfo = async () => {
   Instance();
 
@@ -164,6 +176,7 @@ export const getUserInfo = async () => {
     console.log(err);
   }
 };
+
 export const getRecommendation = async (tags: string) => {
   try {
     const { data } = await defaultInstance.get(`/Recommendation/${tags}`);
@@ -172,6 +185,7 @@ export const getRecommendation = async (tags: string) => {
     console.log(err);
   }
 };
+
 export const getDetailItem = async (id: number) => {
   try {
     const { data } = await defaultInstance.get(`items/${id}`);
@@ -180,6 +194,7 @@ export const getDetailItem = async (id: number) => {
     console.log(err.message);
   }
 };
+
 // 회원가입
 export const postUser = async (email: string, password: string, name: string, birth: string) => {
   try {
@@ -194,6 +209,7 @@ export const postUser = async (email: string, password: string, name: string, bi
     console.log('회원가입 api 에러', err.message);
   }
 };
+
 // 로그인
 export const postLogin = async (email: string, password: string) => {
   try {
@@ -211,6 +227,7 @@ export const postLogin = async (email: string, password: string) => {
     console.log('로그인 api 에러', err.message);
   }
 };
+
 // 로그아웃
 export const postLogout = async () => {
   Instance();
@@ -224,6 +241,7 @@ export const postLogout = async () => {
     console.log('로그아웃 api 에러', err.message);
   }
 };
+
 // 회원정보 수정
 export const patchUser = async (name?: string, oldPassword?: string, newPassword?: string, birth?: string) => {
   Instance();

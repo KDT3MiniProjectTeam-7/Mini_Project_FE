@@ -35,7 +35,7 @@ const Survey = () => {
             style={{ marginLeft: '-8px' }}
           />
 
-          <Logo to={'/'}>파이낸스세븐</Logo>
+          <Logo to={'/'}>맞춤 테스트</Logo>
         </Header>
 
         <p>
@@ -199,7 +199,6 @@ const Survey = () => {
 };
 
 const Logo = styled(Link)`
-  color: var(--main-color);
   font-weight: 700;
   position: absolute;
   left: 50%;
@@ -213,9 +212,9 @@ const Header = styled.div`
 `;
 
 const Container = styled.main`
-  margin:0 auto;
-  height:100vh;
-  padding-top:20px;
+  margin: 0 auto;
+  height: 100vh;
+  padding-top: 20px;
 
   & > p {
     line-height: 1.5;
