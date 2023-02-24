@@ -19,7 +19,7 @@ const SignUp = () => {
     if (document.cookie) {
       navigate('/');
     }
-  });
+  }, []);
 
   useEffect(() => {
     if (page === 'Agreement') {
@@ -68,6 +68,7 @@ const BottomContainer = styled.div<StepData>`
   .stepNumber {
     position: absolute;
     font-size: var(--font-xs);
+    color: var(--gray-color);
     bottom: 8px;
     right: 0;
   }
