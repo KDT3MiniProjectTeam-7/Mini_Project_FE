@@ -12,6 +12,8 @@ import { setUserData, user } from '../../store/userSlice';
 //useReducer 사용 가장 추천
 
 const Main = () => {
+  const [showProduct, setShowProduct] = useState(false);
+
   // toggle state
   const [toggleBtn1, setToggleBtn1] = useState<boolean>(false);
   const [toggleBtn2, setToggleBtn2] = useState<boolean>(false);
@@ -65,6 +67,9 @@ const Main = () => {
       if (userData.tags) {
         const getData = await getRecommendation(userData.tags.replaceAll('\\n', '&'));
         dispatch(setRecommendProducts(getData));
+        setShowProduct(true);
+      } else {
+        setShowProduct(false);
       }
     };
     getUser();
@@ -79,7 +84,7 @@ const Main = () => {
           맞춤 추천 상품입니다.
         </Title>
 
-        {userRecommendProduct ? (
+        {userRecommendProduct && showProduct ? (
           <>
             {userRecommendProduct.card?.length > 0 && (
               <RecommenSection>
