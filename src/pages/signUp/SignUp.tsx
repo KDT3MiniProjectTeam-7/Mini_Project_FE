@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
+import { getTokenFromCookies } from '../../utils/getTokenFromCookies';
 import Agreement from './Agreement';
 import Complete from './Complete';
 import UserInformation from './UserInformation';
@@ -16,10 +17,10 @@ const SignUp = () => {
   const [step, setStep] = useState('0');
 
   useEffect(() => {
-    if (document.cookie) {
+    if (getTokenFromCookies()) {
       navigate('/');
     }
-  });
+  }, []);
 
   useEffect(() => {
     if (page === 'Agreement') {
@@ -68,6 +69,7 @@ const BottomContainer = styled.div<StepData>`
   .stepNumber {
     position: absolute;
     font-size: var(--font-xs);
+    color: var(--gray-color);
     bottom: 8px;
     right: 0;
   }
