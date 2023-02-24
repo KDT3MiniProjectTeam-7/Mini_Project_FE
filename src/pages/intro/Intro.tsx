@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { Link as LinkForm } from 'react-router-dom';
+import logo from '../../assets/logo_transparent.png';
 
 const Intro = () => {
   return (
     <MainContainer>
-      <Logo />
+      <Logo src={logo} />
       <Link to={'/login'}>로그인</Link>
     </MainContainer>
   );
@@ -21,7 +22,6 @@ const MainContainer = styled.main`
 `;
 
 const Logo = styled.img.attrs({
-  src: 'https://compphoto.incruit.com/2021/12/FCCI2.png',
   alt: '로고 이미지',
 })`
   width: 100%;

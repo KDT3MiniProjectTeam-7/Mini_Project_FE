@@ -58,6 +58,12 @@ const StyledLink = styled(Link)`
 
   width: 66px;
   padding: 4px 0;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+
+  &:active {
+    scale: 0.98;
+  }
 
   span {
     margin-top: 3px;

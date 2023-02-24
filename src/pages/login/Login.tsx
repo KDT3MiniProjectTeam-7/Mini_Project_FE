@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link as LinkForm } from 'react-router-dom';
 import { useState } from 'react';
 import { postLogin } from '../../common/api/Api';
+import logo from '../../assets/logo2_transparent.png';
 
 interface InputFormData {
   email: string;
@@ -33,7 +34,7 @@ const Login = () => {
 
   return (
     <MainContainer>
-      <Logo />
+      <Logo src={logo} />
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           id="email"
@@ -82,11 +83,11 @@ const MainContainer = styled.main`
 `;
 
 const Logo = styled.img.attrs({
-  src: 'https://blog.kakaocdn.net/dn/d0l1Pv/btqGmONiPmW/OluDzrKeEx79dtll0GFVik/img.png',
   alt: '로고 이미지',
 })`
-  width: 100%;
+  width: 260px;
   max-width: 400px;
+  margin-bottom: 50px;
 `;
 
 const Form = styled.form`
