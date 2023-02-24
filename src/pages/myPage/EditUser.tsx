@@ -222,10 +222,6 @@ const EditUser = ({ setEditOpen }: any) => {
 };
 
 const Form = styled.form`
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0 20px;
   margin: 70px auto 60px;
   background-color: white;
   z-index: 1000;
