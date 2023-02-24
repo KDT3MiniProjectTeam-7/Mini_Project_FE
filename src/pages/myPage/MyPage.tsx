@@ -1,17 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import ModalLogout from './ModalLogout';
-import { ReducerType } from '../../store/store'
-import { user } from '../../store/userSlice'
-import { Link } from 'react-router-dom';
+import { ReducerType } from '../../store/store';
+import { user } from '../../store/userSlice';
+import { Link, useNavigate } from 'react-router-dom';
+import EditUser from './EditUser';
 
 const MyPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
 
-  // 모달창 노출
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!document.cookie) {
+      navigate('/intro');
+    }
+  });
+
+  // 로그아웃 모달 노출
   const showModal = () => {
     setModalOpen(true);
+  };
+  // 회원정보 수정 노출
+  const showEdit = () => {
+    setEditOpen(true);
   };
 
   let userData = useSelector<ReducerType, user>((state) => state.user)
@@ -30,7 +44,9 @@ const MyPage = () => {
               <div className="name">
                 <span>{userData.name}</span> 님
               </div>
-              <Button className="change">수정</Button>
+              <Button className="change" onClick={showEdit}>
+                수정
+              </Button>
             </div>
             <div>
               <p>
@@ -60,10 +76,11 @@ const MyPage = () => {
               null
             )
           }
+          <Logout onClick={showModal}>로그아웃</Logout>
         </>
       )}
 
-      <Logout onClick={showModal}>로그아웃</Logout>
+      {editOpen && <EditUser setEditOpen={setEditOpen} />}
       {modalOpen && (
         <ModalBox>
           <ModalLogout className="modal" setModalOpen={setModalOpen} />
@@ -91,24 +108,20 @@ const User = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
   & > div:first-child {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 10px;
-
     .name {
       display: flex;
       font-size: var(--font-xl);
-
       span {
         color: var(--main-color);
       }
     }
   }
-
   & > div:last-child {
     margin-top: 5px;
     width: 100%;
@@ -126,23 +139,20 @@ const Interest = styled.div`
   border-radius: 10px;
   padding: 20px 10px;
   margin: 30px 0;
-
   & > div:first-child {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
   }
-
   & > div:last-child {
     margin-top: 20px;
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     align-items: center;
     gap: 10px;
-
     div {
-      padding:5px 10px;
+      padding: 5px 10px;
       background: #6e74b3;
       color: #fff;
       font-size: 14px;
@@ -159,9 +169,8 @@ const Button = styled.button`
   border: none;
   background: var(--main-color);
   padding: 0 15px;
-
   a {
-    color:#fff;
+    color: #fff;
   }
 `;
 
@@ -172,7 +181,7 @@ const Logout = styled(Button)`
   height: 40px;
   font-size: 14px;
   font-weight: 500;
-  margin-top:20px;
+  margin-top: 20px;
 `;
 
 export default MyPage;

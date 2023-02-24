@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Agreement from './Agreement';
 import Complete from './Complete';
@@ -9,8 +10,16 @@ interface StepData {
 }
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [page, setPage] = useState('Agreement');
   const [step, setStep] = useState('0');
+
+  useEffect(() => {
+    if (document.cookie) {
+      navigate('/');
+    }
+  });
 
   useEffect(() => {
     if (page === 'Agreement') {

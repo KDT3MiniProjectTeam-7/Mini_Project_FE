@@ -29,14 +29,12 @@ const router = createBrowserRouter([
   // 헤더, 탭바 있음
   {
     path: '/',
-    element: [<App />, <IncludedLayout />],
+    element: [<App key={1}/>, <IncludedLayout key={2}/>],
     errorElement: <Error />,
     children: [
       { index: true, element: <Main /> },
       { path: '/mypage', element: <MyPage /> },
       { path: '/search', element: <Search /> },
-      { path: '/survey', element: <Survey /> },
-      { path: '/surveyComplate', element: <SurveyComplate /> },
       { path: '/all', element: <ALL /> },
     ],
   },
@@ -44,7 +42,7 @@ const router = createBrowserRouter([
   // 헤더, 탭바 없음
   {
     path: '/',
-    element: [<App />, <ExcludedLayout />],
+    element: [<App key={3}/>, <ExcludedLayout key={4}/>],
     errorElement: <Error />,
     children: [
       { path: '/intro', element: <Intro /> },
@@ -53,6 +51,8 @@ const router = createBrowserRouter([
       { path: '/search/:keywords', element: <SearchResults /> },
       { path: '/detail/:category/:id', element: <Detail /> },
       { path: '/cart', element: <Cart /> },
+      { path: '/surveyComplate', element: <SurveyComplate /> },
+      { path: '/survey', element: <Survey /> },
     ],
   },
 ]);

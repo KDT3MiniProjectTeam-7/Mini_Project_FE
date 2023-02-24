@@ -3,14 +3,9 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import cart, { Item } from '../../store/cartSlice';
 import { ReducerType } from '../../store/store';
-import CardLists from '../all/CardLists';
-import SavingsLists from '../all/SavingsLists';
-import SubscriptionLists from '../all/SubscriptionLists';
-import LoanLists from '../all/LoanLists';
 import CartLists from '../all/CartLists';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-
 // 장바구니 전략필요.
 // 조회, 삭제, 추가 모두 당연히 api를 사용해야함
 // 그러나 state반영을 위하여 삭제와 추가는 redux와 연동을 할것임(action)
@@ -19,6 +14,12 @@ import { useNavigate } from 'react-router-dom';
 // persist로 구현하지않아도, app이나 index에서 불러오고 redux에 넣어두는 과정만 해두면 된다.
 const Cart = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!document.cookie) {
+      navigate('/intro');
+    }
+  });
 
   const cartItems = useSelector<ReducerType, Item[]>((state) => state.cart);
   // 상품 넣기 완료.
