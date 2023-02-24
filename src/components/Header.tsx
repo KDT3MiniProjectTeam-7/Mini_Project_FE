@@ -9,13 +9,6 @@ import { ReducerType } from '../store/store';
 const Header = () => {
   const cartItems = useSelector<ReducerType, Item[]>((state) => state.cart);
 
-  const titleArr = [
-    { path: '/', title: '파이낸스세븐' },
-    { path: '/all', title: '금융상품' },
-    { path: '/search', title: '검색' },
-    { path: '/mypage', title: '마이페이지' },
-  ];
-
   return (
     <>
       <HeaderComponents>

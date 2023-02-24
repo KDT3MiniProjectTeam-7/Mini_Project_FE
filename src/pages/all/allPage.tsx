@@ -157,6 +157,15 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  .select__control {
+    border-radius: 20px;
+    .select__multi-value {
+      border-radius: 20px;
+    }
+    .select__placeholder {
+      font-size: var(--font-s);
+    }
+  }
 `;
 
 const ButtonContainer = styled.div`

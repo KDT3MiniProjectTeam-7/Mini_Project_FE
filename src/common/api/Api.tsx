@@ -23,6 +23,17 @@ export const postCartItems = async (id: number) => {
   }
 };
 
+export const delAllCartItems = async () => {
+  Instance();
+
+  try {
+    const data = await authInstance.delete('/cart/all');
+    console.log(data);
+  } catch (err: any) {
+    console.log(err.message);
+  }
+};
+
 export const delCartItems = async (id: number) => {
   Instance();
 
