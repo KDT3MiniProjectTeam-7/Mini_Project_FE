@@ -514,7 +514,7 @@ const BottomContainer = styled.div<AllCheckedData>`
   .nextButton {
     width: 100%;
     background-color: ${({ isAllChecked }) => (isAllChecked ? 'var(--main-color)' : 'var(--gray-color)')};
-    height: 60px;
+    height: 50px;
     font-size: var(--font-m);
     color: #ffffff;
     display: flex;
@@ -525,5 +525,6 @@ const BottomContainer = styled.div<AllCheckedData>`
     font-weight: bold;
     margin-top: 10px;
     z-index: 1000;
+    border-radius:50px;
   }
 `;
