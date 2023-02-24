@@ -81,8 +81,11 @@ const Container = styled.main`
 `;
 
 const RecentProducts = styled.section`
-  &:active {
-    opacity: 0.7;
+  div {
+    transition: all 0.3s ease-in-out;
+    &:active {
+      opacity: 0.7;
+    }
   }
 `;
 

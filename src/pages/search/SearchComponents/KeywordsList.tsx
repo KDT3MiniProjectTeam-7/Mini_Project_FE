@@ -123,6 +123,7 @@ const Container = styled.div`
 
     color: var(--gray-color);
     font-size: var(--font-s);
+    transition: all 0.3s ease-in-out;
 
     &:active {
       opacity: 0.7;
@@ -151,6 +152,7 @@ const List = styled.li`
   border-bottom: 1px solid #ebebeb;
 
   color: var(--black-color);
+  transition: all 0.2s ease-in-out;
 
   button {
     font-size: 12px;
