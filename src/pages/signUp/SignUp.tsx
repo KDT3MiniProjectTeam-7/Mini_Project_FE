@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import { getTokenFromCookies } from '../../utils/getTokenFromCookies';
 import Agreement from './Agreement';
 import Complete from './Complete';
 import UserInformation from './UserInformation';
@@ -11,16 +9,8 @@ interface StepData {
 }
 
 const SignUp = () => {
-  const navigate = useNavigate();
-
   const [page, setPage] = useState('Agreement');
   const [step, setStep] = useState('0');
-
-  useEffect(() => {
-    if (getTokenFromCookies()) {
-      navigate('/');
-    }
-  }, []);
 
   useEffect(() => {
     if (page === 'Agreement') {
