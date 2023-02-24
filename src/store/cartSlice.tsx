@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { postCartItems, delCartItems } from '../common/api/Api';
+import { postCartItems, delCartItems, delAllCartItems } from '../common/api/Api';
 
 export interface Item {
   productId: number;
@@ -57,9 +57,13 @@ const cart = createSlice({
     setCartItems(state, actions: PayloadAction<Item[]>) {
       return actions.payload;
     },
+    delAllItems(state) {
+      delAllCartItems();
+      return [];
+    },
   },
 });
 
-export const { changeCartStatus, setCartItems, deleteCartItems } = cart.actions;
+export const { changeCartStatus, setCartItems, deleteCartItems, delAllItems } = cart.actions;
 
 export default cart;
