@@ -184,6 +184,9 @@
 <summary>상세 페이지</summary>
 
 
+![상세페이지](https://user-images.githubusercontent.com/35508595/221366259-6a80d55a-7660-4429-99aa-6cb61842253a.gif)
+
+
 1. 카테고리 별 적절한 내용 반영
    - 각 카테고리별로 상세페이지 format이 다름
       - 최대한 데이터에서 뽑아낼 수 있는것들은 모두 반영
@@ -202,6 +205,9 @@
 <details>
 <summary>장바구니 페이지</summary>
 
+![장바구니](https://user-images.githubusercontent.com/35508595/221366267-21f90447-4849-410c-8bcc-794d38ac681b.gif)
+
+
 1. 장바구니 상품 일괄 확인 가능
    - 하트 클릭시 장바구니에서 제거
    - 헤더의 장바구니 숫자와 연동
@@ -215,12 +221,18 @@
 <details>
 <summary>금융상품 페이지</summary>
 
+![모아보기](https://user-images.githubusercontent.com/35508595/221366276-b1c22891-804a-4b0d-9c82-7e025ebf6296.gif)
+
+
 1. 전체 상품을 카테고리, 태그별로 분류해둔 페이지
    - 태그가 선택되지 않았을시, 해당 카테고리의 전체 상품을 보여줌
 
 2. 태그 선택 기능
    - 설문 조사때받은 태그들 말고도, 원하는 관심사의 상품 검색 가능
       - 태그는 최대 3개까지 선택 가능
+      
+![무한스크롤](https://user-images.githubusercontent.com/35508595/221366283-d1263345-3b99-4937-9ade-32f7c87a96ac.gif)
+
 
 3. 페이징 기능 탑재
    - 5개씩 렌더링 됨
