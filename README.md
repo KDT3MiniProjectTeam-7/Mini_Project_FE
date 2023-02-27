@@ -85,32 +85,20 @@
 - ui기준으로 구현한 기능을 작성해주시면 될 것 같습니다.
 
 <details>
-<summary>헤더</summary>
+<summary>헤더, 탭바</summary>
 
-1. 왼쪽
-   - 로고 클릭: 메인 페이지로 이동
-   - 메뉴 클릭: 시 사이드 바 크기 조절
-2. 중앙
-   - 검색
-      - Enter와 🔍︎ 클릭으로 동작
-      - 검색: 검색 페이지로 "메인주소+search?q=검색어"로 링크 변경 / 검색어 없을 경우 미동작
-      - 검색창 focus: 창 크기 변화 및 아이콘 추가
-      - 검색어 입력: 🗙 버튼 생성, 클릭 시 검색어 모두 삭제 
-   - 툴팁: 검색, 음성검색
-3. 오른쪽
-   - 툴팁: 영상 제작, 알림, 사용자
-4. 반응형 CSS
-   - width 674px 이하
-      - 🔍︎ 한 번 클릭: 검색창 열림
-      - ⬅ 클릭: 검색창 닫힘
-</details>
+![헤더, 탭바](https://user-images.githubusercontent.com/90189513/221530524-01ef1292-6982-4e4a-908b-40179f2b0741.gif)
 
-<details>
-<summary>사이드 바</summary>
+1. 헤더
+- 로고
+  - 클릭시 메인페이지로 이동
+- 관심상품
+  - 관심상품 개수 노출
+  - 클릭시 관심상품 페이지로 이동
 
-1. UI
-   - 기본형: 아이콘 + 메뉴 이름
-   - 축약형: 아이콘
+2. 탭바
+- 탭별 페이지로 이동하는 네비게이션 역할
+
 </details>
 
 <details>
@@ -133,6 +121,7 @@
   - 설문이 완료되면 추천상품 (메인 페이지)유도
 </details>
 
+<details>
 <summary>마이 페이지</summary>
 
 1. 회원 정보 
@@ -143,6 +132,8 @@
 
 <details>
 <summary>검색 페이지</summary>
+
+<img src='https://user-images.githubusercontent.com/90189513/221526964-0fcf46b5-3bce-43b5-831d-fa1118a9a37c.gif' alt='검색페이지 검색바, 최근본상품' width='400px'/>
 
 1. 검색바
 - 상품명 입력이 가능한 바
@@ -155,6 +146,11 @@
 - 클릭시 해당 상품의 상세페이지로 이동
 - 최근 본 상품이 없을시 해당 섹션 전체 숨김
 
+<br/>
+
+<img src='https://user-images.githubusercontent.com/90189513/221526969-51e014e8-d984-4f83-9640-6faa9567c9eb.gif' alt='검색페이지 최근검색어' width='400px'/>
+
+
 3. 최근 검색어
 - 최대 10개까지 제공
 - 검색 최신순으로 정렬
@@ -162,6 +158,8 @@
 - 전체 삭제 클릭시, confirm 메시지(최근검색어를 모두 삭제하시겠습니까?) 띄우기
 - 전체 삭제 완료시, 삭제 개수 메시지(ex. 00개가 삭제됐어요)
 - 최근 검색어 없을 시, 메시지 제공(최근 찾아봤던 내역이 없습니다.)
+
+<img src='https://user-images.githubusercontent.com/90189513/221526953-febbd1d6-9a9e-4bb3-b3f1-ecf3ca162bad.gif' alt='검색페이지 자동저장' width='400px'/>
 
 4. 검색어 자동저장 끄기/켜기
 - 켜져있을 때, 검색한 것이 최근 검색어 목록에 저장됨.
@@ -172,6 +170,8 @@
 
 <details>
 <summary>검색결과 페이지</summary>
+
+<img src='https://user-images.githubusercontent.com/90189513/221529636-b9c5ee69-6053-49ef-9233-58241ce425eb.gif' alt='검색결과 페이지' width='400px'/>
 
 - 목록에 있는 상품 클릭시 해당상품 상세페이지로 이동
 
@@ -248,6 +248,7 @@
    - 이후 추가적으로 무한스크롤로 불러옴
 
 </details>
+
 
 <br><br>
 
