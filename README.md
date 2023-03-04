@@ -11,8 +11,8 @@
 
 # 1. 프로젝트 소개 💁
 ### 프로젝트 설명
-- 금융상품을 추천해주는 어플리케이션입니다.
-- 다양한 상품을 "테스트"에 따라 (아직 적는중입니다.)
+- 맞춤테스트에 따라 회원에게 맞춤형 금융상품 정보를 제공하는 웹사이트입니다.
+- 모바일 디바이스를 중점으로 했습니다.
 
 ### 개발 기간
 - 2023.2.13 ~ 2023.2.24(총 12일)
@@ -39,35 +39,15 @@
 
 <br><br>
 
-# 3. 프로젝트 목표 🚩
-- **한수산**
-  - 백앤드팀 그리고 속해있는 프론트팀의 팀 협업 과정에서 좋은 협업 방식에 대해 고민하고 적용해보기.
-  - react 상태관리에 대한 고민과 공부. 
-- **노준영**
-  - 프로젝트를 통해 이루고자 했던 목표를 적어주세요.
-  - 
-- **이은영**
-  - 프로젝트를 통해 이루고자 했던 목표를 적어주세요.
-  - 
-- **김효진**
-   - 프로젝트를 통해 이루고자 했던 목표를 적어주세요.
-   - 
+# 3. 기술 스택 ⚙️
+
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/Reduxtoolkit-764ABC?style=for-the-badge&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+<br><img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/reacticons-e91e63?style=for-the-badge&logo=react&logoColor=white">
+<br><img src="https://img.shields.io/badge/Axios-671ddf?style=for-the-badge&logo=Axios&logoColor=white"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black"> <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white">  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white">
 
 <br><br>
 
-# 4. 기술 스택 ⚙️
-- 여긴 아직 수정해야합니다.
-- 아래처럼 이미지로 넣을 예정입니다.
-- 다른 의견 있으면 알려주세요.
-
-<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
-<br><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white"> <img src="https://img.shields.io/badge/reacticons-e91e63?style=for-the-badge&logo=react&logoColor=white">
-<br><img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=node.js&logoColor=white"> <img src="https://img.shields.io/badge/json-616161?style=for-the-badge&logo=json&logoColor=white"> <img src="https://img.shields.io/badge/Axios-671ddf?style=for-the-badge&logo=Axios&logoColor=white"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black">
-<br><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> <img src="https://img.shields.io/badge/netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white"> <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"> <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white">
-
-<br><br>
-
-# 5. 협업 방식 🤝
+# 4. 협업 방식 🤝
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/notion-fc9847?style=for-the-badge&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white">
 - **Github**
 <br>팀 레포를 생성하고, develop 브랜치와 각자의 이름으로 브랜치를 생성하였습니다.
@@ -80,9 +60,7 @@
 
 <br><br>
 
-# 6. 구현 내용 🛠︎
-- 이전 팀에서 작성했던 내용을 아직 지우지 않았습니다. 참고하면서 써주세요.
-- ui기준으로 구현한 기능을 작성해주시면 될 것 같습니다.
+# 5. 구현 내용 🛠︎
 
 <details>
 <summary>헤더, 탭바</summary>
@@ -98,6 +76,21 @@
 
 2. 탭바
 - 탭별 페이지로 이동하는 네비게이션 역할
+
+</details>
+
+<details>
+<summary>접속, 로그인, 회원가입 페이지</summary>
+
+1. 접속
+  - 주소 임의 입력시, 혹은 접속 1시간 초과시 접속 페이지로 자동 이동
+2. 로그인
+  - 자동 로그아웃 기능
+3. 회원가입
+  - 약관 동의 화면에서 모두 동의해야, 다음으로 넘어갈 수 있는 버튼 활성화
+  - 조건에 맞지 않게 회원 정보 입력시, 안내 문구 활성화
+  - 모두 조건에 맞게 입력해야 완료 페이지로 이동 가능
+  - 회원가입 완료시 완료 페이지 출력
 
 </details>
 
@@ -252,7 +245,7 @@
 
 <br><br>
 
-# 7. 프로젝트 회고 ✍
+# 6. 프로젝트 회고 ✍
 
 ### 한수산
 - **👍 Good**
@@ -302,8 +295,9 @@ react query의 많은 기능들을 활용해 보기위한 좋은 기회라 생�
   
 ### 김효진
 - **👍 Good**
-  - 좋았던 점
+  - 멘토링이 많은 도움이 되었음. 초반에 로그인 기능 구현이 막연하게 느껴졌는데, 내가 생각한 로직이 맞는지, 또 현업에서는 어떠한 방식을 다루는지에 대한 피드백이 큰 힘이 됨. 그리고 모르는 부분을 정확하게 여쭤보기 위해 질문을 준비하는 일련의 과정 또한 많은 공부가 됨.
 - **👎 Bad**
-  - 아쉬웠던 점
+  - 백엔드와 일정 부분 커뮤니케이션이 원활하지 못했음, 서버 상태 등 전달 받지 못한 일이 종종 있었으며, 협업이 익숙치 않아 확실히 조율하지 못한 점이 아쉬움
+  - 기획 초반에 FE/BE 작업 일정표를 만들어 공유하고, 당연히 전달 되어야 할 사항들은 확실히 공유 될 수 있도록 할 것.
 
 <br><br>
