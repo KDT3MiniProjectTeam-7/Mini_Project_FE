@@ -76,11 +76,13 @@
      - 장바구니에 담아놓은 상품이 있다면 아이콘 옆에 상품 개수 노출
 2. 탭바
    - 탭별 페이지로 이동하는 네비게이션 역할
+<br>
 </details>
 
 <details>
 <summary>2. 로그인 페이지</summary>
-※ Login.gif 추가하기
+
+![Login](https://user-images.githubusercontent.com/107975281/222921949-f6956cde-4637-4cce-9747-0a1271f0cc88.gif)
 
 1. 유효성 검사
    - Email: email 형식에 맞는지, 입력 값이 있는지 검사
@@ -89,27 +91,40 @@
    - 성공: AccessToken 생성 및 쿠키 저장(유효시간 1시간)
    - 실패: 유효성 검사를 통과하지 못했거나 Email-비밀번호가 일치하지 않을 때 안내 문구 출력
 3. 로그인 관련 기타 기능
-   - 자동 로그인(※ AutoLogin.gif 추가하기)
+
+![AutoLogin](https://user-images.githubusercontent.com/107975281/222922404-c813d0af-c223-4716-8a3e-4da989d0c7f7.gif)
+
+   - 자동 로그인
      - 새로고침 혹은 타 사이트에서 재접속 시 자동으로 로그인되며 메인 페이지로 이동
      - 쿠키에 저장된 accessToken이 있는지 확인하는 로직
-   - 자동 로그아웃(※ AutoLogout.gif 추가하기)
+<br />
+
+![AutoLogout](https://user-images.githubusercontent.com/107975281/222922415-b2d99463-eeca-4eb3-94c3-d42222a2a21c.gif)
+     
+   - 자동 로그아웃
      - 로그인 후 1시간 경과 시 자동으로 로그아웃 되어 접속 페이지로 이동
      - 쿠키에 accessToken이 없을 때의 로직
-
+<br>
 </details>
 
 <details>
 <summary>3. 회원가입 페이지</summary>
+   
+![SignUp1](https://user-images.githubusercontent.com/107975281/222922051-66407e9e-8bb2-4e2d-bd85-e26f1b1958dd.gif)
 
 1. 회원가입 진행률
    - 하단에 회원가입 진행률 표기
    - 약관 동의 > 정보 입력 > 가입 완료 총 3단계로 구성
    - 회원 가입이 진행될수록 진행률 바 색상 선명해짐
-2. 약관 동의(※ SignUp1.gif 추가하기)
+2. 약관 동의
    - 회원가입 1단계
    - 약관에 모두 동의해야 하단 버튼이 활성화되며 다음단계 진행 가능
    - 전체 동의 클릭 시 모든 약관에 동의 됨
-3. 정보 입력(※ SignUp2.gif 추가하기)
+<br>
+
+![SignUp2](https://user-images.githubusercontent.com/107975281/222922042-9505f2f0-7191-42a3-bfb8-4fe06a8f008f.gif)   
+
+3. 정보 입력
    - 회원가입 2단계
    - 항목: Email / 비밀번호 / 비밀번호 확인 / 이름 / 생년월일
    - 유효성 검사
@@ -122,16 +137,21 @@
      - 가입 불가 기준 1: 이미 가입된 email일 경우
      - 가입 불가 기준 2: 불가 기준 1을 통과하고, 모든 항목에서 하나라도 유효성 검사를 통과하지 못했을 때
      - 해당 항목 아래에 안내 문구 표기
-4. 가입 완료(※ SignUp3.gif 추가하기)
+<br>
+
+![SignUp3](https://user-images.githubusercontent.com/107975281/222921988-127d14e5-fc4f-4001-9c70-9cc57d7fac02.gif)
+
+4. 가입 완료
    - 회원 가입 3단계
    - 가입과 동시에 자동으로 로그인
    - 시작하기 클릭 시 메인 화면으로 이동
-
+<br>
 </details>
 
 <details>
 <summary>4. 메인 페이지 & 설문 페이지</summary>
-※ Test.gif 추가하기
+
+![Test](https://user-images.githubusercontent.com/107975281/222921870-36980f3f-1538-4d6f-b7f1-c9179ee3a727.gif)
 
 1. 메인 페이지
    - 회원 이름과 인사말 출력
@@ -146,6 +166,7 @@
    - 체크한 답변들을 모아 회원 정보에 POST
    - 설문 완료 시 메인 페이지로 유도하여 추천상품 보여줌
 
+<br>
 </details>
 
 <details>
@@ -167,6 +188,7 @@
 3. 페이징 기능
    - 초기 5개씩 렌더링 되며, 이후 추가적으로 무한스크롤로 불러옴
 
+<br>
 </details>
 
 <details>
@@ -196,6 +218,8 @@
    - 전체 삭제 완료시, 삭제 개수 메시지(ex. 00개가 삭제됐어요)
    - 최근 검색어 없을 시, 메시지 제공(최근 찾아봤던 내역이 없습니다.)
 
+<br/>
+
 <img src='https://user-images.githubusercontent.com/90189513/221526953-febbd1d6-9a9e-4bb3-b3f1-ecf3ca162bad.gif' alt='검색페이지 자동저장' width='400px'/>
 
 4. 검색어 자동저장 끄기/켜기
@@ -203,6 +227,7 @@
    - 꺼져있을 때, 검색한 것이 최근 검색어에 목록에 저장 안됨. 최근 검색어 영역에는 메시지 제공(검색어 저장 기능이 꺼져있습니다.)
    - 켜기 버튼 클릭시, confirm(최근 검색어 저장 기능을 사용하시겠습니까?)
    - 끄기 버튼 클릭시, confirm(최근 검색어 저장 기능을 사용 중지하시겠습니까?)
+<br/>
 </details>
 
 <details>
@@ -220,7 +245,7 @@
    - 정렬 버튼에 따라 상품 목록 순서 변경
    - 검색결과 없을 시 메시지(ex. '00'의 검색결과가 없어요 등등), 최근 검색어 목록 제공
 4. 목록에 있는 상품 클릭시 해당상품 상세페이지로 이동
-
+<br/>
 </details>
 
 <details>
@@ -237,7 +262,7 @@
 2. 장바구니 기능
    - 우측 상단의 하트 아이콘을 클릭하여 장바구니 추가/제거 가능
    - 해당 상품을 장바구니에 넣은 경우, 아이콘을 빨간색으로 변경하여 가시성을 높임
-
+<br/>
 </details>
 
 <details>
@@ -252,21 +277,27 @@
 2. 일괄 삭제 기능
    - 하단의 장바구니 비우기 버튼 클릭 시 상품 일괄 삭제
    - 상품이 존재할 경우에만 버튼이 렌더링 됨
-
+<br/>
 </details>
 
 <details>
 <summary>10. 마이 페이지</summary>
 
+![EditUser](https://user-images.githubusercontent.com/107975281/222922301-3f8d843e-f29c-41e5-ab2b-0678659a982d.gif)
+
 1. 회원 정보 
    - 회원 정보를 호출하여 이름, 이메일, 생년월일, 나이 등 표시
    - 설문에 참여하여 회원 정보에 태그를 담고있다면 태그 및 테스트 다시하기 버튼 표시
-2. 회원 정보 수정(※ EditUser.gif 추가)
+2. 회원 정보 수정
    - 필수 항목: 현재 비밀번호
    - 선택 항목: 새 비밀번호 & 새 비밀번호 확인 / 이름 / 생년월일
    - 회원가입과 동일한 방식의 유효성 검사
    - 회원정보 수정 완료 시 메인 페이지로 이동 
-3. 로그아웃(※ Logout.gif 추가)
+<br/>
+
+![Logout](https://user-images.githubusercontent.com/107975281/222922291-fa085c2f-8ced-4a14-9b7d-a333ef205280.gif)
+
+3. 로그아웃
    - 로그아웃 버튼 클릭 시 로그아웃을 재차 묻는 모달창 생성
    - 모달창에서 로그아웃을 클릭하면 accessToken이 쿠키에서 사라지며 로그인 페이지로 이동
 
@@ -277,11 +308,27 @@
 # 6. 대표 기능 동작 예시 💻
 ### 1. 로그인
 
+<img src='https://user-images.githubusercontent.com/107975281/222921949-f6956cde-4637-4cce-9747-0a1271f0cc88.gif' alt='로그인' width='400px'/>
+<br>
+
 ### 2. 설문조사 및 상품 추천
+
+<img src='https://user-images.githubusercontent.com/107975281/222921870-36980f3f-1538-4d6f-b7f1-c9179ee3a727.gif' alt='설문조사' width='400px'/>
+<br>
 
 ### 3. 검색
 
-### 4. 태그 검색
+<img src='https://user-images.githubusercontent.com/90189513/221529636-b9c5ee69-6053-49ef-9233-58241ce425eb.gif' alt='검색결과' width='400px'/>
+<br>
+
+### 4. 상품 모아보기
+
+<img src='https://user-images.githubusercontent.com/35508595/221366276-b1c22891-804a-4b0d-9c82-7e025ebf6296.gif' alt='모아보기' width='400px'/>
+<br>
+
+### 5. 상품 상세
+
+<img src='https://user-images.githubusercontent.com/35508595/221366259-6a80d55a-7660-4429-99aa-6cb61842253a.gif' alt='상품상세' width='400px'/>
 
 <br><br>
 
