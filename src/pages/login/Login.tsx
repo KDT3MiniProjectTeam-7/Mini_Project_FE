@@ -24,12 +24,14 @@ const Login = () => {
 
   // 로그인하기
   const onSubmit = async (data: any) => {
+    /* 동작을 보여주기 위한 주석
     const resPostLogin = await postLogin(data.email, data.password);
     if (resPostLogin.status === 'success') {
       navigate('/');
     } else {
       setLoginFail(true);
-    }
+    }*/
+    navigate('/'); // 동작을 보여주기 위한 코드
   };
 
   return (

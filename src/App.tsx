@@ -11,6 +11,7 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
+    /* 동작을 보여주기 위한 주석
     // 쿠키에 토큰이 없을 때, 접속 페이지로 보내기
     if (
       !getTokenFromCookies() &&
@@ -27,6 +28,7 @@ const App = () => {
     ) {
       navigate('/');
     }
+    */
   });
 
   return (
